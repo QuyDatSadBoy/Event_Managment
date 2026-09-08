@@ -1,0 +1,22 @@
+# Secrets
+deploy/deploy.env
+**/.env
+**/.env.local
+
+# Build output
+backend/bin/
+backend/uploads/
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+node_modules/
+
+# Packaging
+dist/
+*.tar.gz
+
+# Misc
+*.log
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
