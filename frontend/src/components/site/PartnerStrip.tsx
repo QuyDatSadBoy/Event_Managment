@@ -40,18 +40,21 @@ export function PartnerStrip({ partners }: { partners: Partner[] }) {
             </Link>
           </div>
 
+          {/* Equal flex cells with each logo centred inside its own, so the
+              rhythm of the band comes from the cells rather than from however
+              wide each supplied logo file happens to be. */}
           <ul className="grid flex-1 grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-3 lg:flex lg:justify-between lg:gap-10">
             {shown.map((partner) => (
               <li
                 key={partner.id}
-                className="relative h-11 w-full lg:h-12 lg:w-auto lg:min-w-0 lg:flex-1"
+                className="relative h-12 w-full lg:h-14 lg:w-auto lg:min-w-0 lg:flex-1"
               >
                 <SafeImage
                   src={partner.logo}
                   alt={partner.name}
                   sizes="180px"
                   quality={75}
-                  className="object-contain lg:object-left"
+                  className="object-contain"
                 />
               </li>
             ))}

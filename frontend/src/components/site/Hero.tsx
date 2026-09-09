@@ -21,6 +21,31 @@ import { SafeImage } from "@/components/ui/SafeImage";
  * sliding underneath it; the wrapper is painted that strip's colour, because
  * that is what the corner exposes.
  */
+/**
+ * Slideshow timing, in one place so it can be tuned without hunting through
+ * the markup.
+ *
+ * `HOLD` is how long a slide stays put; `FADE` is the crossfade. They interact:
+ * the still time a visitor actually gets is HOLD − FADE, so at 3000 / 600 the
+ * photograph is fully settled for 2.4s. The fade was cut from the original
+ * 1000ms when the hold came down from 6000 — at a short hold a long crossfade
+ * means the image is almost always mid-dissolve.
+ *
+ * Below about 2s the run stops reading as a slideshow and starts reading as
+ * flicker, and the eye never settles long enough to see what is in the frame.
+ * The pause control and the reduced-motion guard below are what make any
+ * self-starting interval acceptable at all.
+ */
+const HOLD_MS = 3000;
+const FADE_MS = 600;
+/**
+ * When the next slide starts downloading. It has to be comfortably before the
+ * first advance or the crossfade runs against an image that has not arrived —
+ * at the old 2500ms this sat *after* a 2000ms hold and the second slide would
+ * have flashed in blank.
+ */
+const PRELOAD_MS = Math.max(400, HOLD_MS - 1200);
+
 export function Hero({ settings }: { settings: Settings }) {
   const slides =
     settings.hero_slides?.length > 0
@@ -30,9 +55,9 @@ export function Hero({ settings }: { settings: Settings }) {
         : [];
 
   const [index, setIndex] = useState(0);
-  // Only the slide on screen and the one after it are mounted. Loading all four
-  // at once costs the hero photograph — the LCP element — its bandwidth, and
-  // three of them are not visible for at least six seconds.
+  // Only the slide on screen and the one after it are mounted. Loading every
+  // slide up front costs the hero photograph — the LCP element — the bandwidth
+  // it needs first, and the later ones are not on screen yet.
   const [warm, setWarm] = useState(false);
 
   // Moving content that starts on its own has to be stoppable, and it has to
@@ -62,7 +87,7 @@ export function Hero({ settings }: { settings: Settings }) {
   // advance does not start from a blank panel.
   useEffect(() => {
     if (slides.length < 2) return;
-    const start = setTimeout(() => setWarm(true), 2500);
+    const start = setTimeout(() => setWarm(true), PRELOAD_MS);
     return () => clearTimeout(start);
   }, [slides.length]);
 
@@ -71,7 +96,7 @@ export function Hero({ settings }: { settings: Settings }) {
 
   useEffect(() => {
     if (!autoplay) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 6000);
+    const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), HOLD_MS);
     return () => clearInterval(id);
   }, [autoplay, slides.length]);
 
@@ -205,8 +230,11 @@ export function Hero({ settings }: { settings: Settings }) {
                     !mounted(i) ? null : (
                       <div
                         key={`${slide.image}-${i}`}
+                        // Inline, not a `duration-*` class: the value comes from
+                        // FADE_MS so the two timings stay in one place.
+                        style={{ transitionDuration: `${FADE_MS}ms` }}
                         className={cn(
-                          "absolute inset-0 transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                          "absolute inset-0 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)]",
                           i === index ? "opacity-100" : "opacity-0",
                         )}
                       >
