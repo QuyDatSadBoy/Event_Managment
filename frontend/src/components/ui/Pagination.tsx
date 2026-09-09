@@ -27,7 +27,7 @@ export function Pagination({ page, totalPages, hrefFor }: Props) {
   const items = pageWindow(page, totalPages);
 
   const arrow =
-    "inline-flex h-10 w-10 items-center justify-center rounded-full border border-ocean-200 text-ocean-700 transition hover:border-ocean-400 hover:bg-ocean-50";
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-ocean-200 text-ocean-700 transition-[border-color,background-color] duration-300 hover:border-ocean-400 hover:bg-ocean-50";
   const disabled = "pointer-events-none opacity-40";
 
   return (
@@ -52,7 +52,7 @@ export function Pagination({ page, totalPages, hrefFor }: Props) {
             href={hrefFor(item)}
             aria-current={item === page ? "page" : undefined}
             className={cn(
-              "inline-flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-semibold transition",
+              "inline-flex h-11 min-w-11 items-center justify-center rounded-full px-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow] duration-300",
               item === page
                 ? "bg-ocean-600 text-white shadow-[0_8px_20px_-8px_rgb(6_120_214/0.8)]"
                 : "border border-ocean-200 text-ocean-700 hover:border-ocean-400 hover:bg-ocean-50",

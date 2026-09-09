@@ -102,7 +102,7 @@ export function RichTextEditor({
 
       <div
         className={cn(
-          "overflow-hidden rounded-2xl border bg-white transition-all duration-300",
+          "overflow-hidden rounded-2xl border bg-white transition-[background-color,border-color,color,box-shadow] duration-300",
           focused ? "border-ocean-400 ring-4 ring-ocean-500/10" : "border-ocean-200",
         )}
       >

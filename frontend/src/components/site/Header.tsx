@@ -62,17 +62,17 @@ export function Header({ settings }: { settings: Settings }) {
 
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled || open
             ? "border-b border-ocean-100 bg-white/85 backdrop-blur-xl shadow-[0_1px_20px_-8px_rgb(8_42_77/0.25)]"
             : "border-b border-transparent bg-transparent",
         )}
       >
         <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
-          <Link href="/" className="group flex items-center gap-3" aria-label={settings.event_name}>
+          <Link href="/" className="group flex items-center gap-3" aria-label={settings.event_name} translate="no">
             <span
               className={cn(
-                "grid h-10 w-10 shrink-0 place-items-center rounded-xl font-extrabold tracking-tighter transition-colors duration-500",
+                "grid h-11 w-11 shrink-0 place-items-center rounded-xl text-[0.9375rem] font-extrabold tracking-tighter transition-colors duration-500",
                 scrolled || open
                   ? "bg-linear-135 from-ocean-600 to-cyan-glow text-white"
                   : "bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-md",
@@ -134,14 +134,15 @@ export function Header({ settings }: { settings: Settings }) {
               <Link
                 href="/dang-ky"
                 className={cn(
-                  "hidden h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-all duration-300 sm:inline-flex",
+                  "inline-flex h-11 items-center gap-2 rounded-full px-4 text-[0.8125rem] font-semibold",
+                  "transition-[background-color,color,box-shadow] duration-300 sm:px-5 sm:text-sm",
                   scrolled || open
-                    ? "bg-linear-to-r from-ocean-600 to-ocean-500 text-white shadow-[0_10px_26px_-12px_rgb(6_120_214/0.9)] hover:to-cyan-glow"
+                    ? "bg-ocean-700 text-white shadow-[0_10px_26px_-12px_rgb(4_95_173/0.9)] hover:bg-ocean-600"
                     : "bg-white text-ocean-900 hover:bg-ocean-50",
                 )}
               >
                 Đăng ký
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
               </Link>
             )}
 
@@ -151,7 +152,7 @@ export function Header({ settings }: { settings: Settings }) {
               aria-label={open ? "Đóng menu" : "Mở menu"}
               aria-expanded={open}
               className={cn(
-                "grid h-10 w-10 place-items-center rounded-full transition xl:hidden",
+                "grid h-11 w-11 place-items-center rounded-full transition-colors duration-300 xl:hidden",
                 scrolled || open
                   ? "bg-ocean-50 text-ocean-800 hover:bg-ocean-100"
                   : "bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-md",
@@ -180,7 +181,7 @@ export function Header({ settings }: { settings: Settings }) {
         />
         <nav
           className={cn(
-            "absolute inset-x-0 top-[var(--header-h)] max-h-[calc(100dvh-var(--header-h))] overflow-y-auto border-b border-ocean-100 bg-white px-5 pb-8 pt-4 shadow-2xl transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "absolute inset-x-0 top-[var(--header-h)] max-h-[calc(100dvh-var(--header-h))] overscroll-contain overflow-y-auto border-b border-ocean-100 bg-white px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-4 shadow-2xl transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
             open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0",
           )}
           aria-label="Điều hướng di động"
@@ -191,7 +192,7 @@ export function Header({ settings }: { settings: Settings }) {
               href={item.href}
               style={{ transitionDelay: open ? `${i * 35}ms` : "0ms" }}
               className={cn(
-                "flex items-center justify-between border-b border-ocean-50 py-3.5 text-base font-medium transition-all duration-300",
+                "flex items-center justify-between border-b border-ocean-50 py-4 text-base font-medium transition-[transform,opacity] duration-300",
                 open ? "translate-x-0 opacity-100" : "translate-x-3 opacity-0",
                 isActive(item.href) ? "text-ocean-700" : "text-ocean-950/75",
               )}
@@ -210,7 +211,7 @@ export function Header({ settings }: { settings: Settings }) {
             <Link
               href="/dang-ky"
               onClick={() => setOpen(false)}
-              className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-linear-to-r from-ocean-600 to-ocean-500 text-[0.9375rem] font-semibold text-white shadow-[0_12px_30px_-12px_rgb(6_120_214/0.9)]"
+              className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-linear-to-r from-ocean-700 to-ocean-600 text-[0.9375rem] font-semibold text-white shadow-[0_12px_30px_-12px_rgb(4_95_173/0.9)]"
             >
               Đăng ký tham dự
               <ArrowRight className="h-4 w-4" />

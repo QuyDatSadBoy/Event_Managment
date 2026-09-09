@@ -44,7 +44,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           href={item.href}
           onClick={() => setOpen(false)}
           className={cn(
-            "group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-300",
+            "group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-[background-color,border-color,color,box-shadow] duration-300",
             active
               ? "bg-white/12 text-white"
               : "text-ocean-100/60 hover:bg-white/6 hover:text-white",

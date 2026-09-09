@@ -25,14 +25,13 @@ export default async function AgendaPage() {
   return (
     <>
       <PageHero
-        eyebrow="Chương trình"
         title="Lịch trình chi tiết hai ngày diễn đàn"
         description="Chọn ngày và lọc theo loại phiên để tìm nhanh nội dung bạn quan tâm."
         image={settings.hero_image}
         crumbs={[{ href: "/chuong-trinh", label: "Chương trình" }]}
       >
         {settings.start_date && (
-          <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 px-5 py-2.5 text-sm font-medium text-ocean-100 backdrop-blur-md">
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-abyss/55 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md">
             <CalendarDays className="h-4 w-4 text-cyan-glow" />
             {formatDateRange(settings.start_date, settings.end_date)}
             {settings.venue_name && ` · ${settings.venue_name}`}
@@ -40,7 +39,7 @@ export default async function AgendaPage() {
         )}
       </PageHero>
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         {days.length === 0 ? (
           <EmptyState
             icon={CalendarDays}

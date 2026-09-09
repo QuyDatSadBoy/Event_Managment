@@ -64,14 +64,13 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
   return (
     <>
       <PageHero
-        eyebrow="Tin tức & Truyền thông"
         title="Cập nhật từ ban tổ chức"
         description="Thông báo chương trình, thông cáo báo chí và toàn văn các bài phát biểu tại diễn đàn."
         image={settings.hero_image}
         crumbs={[{ href: "/tin-tuc", label: "Tin tức" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => (
@@ -80,7 +79,8 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
                 href={buildHref({ category: cat.value, page: 1 })}
                 aria-current={category === cat.value ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition duration-300",
+                  "inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium sm:min-h-10",
+                  "transition-[background-color,color,box-shadow] duration-300",
                   category === cat.value
                     ? "bg-ocean-950 text-white shadow-[0_8px_20px_-10px_rgb(8_42_77/0.8)]"
                     : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
@@ -124,13 +124,13 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
             <div className="mt-6 space-y-6">
               {lead && (
                 <Reveal>
-                  <PostCard post={lead} featured />
+                  <PostCard post={lead} featured headingLevel="h2" />
                 </Reveal>
               )}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {rest.map((post, i) => (
                   <Reveal key={post.id} delay={(i % 3) * 80}>
-                    <PostCard post={post} />
+                    <PostCard post={post} headingLevel="h2" />
                   </Reveal>
                 ))}
               </div>

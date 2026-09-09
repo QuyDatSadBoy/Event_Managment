@@ -40,6 +40,8 @@ export function ContactForm({ defaultSubject = "" }: { defaultSubject?: string }
     if (!form.message.trim()) next.message = "Vui lòng nhập nội dung";
     else if (form.message.trim().length < 10) next.message = "Nội dung quá ngắn (tối thiểu 10 ký tự)";
     setErrors(next);
+    const first = Object.keys(next)[0];
+    if (first) document.getElementById(`contact-${first}`)?.focus();
     return Object.keys(next).length === 0;
   };
 
@@ -105,7 +107,7 @@ export function ContactForm({ defaultSubject = "" }: { defaultSubject?: string }
             label="Họ và tên"
             required
             autoComplete="name"
-            placeholder="Nguyễn Văn A"
+            placeholder="Nguyễn Văn A…"
             value={form.name}
             error={errors.name}
             onChange={(e) => set("name")(e.target.value)}
@@ -116,7 +118,7 @@ export function ContactForm({ defaultSubject = "" }: { defaultSubject?: string }
             label="Email"
             required
             autoComplete="email"
-            placeholder="ban@congty.com"
+            placeholder="ban@congty.com…"
             value={form.email}
             error={errors.email}
             onChange={(e) => set("email")(e.target.value)}
@@ -126,7 +128,7 @@ export function ContactForm({ defaultSubject = "" }: { defaultSubject?: string }
             type="tel"
             label="Số điện thoại"
             autoComplete="tel"
-            placeholder="09xx xxx xxx"
+            placeholder="09xx xxx xxx…"
             value={form.phone}
             error={errors.phone}
             onChange={(e) => set("phone")(e.target.value)}
@@ -151,7 +153,7 @@ export function ContactForm({ defaultSubject = "" }: { defaultSubject?: string }
           label="Nội dung"
           required
           rows={6}
-          placeholder="Bạn cần ban tổ chức hỗ trợ điều gì?"
+          placeholder="Bạn cần ban tổ chức hỗ trợ điều gì…"
           value={form.message}
           error={errors.message}
           onChange={(e) => set("message")(e.target.value)}

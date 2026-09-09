@@ -58,14 +58,13 @@ export default async function PartnersPage() {
   return (
     <>
       <PageHero
-        eyebrow="Đối tác"
         title="Đồng hành cùng diễn đàn"
         description="Cảm ơn các tổ chức, doanh nghiệp và cơ quan báo chí đã đồng hành để diễn đàn diễn ra."
         image={settings.hero_image}
         crumbs={[{ href: "/doi-tac", label: "Đối tác" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         {partners.length === 0 ? (
           <EmptyState
             icon={Handshake}
@@ -78,10 +77,9 @@ export default async function PartnersPage() {
       </section>
 
       {/* ---------- Sponsorship tiers ---------- */}
-      <section className="bg-ocean-50/60 py-16 lg:py-24">
+      <section className="bg-ocean-50/60 section-y">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Trở thành nhà tài trợ"
             title="Quyền lợi theo từng hạng tài trợ"
             description="Ba hạng tài trợ chính, mỗi hạng gắn với một mức hiện diện khác nhau trong chương trình."
           />

@@ -69,7 +69,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
         <div className="container-page relative py-14 lg:py-20">
           <Link
             href="/dien-gia"
-            className="inline-flex items-center gap-2 text-sm text-ocean-100/60 transition hover:text-white"
+            className="-mx-2 inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm text-ocean-100/60 transition-colors duration-300 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             Tất cả diễn giả
@@ -106,7 +106,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                 </p>
               )}
               {speaker.company && (
-                <p className="mt-1.5 inline-flex items-center gap-2 text-base text-ocean-100/60">
+                <p className="mt-1.5 inline-flex items-center gap-2 text-base text-ocean-100/80">
                   <Building2 className="h-4 w-4" />
                   {speaker.company}
                 </p>
@@ -136,7 +136,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`${speaker.name} trên ${key}`}
-                        className="grid h-10 w-10 place-items-center rounded-full bg-white/8 text-ocean-100 ring-1 ring-white/15 transition duration-300 hover:bg-cyan-glow hover:text-abyss hover:ring-cyan-glow"
+                        className="grid h-11 w-11 place-items-center rounded-full bg-white/8 text-ocean-100 ring-1 ring-white/15 transition-[background-color,color,box-shadow] duration-300 hover:bg-cyan-glow hover:text-abyss hover:ring-cyan-glow"
                       >
                         <Icon className="h-4 w-4" />
                       </a>
@@ -150,7 +150,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
       </section>
 
       {/* ---------- Bio + sessions ---------- */}
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         <div className="grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-16">
           <div>
             {speaker.bio ? (
@@ -211,7 +211,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                             {SESSION_TYPE_LABEL[session.type]}
                           </span>
                           {session.day_label && (
-                            <span className="text-[0.6875rem] font-semibold text-ocean-600">
+                            <span className="text-[0.6875rem] font-semibold text-ocean-700">
                               {session.day_label}
                             </span>
                           )}
@@ -250,7 +250,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
 
                 <Link
                   href="/chuong-trinh"
-                  className="mt-5 inline-flex text-sm font-semibold text-ocean-700 underline-offset-4 hover:underline"
+                  className="-mx-2 mt-4 inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-ocean-700 underline-offset-4 hover:underline"
                 >
                   Xem toàn bộ chương trình
                 </Link>
@@ -262,9 +262,9 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
 
       {/* ---------- Related speakers ---------- */}
       {related.length > 0 && (
-        <section className="bg-ocean-50/60 py-16 lg:py-20">
+        <section className="bg-ocean-50/60 section-y">
           <div className="container-page">
-            <SectionHeading eyebrow="Diễn giả khác" title="Có thể bạn quan tâm" />
+            <SectionHeading title="Diễn giả khác tại diễn đàn" />
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((s, i) => (
                 <Reveal key={s.id} delay={i * 70}>

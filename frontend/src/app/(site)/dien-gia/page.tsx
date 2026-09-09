@@ -44,14 +44,13 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
   return (
     <>
       <PageHero
-        eyebrow="Diễn giả"
         title="Những người trực tiếp làm nghề"
         description="Hơn 60 diễn giả trong nước và quốc tế chia sẻ điều họ đã thử, đã sai và đã học được."
         image={settings.hero_image}
         crumbs={[{ href: "/dien-gia", label: "Diễn giả" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="text-sm text-ocean-950/55">
             {meta.total > 0 ? (
@@ -88,7 +87,7 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {speakers.map((speaker, i) => (
                 <Reveal key={speaker.id} delay={(i % 4) * 70}>
-                  <SpeakerCard speaker={speaker} />
+                  <SpeakerCard speaker={speaker} headingLevel="h2" />
                 </Reveal>
               ))}
             </div>

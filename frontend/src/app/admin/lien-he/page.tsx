@@ -115,7 +115,7 @@ export default function AdminContactsPage() {
             <li
               key={c.id}
               className={cn(
-                "rounded-2xl border bg-white p-5 transition-all duration-300 hover:shadow-[0_16px_36px_-24px_rgb(8_42_77/0.35)]",
+                "rounded-2xl border bg-white p-5 transition-[box-shadow,border-color,background-color] duration-300 hover:shadow-[0_16px_36px_-24px_rgb(8_42_77/0.35)]",
                 c.is_read ? "border-ocean-100" : "border-ocean-300 bg-ocean-50/40",
               )}
             >

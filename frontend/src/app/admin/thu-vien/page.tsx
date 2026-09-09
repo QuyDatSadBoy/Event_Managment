@@ -323,7 +323,7 @@ export default function AdminGalleryPage() {
             <div
               key={g.id}
               className={cn(
-                "group overflow-hidden rounded-2xl border bg-white transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_20px_44px_-24px_rgb(8_42_77/0.4)]",
+                "group overflow-hidden rounded-2xl border bg-white transition-[transform,box-shadow,border-color,opacity] duration-400 hover:-translate-y-1 hover:shadow-[0_20px_44px_-24px_rgb(8_42_77/0.4)]",
                 g.is_published ? "border-ocean-100" : "border-dashed border-ocean-200 opacity-70",
               )}
             >

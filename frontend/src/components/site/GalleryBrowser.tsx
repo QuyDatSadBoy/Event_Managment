@@ -87,7 +87,8 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                 onClick={() => setType(tab.value)}
                 aria-pressed={type === tab.value}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition duration-300",
+                  "inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium sm:min-h-10",
+                  "transition-[background-color,color,box-shadow] duration-300",
                   type === tab.value
                     ? "bg-ocean-950 text-white shadow-[0_8px_20px_-10px_rgb(8_42_77/0.8)]"
                     : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
@@ -114,9 +115,10 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
               type="button"
               onClick={() => setAlbum("all")}
               className={cn(
-                "rounded-full px-3.5 py-1.5 text-sm transition",
+                "inline-flex min-h-11 items-center rounded-full px-3.5 text-sm sm:min-h-9",
+                "transition-[background-color,color] duration-300",
                 album === "all"
-                  ? "bg-ocean-600 text-white"
+                  ? "bg-ocean-700 text-white"
                   : "text-ocean-700 hover:bg-ocean-50",
               )}
             >
@@ -128,8 +130,9 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                 type="button"
                 onClick={() => setAlbum(a)}
                 className={cn(
-                  "rounded-full px-3.5 py-1.5 text-sm transition",
-                  album === a ? "bg-ocean-600 text-white" : "text-ocean-700 hover:bg-ocean-50",
+                  "inline-flex min-h-11 items-center rounded-full px-3.5 text-sm sm:min-h-9",
+                  "transition-[background-color,color] duration-300",
+                  album === a ? "bg-ocean-700 text-white" : "text-ocean-700 hover:bg-ocean-50",
                 )}
               >
                 {a}
@@ -241,7 +244,8 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
             <SafeImage
               src={item.thumbnail || videoThumbnail(item.url)}
               alt={item.title || "Video"}
-              sizes="(max-width: 640px) 92vw, 25vw"
+              sizes="(max-width: 640px) 92vw, 360px"
+            quality={65}
             />
           </div>
           <div className="absolute inset-0 bg-abyss/45 transition-colors duration-500 group-hover:bg-abyss/30" />
@@ -312,7 +316,8 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
           <SafeImage
             src={item.thumbnail || item.url}
             alt={item.title || "Ảnh sự kiện"}
-            sizes="(max-width: 640px) 92vw, 25vw"
+            sizes="(max-width: 640px) 92vw, 360px"
+            quality={65}
           />
         </div>
         <div
@@ -320,7 +325,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
           aria-hidden
         />
         {item.title && (
-          <p className="absolute inset-x-4 bottom-4 translate-y-2 text-left text-sm font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <p className="absolute inset-x-4 bottom-4 translate-y-2 text-left text-sm font-semibold text-white opacity-0 transition-[transform,opacity] duration-500 group-hover:translate-y-0 group-hover:opacity-100">
             {item.title}
           </p>
         )}

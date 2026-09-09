@@ -46,7 +46,7 @@ export default async function ThankYouPage() {
         aria-hidden
       />
 
-      <div className="container-page relative py-16 lg:py-24">
+      <div className="container-page relative section-y">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
             <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-cyan-glow/15 ring-1 ring-cyan-glow/30">

@@ -132,6 +132,42 @@ frontend/                Next.js 16 · React 19 · Tailwind 4 · TypeScript
     └── lib/             API client, kiểu dữ liệu, tiện ích
 ```
 
+## Thiết kế và kiểm thử
+
+Dự án được xây theo bộ skill thiết kế và review sau — cài bằng một lệnh:
+
+```bash
+./scripts/install-skills.sh
+```
+
+Gồm `impeccable` (định hướng thiết kế và ngưỡng chất lượng), bộ `ui-ux-pro-max`,
+hướng dẫn của Vercel (`web-interface-guidelines`, `web-design-guidelines`,
+`react-best-practices`, `vercel-optimize`) và `awesome-design-md`. Thư mục
+`.claude/skills/` không được commit vì các bộ này nặng khoảng 13 MB dữ liệu
+font và icon.
+
+Ngôn ngữ thiết kế được ghi lại trong [`DESIGN.md`](DESIGN.md) — bảng màu, thang
+chữ, nhịp dọc, quy tắc chuyển động, ngưỡng vùng chạm và ngân sách hiệu năng.
+Đọc file đó trước khi sửa giao diện.
+
+Bộ kiểm thử tự động (chạy bằng Playwright, mã nguồn trong `scripts/qa/`):
+
+| Kiểm thử | Phạm vi |
+|---|---|
+| `audit` | 11 trang × 9 độ rộng màn hình: tràn ngang, vùng chạm, cỡ chữ ô nhập, thứ bậc tiêu đề, độ dài dòng, ảnh gây xô lệch |
+| `contrast` | Đo tương phản **từ pixel thật** — cách duy nhất đánh giá đúng chữ nằm trên ảnh |
+| `perf` | LCP / CLS / TBT ở hồ sơ Slow 4G + CPU chậm 4×, lấy trung vị 3 lần tải nguội |
+| `crawl` | 13 trang × 3 khung nhìn: mã trạng thái, lỗi console, ảnh hỏng |
+| `admin` | 21 kịch bản: đăng nhập, CRUD từng module, phân quyền, đăng xuất |
+| `forms` | Đăng ký và liên hệ: kiểm tra dữ liệu, trùng email, mã vé |
+
+Kết quả đo trên bản đang chạy (Slow 4G + CPU 4×, qua Cloudflare):
+
+| | LCP | CLS | TBT |
+|---|---|---|---|
+| Ngưỡng tốt | < 2,5s | < 0,1 | < 200ms |
+| Thực đo | 1,7–1,9s | 0 | 51–169ms |
+
 ## Ghi chú kỹ thuật
 
 - **Migration** nhúng trong binary (`go:embed`) và chạy mỗi lần khởi động, nên
@@ -145,3 +181,6 @@ frontend/                Next.js 16 · React 19 · Tailwind 4 · TypeScript
 - **Biểu mẫu công khai** có bẫy bot ẩn và giới hạn 10 lần gửi mỗi giờ theo IP.
 - **Tải tệp lên** chỉ nhận đúng danh sách định dạng, kiểm tra theo nội dung tệp
   chứ không tin phần mở rộng, và đặt lại tên ngẫu nhiên.
+- **Ảnh nền các trang con** chỉ tải ở 768px, chất lượng 40. Chúng nằm dưới lớp
+  phủ tối 92% nên chi tiết không nhìn thấy; tải ảnh full-width khiến chúng trở
+  thành phần tử LCP của mọi trang và mất 2,5–4,4 giây.

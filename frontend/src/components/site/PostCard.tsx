@@ -11,7 +11,16 @@ const CATEGORY_STYLE: Record<Post["category"], string> = {
   announcement: "bg-gold text-[#3d2900]",
 };
 
-export function PostCard({ post, featured = false }: { post: Post; featured?: boolean }) {
+export function PostCard({
+  post,
+  featured = false,
+  headingLevel: Heading = "h3",
+}: {
+  post: Post;
+  featured?: boolean;
+  /** h2 on the news index, h3 under a section heading elsewhere. */
+  headingLevel?: "h2" | "h3";
+}) {
   return (
     <article
       className={cn(
@@ -30,7 +39,8 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
           <SafeImage
             src={post.cover}
             alt={post.title}
-            sizes={featured ? "(max-width: 1024px) 92vw, 52vw" : "(max-width: 768px) 92vw, 33vw"}
+            sizes={featured ? "(max-width: 1024px) 92vw, 680px" : "(max-width: 768px) 92vw, 400px"}
+            quality={65}
           />
         </div>
         <span
@@ -55,7 +65,7 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
           )}
         </div>
 
-        <h3
+        <Heading
           className={cn(
             "mt-3 text-balance font-bold leading-snug tracking-tight text-ocean-950 transition-colors duration-300 group-hover:text-ocean-700",
             featured ? "line-clamp-3 text-2xl lg:text-3xl" : "line-clamp-2 text-lg",
@@ -64,7 +74,7 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
           <Link href={`/tin-tuc/${post.slug}`} className="before:absolute before:inset-0">
             {post.title}
           </Link>
-        </h3>
+        </Heading>
 
         {post.excerpt && (
           <p

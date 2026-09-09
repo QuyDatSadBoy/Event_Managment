@@ -1,0 +1,17 @@
+{
+  "name": "event-qa",
+  "private": true,
+  "description": "Browser-driven checks: responsive audit, pixel contrast, Core Web Vitals, page crawl, admin flows.",
+  "scripts": {
+    "audit": "node audit.js",
+    "contrast": "node contrast.js",
+    "perf": "node perf.js",
+    "crawl": "node crawl.js",
+    "admin": "node admin-full.js",
+    "forms": "node forms.js"
+  },
+  "dependencies": {
+    "playwright": "1.63.0",
+    "pngjs": "^7.0.0"
+  }
+}

@@ -22,6 +22,8 @@
   --color-abyss-soft: #062a4d;
 
   --color-cyan-glow: #22d3ee;
+  /* Lighter cyan for small text on deep grounds, where cyan-glow falls under 4.5:1. */
+  --color-cyan-soft: #6ee7f9;
   --color-gold: #f5b335;
 
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, -apple-system,
@@ -57,7 +59,17 @@
   color-scheme: light;
 }
 
-* { -webkit-tap-highlight-color: transparent; }
+* {
+  -webkit-tap-highlight-color: transparent;
+  /* Double-tap zoom adds a 300ms delay to every tap; the page is already
+     zoomable through pinch. */
+  touch-action: manipulation;
+}
+
+/* The caret is a browser surface nobody themes — it belongs to the palette. */
+:where(input, textarea, [contenteditable]) {
+  caret-color: var(--color-ocean-600);
+}
 
 html {
   scroll-behavior: smooth;
@@ -87,6 +99,12 @@ body {
 ::selection {
   background: var(--color-ocean-600);
   color: #fff;
+}
+
+/* Below 16px, iOS zooms the whole page when a field takes focus — on iPad as
+   well as iPhone, so the floor is unconditional. */
+:where(input, select, textarea) {
+  font-size: max(16px, 1rem);
 }
 
 /* Scrollbar — subtle, matches the palette, ignored on touch devices. */
@@ -120,13 +138,6 @@ body {
   @media (min-width: 1024px) { padding-inline: 2rem; }
 }
 
-@utility text-gradient-ocean {
-  background-image: linear-gradient(100deg, var(--color-ocean-600), var(--color-cyan-glow));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 @utility surface-deep {
   background:
     radial-gradient(1200px 600px at 15% -10%, rgb(34 211 238 / 0.20), transparent 60%),
@@ -140,6 +151,31 @@ body {
     linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
   background-size: 56px 56px;
+}
+
+/* Expands the hit area around a control that must stay visually small.
+   The pseudo-element is centred on the control and never affects layout. */
+@utility tap-target {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 50% 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+  @media (min-width: 768px) {
+    &::after { width: 24px; height: 24px; }
+  }
+}
+
+/* The single vertical rhythm for page sections. Two of these meeting at a
+   background change is the largest gap the page should ever show. */
+@utility section-y {
+  padding-block: 3.5rem;
+  @media (min-width: 640px) { padding-block: 4.5rem; }
+  @media (min-width: 1024px) { padding-block: 5.5rem; }
 }
 
 @utility card-hover {
@@ -163,6 +199,12 @@ body {
   color: color-mix(in oklab, var(--color-ocean-950) 82%, white);
   font-size: 1.0625rem;
   line-height: 1.85;
+  /* Cap the measure at roughly 70 characters — past that the eye loses the
+     line it is returning to. */
+  max-width: 68ch;
+}
+.prose-event > :where(figure, img, table, pre, hr, blockquote) {
+  max-width: none;
 }
 .prose-event > * + * { margin-top: 1.25rem; }
 .prose-event h2 {

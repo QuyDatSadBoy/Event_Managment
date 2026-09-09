@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 82, 90],
+    qualities: [35, 40, 55, 65, 68, 72, 75, 82, 90],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "placehold.co" },

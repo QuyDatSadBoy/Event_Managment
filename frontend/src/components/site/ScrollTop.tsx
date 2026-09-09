@@ -8,7 +8,8 @@ export function ScrollTop() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 700);
+    // Far enough down that the button never competes with content still on screen.
+    const onScroll = () => setShow(window.scrollY > 1400);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -19,7 +20,9 @@ export function ScrollTop() {
       aria-label="Lên đầu trang"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
-        "fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full bg-ocean-600 text-white shadow-[0_12px_30px_-10px_rgb(6_120_214/0.9)] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-ocean-500",
+        "fixed z-30 grid h-11 w-11 place-items-center rounded-full bg-ocean-950/85 text-white backdrop-blur-md",
+        "right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] sm:right-6 sm:bottom-6 sm:h-12 sm:w-12",
+        "shadow-[0_12px_30px_-10px_rgb(8_42_77/0.7)] transition-[opacity,transform,background-color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-ocean-600",
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
       )}
     >

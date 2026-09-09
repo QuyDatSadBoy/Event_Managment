@@ -78,14 +78,14 @@ export function PartnerWall({
                       ? { href: partner.website, target: "_blank", rel: "noreferrer noopener" }
                       : {})}
                     title={partner.name}
-                    className="group relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-ocean-100 bg-white p-5 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-ocean-300 hover:shadow-[0_16px_36px_-18px_rgb(8_42_77/0.35)]"
+                    className="group relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-ocean-100 bg-white p-5 transition-[transform,border-color,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-ocean-300 hover:shadow-[0_16px_36px_-18px_rgb(8_42_77/0.35)]"
                   >
                     <div className="relative h-full w-full">
                       <SafeImage
                         src={partner.logo}
                         alt={partner.name}
                         sizes="(max-width: 640px) 45vw, 200px"
-                        className="object-contain opacity-70 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
+                        className="object-contain opacity-70 grayscale transition-[opacity,filter] duration-500 group-hover:opacity-100 group-hover:grayscale-0"
                       />
                     </div>
                   </Wrapper>

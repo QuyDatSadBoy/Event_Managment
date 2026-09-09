@@ -46,27 +46,30 @@ export function Countdown({ target }: { target: string | null }) {
   const { mounted, parts } = state;
   const started = mounted && parts === null;
 
+  if (started) {
+    return (
+      <p className="inline-flex items-center gap-2.5 rounded-full border border-cyan-soft/40 bg-abyss/50 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-md">
+        <span className="h-2 w-2 rounded-full bg-cyan-soft" aria-hidden />
+        Sự kiện đang diễn ra
+      </p>
+    );
+  }
+
   return (
-    <div className="flex items-stretch gap-2 sm:gap-3" aria-live="off">
-      {started ? (
-        <div className="rounded-2xl border border-white/15 bg-white/10 px-6 py-4 text-center backdrop-blur-md">
-          <p className="text-lg font-bold text-white">Sự kiện đang diễn ra</p>
-        </div>
-      ) : (
-        LABELS.map(([key, label]) => (
-          <div
-            key={key}
-            className="min-w-[4.25rem] flex-1 rounded-2xl border border-white/15 bg-white/10 px-2 py-3 text-center backdrop-blur-md sm:min-w-[5rem] sm:px-3 sm:py-4"
-          >
-            <div className="font-mono text-2xl font-bold leading-none tabular-nums text-white sm:text-3xl lg:text-4xl">
-              {parts ? String(parts[key]).padStart(2, "0") : "--"}
-            </div>
-            <div className="mt-1.5 text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-ocean-100/70 sm:text-[0.6875rem]">
-              {label}
-            </div>
+    <div
+      className="flex max-w-md items-stretch divide-x divide-white/20 border-y border-white/20"
+      aria-live="off"
+    >
+      {LABELS.map(([key, label]) => (
+        <div key={key} className="flex-1 px-3 py-3.5 first:pl-0 sm:px-5 sm:py-4">
+          <div className="text-[clamp(1.5rem,1rem+1.8vw,2.25rem)] font-extrabold leading-none tracking-[-0.03em] tabular-nums text-white">
+            {parts ? String(parts[key]).padStart(2, "0") : "––"}
           </div>
-        ))
-      )}
+          <div className="mt-1.5 text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-ocean-100/70">
+            {label}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

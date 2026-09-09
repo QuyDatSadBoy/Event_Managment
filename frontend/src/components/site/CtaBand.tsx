@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function CtaBand({ settings }: { settings: Settings }) {
   return (
-    <section className="container-page py-20 lg:py-28">
+    <section className="container-page section-y">
       <Reveal>
         <div className="surface-deep relative overflow-hidden rounded-[2rem] px-7 py-14 text-center sm:px-14 lg:py-20">
           <div className="grid-overlay absolute inset-0 opacity-50" aria-hidden />

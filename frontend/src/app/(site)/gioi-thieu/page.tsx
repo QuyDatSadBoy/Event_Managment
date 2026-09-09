@@ -32,7 +32,6 @@ export default async function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="Về sự kiện"
         title={settings.about_title || `Về ${settings.event_name}`}
         description={settings.event_description}
         image={settings.about_image || settings.hero_image}
@@ -44,7 +43,7 @@ export default async function AboutPage() {
       </div>
 
       {/* ---------- Narrative ---------- */}
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page section-y">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <Reveal>
             {settings.about_content ? (
@@ -104,7 +103,7 @@ export default async function AboutPage() {
                   )}
                 </dl>
 
-                <ButtonLink href="/chuong-trinh" variant="outline" size="sm" className="mt-6 w-full">
+                <ButtonLink href="/chuong-trinh" variant="outline" className="mt-6 w-full">
                   Xem chương trình chi tiết
                 </ButtonLink>
               </div>
@@ -117,10 +116,9 @@ export default async function AboutPage() {
 
       {/* ---------- Venue ---------- */}
       {(settings.venue_map_url || settings.venue_name) && (
-        <section className="bg-ocean-50/60 py-16 lg:py-24">
+        <section className="bg-ocean-50/60 section-y">
           <div className="container-page">
             <SectionHeading
-              eyebrow="Địa điểm"
               title={settings.venue_name || "Địa điểm tổ chức"}
               description={settings.venue_address}
             />
@@ -156,9 +154,8 @@ export default async function AboutPage() {
 
       {/* ---------- Past editions ---------- */}
       {gallery.length > 0 && (
-        <section className="container-page py-16 lg:py-24">
+        <section className="container-page section-y">
           <SectionHeading
-            eyebrow="Các kỳ trước"
             title="Diễn đàn qua từng năm"
             description="Một vài khoảnh khắc từ những kỳ tổ chức trước."
           />

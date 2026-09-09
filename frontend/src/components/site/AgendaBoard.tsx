@@ -33,7 +33,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
   return (
     <div>
       {/* Day switcher */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3" role="tablist" aria-label="Chọn ngày">
         {days.map((d, i) => (
           <button
             key={d.id}
@@ -42,18 +42,19 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
               setDayIndex(i);
               setTrack("all");
             }}
-            aria-pressed={i === dayIndex}
+            role="tab"
+            aria-selected={i === dayIndex}
             className={cn(
-              "group relative flex-1 min-w-[13rem] overflow-hidden rounded-2xl border px-5 py-4 text-left transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "group relative flex-1 min-w-[13rem] overflow-hidden rounded-2xl border px-5 py-4 text-left transition-[background-color,border-color,box-shadow,color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
               i === dayIndex
-                ? "border-transparent bg-linear-135 from-ocean-700 to-ocean-500 text-white shadow-[0_16px_36px_-18px_rgb(6_120_214/0.9)]"
+                ? "border-transparent bg-linear-135 from-ocean-950 to-ocean-800 text-white shadow-[0_16px_36px_-18px_rgb(8_42_77/0.55)]"
                 : "border-ocean-200 bg-white text-ocean-950 hover:border-ocean-400 hover:bg-ocean-50",
             )}
           >
             <span
               className={cn(
                 "block text-[0.6875rem] font-bold uppercase tracking-[0.16em]",
-                i === dayIndex ? "text-cyan-glow" : "text-ocean-500",
+                i === dayIndex ? "text-cyan-soft" : "text-ocean-700",
               )}
             >
               {d.label}
@@ -64,7 +65,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
             <span
               className={cn(
                 "mt-1 block text-xs",
-                i === dayIndex ? "text-ocean-100/75" : "text-ocean-950/50",
+                i === dayIndex ? "text-ocean-100/85" : "text-ocean-950/55",
               )}
             >
               {formatWeekday(d.date)}, {formatDate(d.date)} · {d.sessions.length} phiên
@@ -73,9 +74,17 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
         ))}
       </div>
 
+      <h2 className="mt-10 text-xl font-bold tracking-tight text-ocean-950 sm:text-2xl">
+        {day.label}
+        {day.title && <span className="text-ocean-950/55"> · {day.title}</span>}
+      </h2>
+      <p className="mt-1 text-sm text-ocean-950/50">
+        {formatWeekday(day.date)}, {formatDate(day.date)} · {day.sessions.length} phiên
+      </p>
+
       {/* Track filter */}
       {tracks.length > 0 && (
-        <div className="mt-8 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-2">
           <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-ocean-950/45">
             Chủ đề
           </span>
@@ -86,7 +95,8 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
               onClick={() => setTrack(t)}
               aria-pressed={track === t}
               className={cn(
-                "rounded-full px-4 py-1.5 text-sm font-medium transition duration-300",
+                "inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium sm:min-h-9",
+                "transition-[background-color,color] duration-300",
                 track === t
                   ? "bg-ocean-950 text-white"
                   : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
@@ -122,7 +132,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
               <li key={session.id} className="relative">
                 <div
                   className={cn(
-                    "group rounded-2xl border bg-white transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "group rounded-2xl border bg-white transition-[border-color,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
                     open
                       ? "border-ocean-400 shadow-[0_20px_44px_-22px_rgb(8_42_77/0.4)]"
                       : "border-ocean-100 hover:border-ocean-300 hover:shadow-[0_16px_36px_-22px_rgb(8_42_77/0.32)]",
@@ -232,7 +242,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
                   {/* Grid-rows trick animates height without measuring it. */}
                   <div
                     className={cn(
-                      "grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                      "grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
                       open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                     )}
                   >

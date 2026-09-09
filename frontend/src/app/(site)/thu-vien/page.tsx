@@ -22,14 +22,13 @@ export default async function GalleryPage() {
   return (
     <>
       <PageHero
-        eyebrow="Thư viện"
         title="Ảnh, video và tài liệu báo chí"
         description="Toàn bộ tư liệu truyền thông của diễn đàn, sẵn sàng để cơ quan báo chí và đối tác sử dụng."
         image={settings.hero_image}
         crumbs={[{ href: "/thu-vien", label: "Thư viện" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         <GalleryBrowser items={items} />
       </section>
     </>

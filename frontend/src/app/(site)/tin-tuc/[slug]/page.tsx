@@ -62,7 +62,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
       <header className="relative isolate overflow-hidden pt-[var(--header-h)]">
         <div className="absolute inset-0 -z-20">
           {post.cover ? (
-            <SafeImage src={post.cover} alt="" sizes="100vw" priority quality={75} />
+            <SafeImage src={post.cover} alt="" sizes="768px" quality={40} priority fetchPriority="high" />
           ) : (
             <div className="surface-deep absolute inset-0" />
           )}
@@ -76,7 +76,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
         <div className="container-page relative py-14 lg:py-20">
           <Link
             href="/tin-tuc"
-            className="inline-flex items-center gap-2 text-sm text-ocean-100/60 transition hover:text-white"
+            className="-mx-2 inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm text-ocean-100/60 transition-colors duration-300 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             Tất cả tin tức
@@ -137,14 +137,15 @@ export default async function PostDetailPage({ params }: { params: Params }) {
                 <SafeImage
                   src={post.cover}
                   alt={post.title}
-                  sizes="(max-width: 1024px) 92vw, 60vw"
-                  quality={82}
+                  sizes="(max-width: 1024px) 92vw, 720px"
+                  quality={72}
+                  priority
                 />
               </Reveal>
             )}
 
             <div
-              className="prose-event max-w-none"
+              className="prose-event"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
@@ -155,7 +156,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
                   <Link
                     key={tag}
                     href={`/tin-tuc?q=${encodeURIComponent(tag)}`}
-                    className="rounded-full bg-ocean-50 px-3.5 py-1.5 text-xs font-medium text-ocean-700 transition hover:bg-ocean-100"
+                    className="inline-flex min-h-11 items-center rounded-full bg-ocean-50 px-3.5 text-xs font-medium text-ocean-700 transition-colors duration-300 hover:bg-ocean-100 sm:min-h-8"
                   >
                     #{tag}
                   </Link>
@@ -202,7 +203,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
                     )}
                     <Link
                       href={`/dien-gia/${post.speaker.slug}`}
-                      className="mt-4 inline-flex text-sm font-semibold text-ocean-700 underline-offset-4 hover:underline"
+                      className="-mx-2 mt-3 inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-ocean-700 underline-offset-4 hover:underline"
                     >
                       Xem hồ sơ diễn giả
                     </Link>
@@ -222,7 +223,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
                     </p>
                     <Link
                       href="/dang-ky"
-                      className="mt-5 inline-flex h-10 items-center rounded-full bg-white px-5 text-sm font-semibold text-ocean-900 transition hover:bg-ocean-50"
+                      className="mt-5 inline-flex h-11 items-center rounded-full bg-white px-5 text-sm font-semibold text-ocean-900 transition-colors duration-300 hover:bg-ocean-50"
                     >
                       Đăng ký ngay
                     </Link>
@@ -236,7 +237,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
 
       {/* ---------- Related ---------- */}
       {related.length > 0 && (
-        <section className="bg-ocean-50/60 py-16 lg:py-20">
+        <section className="bg-ocean-50/60 section-y">
           <div className="container-page">
             <h2 className="text-2xl font-bold tracking-tight text-ocean-950">Đọc thêm</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

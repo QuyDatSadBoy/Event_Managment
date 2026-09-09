@@ -105,7 +105,7 @@ export default function AdminDashboard() {
                   <Link
                     key={card.key}
                     href={card.href}
-                    className="group relative overflow-hidden rounded-2xl border border-ocean-100 bg-white p-5 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-ocean-300 hover:shadow-[0_20px_44px_-24px_rgb(8_42_77/0.4)]"
+                    className="group relative overflow-hidden rounded-2xl border border-ocean-100 bg-white p-5 transition-[transform,border-color,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-ocean-300 hover:shadow-[0_20px_44px_-24px_rgb(8_42_77/0.4)]"
                   >
                     <div className="flex items-start justify-between">
                       <div>

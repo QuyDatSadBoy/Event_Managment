@@ -27,10 +27,20 @@ export default function imageLoader({ src, width, quality }: LoaderArgs): string
   if (src.startsWith("https://images.unsplash.com/")) {
     try {
       const u = new URL(src);
+      const prevW = Number(u.searchParams.get("w"));
+      const prevH = Number(u.searchParams.get("h"));
+
       u.searchParams.set("auto", "format");
       u.searchParams.set("fit", "crop");
-      u.searchParams.set("w", String(width));
       u.searchParams.set("q", String(q));
+      u.searchParams.set("w", String(width));
+
+      // A URL that pins both dimensions is asking for a specific crop ratio
+      // (square portraits, for instance). Overriding only the width would ask
+      // for a 36×600 sliver of the photo, so scale the height with it.
+      if (prevW > 0 && prevH > 0) {
+        u.searchParams.set("h", String(Math.max(1, Math.round((prevH / prevW) * width))));
+      }
       return u.toString();
     } catch {
       return src;

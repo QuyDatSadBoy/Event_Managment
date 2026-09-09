@@ -90,7 +90,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
               fill="white"
               stroke="var(--color-ocean-600)"
               strokeWidth="2.5"
-              className="transition-all duration-200"
+              className="transition-[r] duration-200"
             />
           </g>
         ))}

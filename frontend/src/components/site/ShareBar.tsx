@@ -25,7 +25,9 @@ export function ShareBar({ title }: { title: string }) {
   };
 
   const btn =
-    "inline-flex h-10 w-10 items-center justify-center rounded-full border border-ocean-200 text-ocean-700 transition duration-300 hover:border-ocean-400 hover:bg-ocean-50";
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-ocean-200 " +
+    "text-ocean-700 transition-[border-color,background-color,color] duration-300 " +
+    "hover:border-ocean-400 hover:bg-ocean-50";
 
   return (
     <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-ocean-100 pt-8">

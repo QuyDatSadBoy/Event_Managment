@@ -1,63 +1,55 @@
 import { cn } from "@/lib/utils";
-import { Reveal } from "./Reveal";
 
 type Props = {
-  eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
   tone?: "light" | "dark";
   className?: string;
+  /** Renders as h1 on pages where this is the page's own title. */
+  as?: "h2" | "h3";
 };
 
+/**
+ * A section title carries its own weight. There is deliberately no eyebrow or
+ * kicker above it — a small label announcing what the heading is about to say
+ * adds a line to read and takes emphasis away from the heading itself.
+ */
 export function SectionHeading({
-  eyebrow,
   title,
   description,
   align = "center",
   tone = "light",
   className,
+  as: Tag = "h2",
 }: Props) {
   const dark = tone === "dark";
   return (
-    <Reveal
+    <div
       className={cn(
         "max-w-3xl",
         align === "center" ? "mx-auto text-center" : "text-left",
         className,
       )}
     >
-      {eyebrow && (
-        <span
-          className={cn(
-            "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] ring-1",
-            dark
-              ? "bg-white/10 text-ocean-100 ring-white/20"
-              : "bg-ocean-50 text-ocean-700 ring-ocean-100",
-          )}
-        >
-          <span className={cn("h-1.5 w-1.5 rounded-full", dark ? "bg-cyan-glow" : "bg-ocean-500")} />
-          {eyebrow}
-        </span>
-      )}
-      <h2
+      <Tag
         className={cn(
-          "mt-4 text-balance text-3xl font-bold leading-[1.15] tracking-[-0.03em] sm:text-4xl lg:text-[2.75rem]",
+          "text-balance text-[clamp(1.75rem,1.2rem+2.2vw,2.875rem)] font-extrabold leading-[1.08] tracking-[-0.035em]",
           dark ? "text-white" : "text-ocean-950",
         )}
       >
         {title}
-      </h2>
+      </Tag>
       {description && (
         <p
           className={cn(
-            "mt-4 text-pretty text-base leading-relaxed sm:text-lg",
-            dark ? "text-ocean-100/80" : "text-ocean-950/65",
+            "mt-4 text-pretty text-[0.9375rem] leading-relaxed sm:text-lg",
+            dark ? "text-ocean-100/75" : "text-ocean-950/62",
           )}
         >
           {description}
         </p>
       )}
-    </Reveal>
+    </div>
   );
 }

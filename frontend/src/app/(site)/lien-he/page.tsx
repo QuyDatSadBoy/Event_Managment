@@ -59,14 +59,13 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
   return (
     <>
       <PageHero
-        eyebrow="Liên hệ"
         title="Ban tổ chức luôn sẵn sàng hỗ trợ"
         description="Gửi câu hỏi về đăng ký, tài trợ, gian hàng triển lãm hoặc yêu cầu tác nghiệp báo chí."
         image={settings.hero_image}
         crumbs={[{ href: "/lien-he", label: "Liên hệ" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         <div className="grid gap-10 lg:grid-cols-[1fr_22rem] lg:gap-14">
           <Reveal>
             <div className="rounded-[1.5rem] border border-ocean-100 bg-white p-6 shadow-[0_20px_50px_-32px_rgb(8_42_77/0.35)] sm:p-9">
@@ -90,7 +89,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
                     key={card.label}
                     href={card.href}
                     {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-                    className="group flex gap-4 rounded-2xl border border-ocean-100 bg-white p-5 transition duration-300 hover:border-ocean-300 hover:shadow-[0_16px_36px_-22px_rgb(8_42_77/0.35)]"
+                    className="group flex min-h-11 gap-4 rounded-2xl border border-ocean-100 bg-white p-5 transition-[border-color,box-shadow] duration-300 hover:border-ocean-300 hover:shadow-[0_16px_36px_-22px_rgb(8_42_77/0.35)]"
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-linear-135 from-ocean-600 to-cyan-glow text-white transition-transform duration-400 group-hover:scale-110">
                       <Icon className="h-5 w-5" />
@@ -134,7 +133,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
                           target="_blank"
                           rel="noreferrer noopener"
                           aria-label={key}
-                          className="grid h-10 w-10 place-items-center rounded-full bg-ocean-50 text-ocean-700 transition duration-300 hover:bg-ocean-600 hover:text-white"
+                          className="grid h-11 w-11 place-items-center rounded-full bg-ocean-50 text-ocean-700 transition-[background-color,color] duration-300 hover:bg-ocean-600 hover:text-white"
                         >
                           <Icon className="h-4 w-4" />
                         </a>

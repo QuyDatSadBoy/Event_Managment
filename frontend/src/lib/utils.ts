@@ -221,6 +221,18 @@ export function videoThumbnail(url: string): string {
   return "";
 }
 
+/**
+ * The first `count` paragraphs of a rich-text field, kept whole. Clamping the
+ * full body with line-clamp cuts mid-word, which reads as a rendering fault
+ * rather than an intentional excerpt.
+ */
+export function leadParagraphs(html: string, count = 1): string {
+  if (!html) return "";
+  const paras = html.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi);
+  if (!paras || paras.length === 0) return html;
+  return paras.slice(0, count).join("");
+}
+
 export function readingMinutes(html: string): number {
   const words = html.replace(/<[^>]*>/g, " ").trim().split(/\s+/).length;
   return Math.max(1, Math.round(words / 200));

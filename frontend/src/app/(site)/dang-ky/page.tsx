@@ -29,14 +29,13 @@ export default async function RegisterPage() {
   return (
     <>
       <PageHero
-        eyebrow="Đăng ký"
         title="Giữ chỗ tham dự diễn đàn"
         description="Miễn phí cho khách chuyên ngành. Điền thông tin dưới đây để nhận mã tham dự ngay."
         image={settings.hero_image}
         crumbs={[{ href: "/dang-ky", label: "Đăng ký" }]}
       />
 
-      <section className="container-page py-16 lg:py-20">
+      <section className="container-page section-y">
         {!settings.registration_open ? (
           <EmptyState
             icon={Lock}

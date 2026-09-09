@@ -64,6 +64,9 @@ export function RegistrationForm() {
     else if (!/^[\d\s+().-]{8,20}$/.test(form.phone.trim()))
       next.phone = "Số điện thoại không hợp lệ";
     setErrors(next);
+    // Focus the first problem so a keyboard or screen-reader user is taken to it.
+    const first = Object.keys(next)[0];
+    if (first) document.getElementById(first)?.focus();
     return Object.keys(next).length === 0;
   };
 
@@ -113,7 +116,7 @@ export function RegistrationForm() {
             label="Họ và tên"
             required
             autoComplete="name"
-            placeholder="Nguyễn Văn A"
+            placeholder="Nguyễn Văn A…"
             value={form.full_name}
             error={errors.full_name}
             onChange={(e) => set("full_name")(e.target.value)}
@@ -124,7 +127,7 @@ export function RegistrationForm() {
             label="Email"
             required
             autoComplete="email"
-            placeholder="ban@congty.com"
+            placeholder="ban@congty.com…"
             value={form.email}
             error={errors.email}
             onChange={(e) => set("email")(e.target.value)}
@@ -135,7 +138,7 @@ export function RegistrationForm() {
             label="Số điện thoại"
             required
             autoComplete="tel"
-            placeholder="09xx xxx xxx"
+            placeholder="09xx xxx xxx…"
             value={form.phone}
             error={errors.phone}
             onChange={(e) => set("phone")(e.target.value)}
@@ -152,7 +155,7 @@ export function RegistrationForm() {
             id="company"
             label="Đơn vị công tác"
             autoComplete="organization"
-            placeholder="Tên công ty / tổ chức"
+            placeholder="Tên công ty / tổ chức…"
             value={form.company}
             error={errors.company}
             onChange={(e) => set("company")(e.target.value)}
@@ -161,7 +164,7 @@ export function RegistrationForm() {
             id="job_title"
             label="Chức danh"
             autoComplete="organization-title"
-            placeholder="Giám đốc điều hành"
+            placeholder="Giám đốc điều hành…"
             value={form.job_title}
             error={errors.job_title}
             onChange={(e) => set("job_title")(e.target.value)}
@@ -200,7 +203,8 @@ export function RegistrationForm() {
                   onClick={() => toggleInterest(topic)}
                   aria-pressed={active}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition duration-300",
+                    "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium sm:min-h-10",
+                    "transition-[background-color,border-color,color,box-shadow] duration-300",
                     active
                       ? "border-ocean-600 bg-ocean-600 text-white shadow-[0_8px_20px_-10px_rgb(6_120_214/0.9)]"
                       : "border-ocean-200 bg-white text-ocean-800 hover:border-ocean-400 hover:bg-ocean-50",

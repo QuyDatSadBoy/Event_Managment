@@ -18,18 +18,26 @@ export function Hero({ settings }: { settings: Settings }) {
         : [];
 
   const [index, setIndex] = useState(0);
+  // The follow-up slides are decorative until the carousel advances; loading
+  // all four at 1920px on first paint costs the LCP image its bandwidth.
+  const [mountRest, setMountRest] = useState(false);
 
   useEffect(() => {
     if (slides.length < 2) return;
+    const warm = setTimeout(() => setMountRest(true), 1200);
     const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 6000);
-    return () => clearInterval(id);
+    return () => {
+      clearTimeout(warm);
+      clearInterval(id);
+    };
   }, [slides.length]);
 
   return (
     <section className="relative isolate flex min-h-[min(100dvh,52rem)] items-center overflow-hidden pt-[var(--header-h)]">
       {/* Slideshow — each slide cross-fades with a slow Ken Burns drift. */}
       <div className="absolute inset-0 -z-20">
-        {slides.map((slide, i) => (
+        {slides.map((slide, i) =>
+          i > 0 && !mountRest ? null : (
           <div
             key={`${slide.image}-${i}`}
             className={cn(
@@ -47,12 +55,15 @@ export function Hero({ settings }: { settings: Settings }) {
                 src={slide.image}
                 alt={slide.caption || settings.event_name}
                 priority={i === 0}
+                fetchPriority={i === 0 ? "high" : "low"}
+                loading={i === 0 ? undefined : "lazy"}
                 sizes="100vw"
-                quality={82}
+                quality={75}
               />
             </div>
           </div>
-        ))}
+          ),
+        )}
         {slides.length === 0 && <div className="surface-deep absolute inset-0" />}
       </div>
 
@@ -67,22 +78,14 @@ export function Hero({ settings }: { settings: Settings }) {
       />
       <div className="grid-overlay absolute inset-0 -z-10 opacity-40" aria-hidden />
 
-      <div className="container-page relative w-full py-16 lg:py-24">
+      <div className="container-page relative w-full section-y">
         <div className="max-w-3xl">
-          <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-ocean-100 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-glow opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-glow" />
-            </span>
-            {settings.event_tagline || "Diễn đàn thường niên"}
-          </p>
-
-          <h1 className="mt-6 text-balance text-4xl font-extrabold leading-[1.06] tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
+          <h1 className="text-balance text-[clamp(2.25rem,1.2rem+4.4vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-white">
             {settings.hero_title || settings.event_name}
           </h1>
 
           {settings.hero_subtitle && (
-            <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ocean-100/80 sm:text-lg lg:text-xl">
+            <p className="mt-6 max-w-[52ch] text-pretty text-base leading-relaxed text-ocean-100/85 sm:text-lg lg:text-xl">
               {settings.hero_subtitle}
             </p>
           )}
@@ -137,7 +140,7 @@ export function Hero({ settings }: { settings: Settings }) {
         </div>
 
         {slides.length > 1 && (
-          <div className="mt-14 flex items-center gap-2.5">
+          <div className="mt-10 flex items-center gap-1">
             {slides.map((slide, i) => (
               <button
                 key={i}
@@ -145,14 +148,20 @@ export function Hero({ settings }: { settings: Settings }) {
                 onClick={() => setIndex(i)}
                 aria-label={`Ảnh ${i + 1}${slide.caption ? `: ${slide.caption}` : ""}`}
                 aria-current={i === index}
-                className={cn(
-                  "h-1 rounded-full transition-all duration-500",
-                  i === index ? "w-12 bg-cyan-glow" : "w-6 bg-white/25 hover:bg-white/45",
-                )}
-              />
+                className="group grid h-11 min-w-11 place-items-center"
+              >
+                <span
+                  className={cn(
+                    "block h-1 rounded-full transition-[width,background-color] duration-500",
+                    i === index
+                      ? "w-12 bg-cyan-glow"
+                      : "w-6 bg-white/30 group-hover:bg-white/55",
+                  )}
+                />
+              </button>
             ))}
             {slides[index]?.caption && (
-              <span className="ml-3 hidden text-xs text-ocean-100/50 sm:block">
+              <span className="ml-3 hidden text-xs text-ocean-100/75 sm:block">
                 {slides[index].caption}
               </span>
             )}

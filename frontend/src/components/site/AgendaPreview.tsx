@@ -10,7 +10,7 @@ export function AgendaPreview({ days }: { days: AgendaDay[] }) {
   if (!day || day.sessions.length === 0) return null;
 
   return (
-    <div className="mt-14">
+    <div className="mx-auto mt-12 max-w-4xl">
       <Reveal className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.18em] text-ocean-600">
@@ -26,7 +26,7 @@ export function AgendaPreview({ days }: { days: AgendaDay[] }) {
       <ol className="relative space-y-3 before:absolute before:left-[5.75rem] before:top-3 before:bottom-3 before:hidden before:w-px before:bg-ocean-100 lg:before:block">
         {day.sessions.map((session, i) => (
           <Reveal key={session.id} delay={i * 60} as="li">
-            <div className="group relative flex flex-col gap-4 rounded-2xl border border-ocean-100 bg-white p-5 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-ocean-300 hover:shadow-[0_16px_36px_-20px_rgb(8_42_77/0.35)] lg:flex-row lg:items-center lg:gap-7 lg:p-6">
+            <div className="group relative flex flex-col gap-4 rounded-2xl border border-ocean-100 bg-white p-5 transition-[border-color,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-ocean-300 hover:shadow-[0_16px_36px_-20px_rgb(8_42_77/0.35)] lg:flex-row lg:items-center lg:gap-7 lg:p-6">
               <div className="flex shrink-0 items-center gap-3 lg:w-24 lg:flex-col lg:items-start lg:gap-1">
                 <span className="font-mono text-lg font-bold tabular-nums text-ocean-800">
                   {session.start_time}
@@ -107,7 +107,7 @@ export function AgendaPreview({ days }: { days: AgendaDay[] }) {
       <Reveal className="mt-9 text-center">
         <Link
           href="/chuong-trinh"
-          className="inline-flex items-center gap-2 rounded-full border border-ocean-200 bg-white px-6 py-3 text-sm font-semibold text-ocean-800 transition duration-300 hover:border-ocean-400 hover:bg-ocean-50"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-ocean-200 bg-white px-6 text-sm font-semibold text-ocean-800 transition-[border-color,background-color] duration-300 hover:border-ocean-400 hover:bg-ocean-50"
         >
           Xem toàn bộ chương trình
           <ArrowRight className="h-4 w-4" />

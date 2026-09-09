@@ -276,9 +276,9 @@ export default function AdminAgendaPage() {
             <div
               key={d.id}
               className={cn(
-                "group relative flex min-w-[15rem] flex-1 items-center gap-3 rounded-2xl border px-5 py-4 transition-all duration-400",
+                "group relative flex min-w-[15rem] flex-1 items-center gap-3 rounded-2xl border px-5 py-4 transition-[transform,opacity,border-color,box-shadow] duration-400",
                 i === activeDay
-                  ? "border-transparent bg-linear-135 from-ocean-700 to-ocean-500 text-white shadow-[0_16px_36px_-18px_rgb(6_120_214/0.9)]"
+                  ? "border-transparent bg-linear-135 from-ocean-950 to-ocean-800 text-white shadow-[0_16px_36px_-18px_rgb(8_42_77/0.55)]"
                   : "border-ocean-200 bg-white hover:border-ocean-400",
               )}
             >
@@ -290,7 +290,7 @@ export default function AdminAgendaPage() {
                 <span
                   className={cn(
                     "block text-[0.6875rem] font-bold uppercase tracking-[0.14em]",
-                    i === activeDay ? "text-cyan-glow" : "text-ocean-500",
+                    i === activeDay ? "text-cyan-soft" : "text-ocean-700",
                   )}
                 >
                   {d.label}
@@ -306,7 +306,7 @@ export default function AdminAgendaPage() {
                 <span
                   className={cn(
                     "mt-0.5 block text-xs",
-                    i === activeDay ? "text-ocean-100/70" : "text-ocean-950/45",
+                    i === activeDay ? "text-ocean-100/85" : "text-ocean-950/55",
                   )}
                 >
                   {formatDate(d.date)} · {d.sessions.length} phiên
@@ -368,7 +368,7 @@ export default function AdminAgendaPage() {
                   <li
                     key={s.id}
                     className={cn(
-                      "flex flex-col gap-3 rounded-2xl border bg-white p-4 transition-all duration-300 hover:border-ocean-300 hover:shadow-[0_14px_32px_-22px_rgb(8_42_77/0.35)] lg:flex-row lg:items-center lg:gap-5",
+                      "flex flex-col gap-3 rounded-2xl border bg-white p-4 transition-[border-color,box-shadow,background-color] duration-300 hover:border-ocean-300 hover:shadow-[0_14px_32px_-22px_rgb(8_42_77/0.35)] lg:flex-row lg:items-center lg:gap-5",
                       s.is_published ? "border-ocean-100" : "border-dashed border-ocean-200 bg-ocean-50/40",
                     )}
                   >

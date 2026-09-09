@@ -6,14 +6,12 @@ import { SafeImage } from "@/components/ui/SafeImage";
 type Crumb = { href: string; label: string };
 
 export function PageHero({
-  eyebrow,
   title,
   description,
   image,
   crumbs = [],
   children,
 }: {
-  eyebrow?: string;
   title: string;
   description?: string;
   image?: string;
@@ -24,7 +22,16 @@ export function PageHero({
     <section className="relative isolate overflow-hidden pt-[var(--header-h)]">
       <div className="absolute inset-0 -z-20">
         {image ? (
-          <SafeImage src={image} alt="" sizes="100vw" priority quality={75} />
+          <SafeImage
+            src={image}
+            alt=""
+            // Fixed small request: at 92% scrim the detail is invisible, and a
+            // full-width file made this the LCP on every inner page.
+            sizes="768px"
+            quality={40}
+            priority
+            fetchPriority="high"
+          />
         ) : (
           <div className="surface-deep absolute inset-0" />
         )}
@@ -39,7 +46,7 @@ export function PageHero({
         aria-hidden
       />
 
-      <div className="container-page relative py-16 lg:py-24">
+      <div className="container-page relative section-y">
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex flex-wrap items-center gap-1.5 text-xs text-ocean-100/55">
             <li>
@@ -62,19 +69,12 @@ export function PageHero({
           </ol>
         </nav>
 
-        {eyebrow && (
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ocean-100 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-glow" />
-            {eyebrow}
-          </p>
-        )}
-
-        <h1 className="max-w-4xl text-balance text-3xl font-extrabold leading-[1.1] tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
+        <h1 className="max-w-4xl text-balance text-[clamp(2rem,1.3rem+3vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white">
           {title}
         </h1>
 
         {description && (
-          <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-ocean-100/75 lg:text-lg">
+          <p className="mt-5 max-w-[46ch] text-pretty text-base leading-relaxed text-ocean-100/78 lg:text-lg">
             {description}
           </p>
         )}

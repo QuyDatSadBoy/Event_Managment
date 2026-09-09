@@ -20,3 +20,13 @@ dist/
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
+
+# QA suite runtime
+scripts/qa/node_modules/
+scripts/qa/audit/
+scripts/qa/shots/
+
+# Third-party skills are vendored by scripts/install-skills.sh, not committed:
+# they add ~13 MB of font indexes and icon catalogues that would dominate every
+# future diff. The script pins them so the setup stays reproducible.
+.claude/skills/

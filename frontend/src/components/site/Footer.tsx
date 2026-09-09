@@ -75,7 +75,7 @@ export function Footer({ settings }: { settings: Settings }) {
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-cyan-glow" />
                   <a
                     href={`mailto:${settings.contact_email}`}
-                    className="text-ocean-100/75 transition hover:text-white"
+                    className="inline-flex min-h-11 items-center text-ocean-100/75 transition-colors duration-300 hover:text-white sm:min-h-6"
                   >
                     {settings.contact_email}
                   </a>
@@ -86,7 +86,7 @@ export function Footer({ settings }: { settings: Settings }) {
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-cyan-glow" />
                   <a
                     href={`tel:${settings.contact_phone.replace(/\s/g, "")}`}
-                    className="text-ocean-100/75 transition hover:text-white"
+                    className="inline-flex min-h-11 items-center text-ocean-100/75 transition-colors duration-300 hover:text-white sm:min-h-6"
                   >
                     {settings.contact_phone}
                   </a>
@@ -105,7 +105,7 @@ export function Footer({ settings }: { settings: Settings }) {
                       target="_blank"
                       rel="noreferrer noopener"
                       aria-label={key}
-                      className="grid h-10 w-10 place-items-center rounded-full bg-white/8 text-ocean-100 ring-1 ring-white/12 transition duration-300 hover:bg-cyan-glow hover:text-abyss hover:ring-cyan-glow"
+                      className="grid h-11 w-11 place-items-center rounded-full bg-white/8 text-ocean-100 ring-1 ring-white/12 transition-[background-color,color,box-shadow] duration-300 hover:bg-cyan-glow hover:text-abyss hover:ring-cyan-glow"
                     >
                       <Icon className="h-4 w-4" />
                     </a>
@@ -118,9 +118,9 @@ export function Footer({ settings }: { settings: Settings }) {
           <div className="grid gap-10 sm:grid-cols-3">
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-white">
+                <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">
                   {col.title}
-                </h3>
+                </h2>
                 <ul className="mt-5 space-y-3">
                   {col.links.map((link) => (
                     <li key={link.href + link.label}>

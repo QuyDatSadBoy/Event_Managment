@@ -29,7 +29,8 @@ export function GalleryStrip({ items }: { items: GalleryItem[] }) {
                 <SafeImage
                   src={item.thumbnail || (item.type === "image" ? item.url : "")}
                   alt={item.title || "Ảnh sự kiện"}
-                  sizes={i === 0 ? "(max-width: 640px) 92vw, 50vw" : "(max-width: 640px) 46vw, 25vw"}
+                  sizes={i === 0 ? "(max-width: 640px) 92vw, 620px" : "(max-width: 640px) 46vw, 320px"}
+                  quality={65}
                 />
               </div>
               <div
@@ -37,7 +38,7 @@ export function GalleryStrip({ items }: { items: GalleryItem[] }) {
                 aria-hidden
               />
               {item.title && (
-                <p className="absolute inset-x-4 bottom-4 translate-y-2 text-sm font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                <p className="absolute inset-x-4 bottom-4 translate-y-2 text-sm font-semibold text-white opacity-0 transition-[transform,opacity] duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   {item.title}
                 </p>
               )}
@@ -48,7 +49,7 @@ export function GalleryStrip({ items }: { items: GalleryItem[] }) {
         <Reveal delay={420}>
           <Link
             href="/thu-vien"
-            className="group flex aspect-4/3 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-ocean-300 bg-ocean-50/60 text-center transition duration-400 hover:border-ocean-500 hover:bg-ocean-50"
+            className="group flex aspect-4/3 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-ocean-300 bg-ocean-50/60 text-center transition-[border-color,background-color] duration-400 hover:border-ocean-500 hover:bg-ocean-50"
           >
             <span className="grid h-11 w-11 place-items-center rounded-full bg-white text-ocean-600 shadow-sm transition-transform duration-400 group-hover:scale-110">
               <ArrowUpRight className="h-5 w-5" />
