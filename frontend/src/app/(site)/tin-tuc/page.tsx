@@ -82,7 +82,7 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
                   "inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium sm:min-h-10",
                   "transition-[background-color,color,box-shadow] duration-300",
                   category === cat.value
-                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(12_43_41/0.8)]"
+                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(13_20_40/0.8)]"
                     : "bg-brand-50 text-brand-800 hover:bg-brand-100",
                 )}
               >
@@ -111,8 +111,8 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
           </div>
         ) : (
           <>
-            <p className="mt-8 text-sm text-brand-950/55">
-              <span className="font-bold text-brand-950">{meta.total}</span> bài viết
+            <p className="mt-8 text-sm text-ink-muted">
+              <span className="font-bold text-ink">{meta.total}</span> bài viết
               {q && (
                 <>
                   {" "}

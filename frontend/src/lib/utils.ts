@@ -105,11 +105,11 @@ export const SESSION_TYPE_LABEL: Record<SessionType, string> = {
 
 export const SESSION_TYPE_STYLE: Record<SessionType, string> = {
   session: "bg-brand-50 text-brand-700 ring-brand-200",
-  keynote: "bg-brand-600 text-white ring-brand-600",
-  panel: "bg-brand-400/15 text-brand-800 ring-brand-400/40",
+  keynote: "bg-accent-500 text-ink ring-accent-500",
+  panel: "bg-brand-100 text-brand-700 ring-brand-200",
   break: "bg-slate-100 text-slate-600 ring-slate-200",
-  networking: "bg-cream text-brand-800 ring-brand-300",
-  workshop: "bg-brand-100 text-brand-800 ring-brand-300",
+  networking: "bg-peach text-ink ring-accent-200",
+  workshop: "bg-surface text-brand-700 ring-brand-200",
   ceremony: "bg-brand-900 text-white ring-brand-900",
 };
 

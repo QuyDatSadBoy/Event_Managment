@@ -14,12 +14,12 @@ import { cn } from "@/lib/utils";
 type Tone = "dark" | "light";
 
 const RING_STROKE: Record<Tone, string> = {
-  dark: "rgb(195 229 227 / 0.24)",
-  light: "rgb(6 124 116 / 0.16)",
+  dark: "rgb(211 223 238 / 0.22)",
+  light: "rgb(46 74 125 / 0.14)",
 };
 const CORE_FILL: Record<Tone, string> = {
-  dark: "rgb(195 229 227 / 0.16)",
-  light: "rgb(6 124 116 / 0.10)",
+  dark: "rgb(255 132 56 / 0.20)",
+  light: "rgb(46 74 125 / 0.10)",
 };
 
 /** Concentric rings, two of them broken into arcs, around a soft core dot. */
@@ -68,7 +68,7 @@ export function DecoDotGrid({
   tone?: Tone;
   className?: string;
 }) {
-  const fill = tone === "dark" ? "#fef4d8" : "#067c74";
+  const fill = tone === "dark" ? "#ff8438" : "#2e4a7d";
   const cols = 8;
   const rows = 5;
   const dots = [];

@@ -37,6 +37,13 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
     [items, type, album],
   );
 
+  // The collage layout only applies when nothing on screen carries a caption
+  // under its media — see the grid below.
+  const allImages = useMemo(
+    () => filtered.length > 0 && filtered.every((it) => it.type === "image"),
+    [filtered],
+  );
+
   // Only images open in the lightbox; navigation walks that subset.
   const imageIndexes = useMemo(
     () => filtered.map((it, i) => (it.type === "image" ? i : -1)).filter((i) => i >= 0),
@@ -90,7 +97,7 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                   "inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium sm:min-h-10",
                   "transition-[background-color,color,box-shadow] duration-300",
                   type === tab.value
-                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(12_43_41/0.8)]"
+                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(13_20_40/0.8)]"
                     : "bg-brand-50 text-brand-800 hover:bg-brand-100",
                 )}
               >
@@ -152,10 +159,36 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
           />
         </div>
       ) : (
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        /* Two layouts, chosen by what is actually on screen.
+
+           A photograph-only result becomes a collage: fixed row heights, dense
+           back-filling, and every fourth image taking a 2×2 block, so the page
+           stops being a wall of identical 4:3 thumbnails.
+
+           A mixed result keeps the even grid. Video and document tiles carry a
+           caption and a file size under the media, so their height is set by
+           their text; forcing them into fixed rows would clip it. The type
+           filter above means the photograph-only case is the common one. */
+        <div
+          className={cn(
+            "mt-10 grid gap-4",
+            allImages
+              ? "auto-rows-[7rem] grid-cols-2 [grid-auto-flow:dense] sm:auto-rows-[8.5rem] sm:grid-cols-3 xl:grid-cols-4"
+              : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          )}
+        >
           {filtered.map((item, i) => (
-            <Block key={item.id}>
-              <GalleryTile item={item} onOpen={() => item.type === "image" && setLightbox(i)} />
+            <Block
+              key={item.id}
+              className={cn(
+                allImages && (i % 4 === 0 ? "col-span-2 row-span-2" : "row-span-2"),
+              )}
+            >
+              <GalleryTile
+                item={item}
+                fill={allImages}
+                onOpen={() => item.type === "image" && setLightbox(i)}
+              />
             </Block>
           ))}
         </div>
@@ -228,7 +261,17 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
   );
 }
 
-function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
+function GalleryTile({
+  item,
+  onOpen,
+  fill = false,
+}: {
+  item: GalleryItem;
+  onOpen: () => void;
+  /** In the collage layout the tile fills its grid cell instead of setting its
+   *  own aspect ratio — a 2×2 block and a 1×2 block cannot both be 4:3. */
+  fill?: boolean;
+}) {
   if (item.type === "video") {
     const embed = toEmbedUrl(item.url);
     return (
@@ -264,7 +307,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
             <p className="mt-1 line-clamp-2 text-xs text-brand-200">{item.description}</p>
           )}
           {!embed && (
-            <span className="mt-2 inline-flex items-center gap-1 text-xs text-brand-400">
+            <span className="mt-2 inline-flex items-center gap-1 text-xs text-accent-400">
               Mở liên kết
               <ExternalLink className="h-3 w-3" />
             </span>
@@ -285,11 +328,11 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
         <span className="grid h-12 w-12 place-items-center rounded-xl bg-linear-135 from-brand-600 to-brand-400 text-white transition-transform duration-500 group-hover:scale-110">
           <FileText className="h-5.5 w-5.5" />
         </span>
-        <p className="mt-5 line-clamp-2 text-base font-bold leading-snug text-brand-950">
+        <p className="mt-5 line-clamp-2 text-base font-bold leading-snug text-ink">
           {item.title}
         </p>
         {item.description && (
-          <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-brand-950/55">
+          <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-muted">
             {item.description}
           </p>
         )}
@@ -297,7 +340,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
           <Download className="h-4 w-4" />
           Tải xuống
           {item.file_size > 0 && (
-            <span className="font-normal text-brand-950/40">{formatFileSize(item.file_size)}</span>
+            <span className="font-normal text-ink-muted">{formatFileSize(item.file_size)}</span>
           )}
         </span>
       </a>
@@ -308,10 +351,13 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
     <button
       type="button"
       onClick={onOpen}
-      className="group relative block w-full overflow-hidden rounded-2xl bg-brand-100 card-hover"
+      className={cn(
+        "group relative block w-full overflow-hidden rounded-2xl bg-brand-100 card-hover",
+        fill && "h-full",
+      )}
       title={item.title}
     >
-      <div className="relative aspect-4/3">
+      <div className={cn("relative", fill ? "h-full" : "aspect-4/3")}>
         <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-107">
           <SafeImage
             src={item.thumbnail || item.url}

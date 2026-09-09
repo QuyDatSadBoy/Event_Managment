@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { SafeImage } from "@/components/ui/SafeImage";
-import { DecoRings } from "@/components/ui/Deco";
 
 type Crumb = { href: string; label: string };
 
@@ -28,7 +27,7 @@ export function PageHero({
 }) {
   return (
     <section className="bg-white">
-      <div className="band band-br relative isolate overflow-hidden bg-brand-800 pt-[var(--header-h)]">
+      <div className="band band-br relative isolate overflow-hidden bg-brand-900 pt-[var(--header-h)]">
         {image && (
           <div className="absolute inset-0 -z-20">
             <SafeImage
@@ -41,24 +40,40 @@ export function PageHero({
             />
           </div>
         )}
-        <div className="absolute inset-0 -z-10 bg-brand-800/88" aria-hidden />
-        <DecoRings tone="dark" className="-right-40 -top-56 hidden h-[560px] w-[560px] lg:block" />
+        <div className="absolute inset-0 -z-10 bg-brand-900/88" aria-hidden />
+        <div className="hex-field-dark absolute inset-0 -z-10" aria-hidden />
+        <div
+          className="absolute -right-40 -top-40 -z-10 h-[34rem] w-[34rem] rounded-full bg-accent-500/10 blur-3xl"
+          aria-hidden
+        />
 
         <div className="container-page relative py-10 lg:py-14">
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex flex-wrap items-center gap-1.5 text-caption text-brand-200">
+          {/* Breadcrumb links are a list of controls, not links inside prose, so
+              they get no inline exception from the 24×24 pointer-target floor.
+              At caption size the text box is only 16px tall, so each link
+              carries its own min-height instead. */}
+          <nav aria-label="Breadcrumb" className="mb-4">
+            <ol className="flex flex-wrap items-center gap-x-1.5 text-caption text-brand-300">
               <li>
-                <Link href="/" className="transition-colors duration-300 hover:text-white">
+                <Link
+                  href="/"
+                  className="inline-flex min-h-6 items-center transition-colors duration-300 hover:text-white"
+                >
                   Trang chủ
                 </Link>
               </li>
               {crumbs.map((crumb, i) => (
                 <li key={crumb.href} className="flex items-center gap-1.5">
-                  <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
+                  <ChevronRight className="h-3 w-3 text-brand-500" aria-hidden />
                   {i === crumbs.length - 1 ? (
-                    <span className="text-brand-200">{crumb.label}</span>
+                    <span className="inline-flex min-h-6 items-center font-medium text-white">
+                      {crumb.label}
+                    </span>
                   ) : (
-                    <Link href={crumb.href} className="transition-colors duration-300 hover:text-white">
+                    <Link
+                      href={crumb.href}
+                      className="inline-flex min-h-6 items-center transition-colors duration-300 hover:text-white"
+                    >
                       {crumb.label}
                     </Link>
                   )}
@@ -67,7 +82,7 @@ export function PageHero({
             </ol>
           </nav>
 
-          <h1 className="max-w-4xl text-balance text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] font-bold leading-[1.15] tracking-[-0.02em] text-white">
+          <h1 className="max-w-4xl text-balance text-[clamp(1.875rem,1.25rem+2.4vw,2.875rem)] font-extrabold leading-[1.1] tracking-[-0.035em] text-white">
             {title}
           </h1>
 

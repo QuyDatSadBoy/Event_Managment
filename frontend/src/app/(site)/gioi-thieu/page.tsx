@@ -38,9 +38,15 @@ export default async function AboutPage() {
         crumbs={[{ href: "/gioi-thieu", label: "Giới thiệu" }]}
       />
 
-      <div className="pb-2">
-        <StatsBand stats={settings.stats} />
-      </div>
+      {settings.stats?.length > 0 && (
+        <section className="container-page section-y-tight">
+          <StatsBand
+            stats={settings.stats}
+            image={settings.hero_image || settings.about_image}
+            imageAlt=""
+          />
+        </section>
+      )}
 
       {/* ---------- Narrative ---------- */}
       <section className="container-page section-y">
@@ -52,7 +58,7 @@ export default async function AboutPage() {
                 dangerouslySetInnerHTML={{ __html: settings.about_content }}
               />
             ) : (
-              <p className="text-lg leading-relaxed text-brand-950/70">
+              <p className="text-lg leading-relaxed text-ink-muted">
                 {settings.event_description}
               </p>
             )}
@@ -60,7 +66,7 @@ export default async function AboutPage() {
 
           <Block>
             <div className="sticky top-[calc(var(--header-h)+1.5rem)] space-y-5">
-              <div className="relative aspect-4/3 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(12_43_41/0.45)]">
+              <div className="relative aspect-4/3 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(13_20_40/0.45)]">
                 <SafeImage
                   src={settings.about_image || settings.hero_image}
                   alt={settings.event_name}
@@ -69,7 +75,7 @@ export default async function AboutPage() {
               </div>
 
               <div className="rounded-3xl border border-brand-100 bg-brand-50/50 p-6">
-                <h2 className="text-base font-bold tracking-tight text-brand-950">
+                <h2 className="text-base font-bold tracking-tight text-ink">
                   Thông tin nhanh
                 </h2>
                 <dl className="mt-5 space-y-4 text-sm">
@@ -77,8 +83,8 @@ export default async function AboutPage() {
                     <div className="flex gap-3">
                       <CalendarDays className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                       <div>
-                        <dt className="font-semibold text-brand-950">Thời gian</dt>
-                        <dd className="mt-0.5 text-brand-950/60">
+                        <dt className="font-semibold text-ink">Thời gian</dt>
+                        <dd className="mt-0.5 text-ink-muted">
                           {formatDateRange(settings.start_date, settings.end_date)}
                         </dd>
                       </div>
@@ -88,8 +94,8 @@ export default async function AboutPage() {
                     <div className="flex gap-3">
                       <MapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                       <div>
-                        <dt className="font-semibold text-brand-950">Địa điểm</dt>
-                        <dd className="mt-0.5 text-brand-950/60">
+                        <dt className="font-semibold text-ink">Địa điểm</dt>
+                        <dd className="mt-0.5 text-ink-muted">
                           {settings.venue_name}
                           {settings.venue_address && (
                             <>
@@ -119,12 +125,13 @@ export default async function AboutPage() {
         <section className="bg-brand-50/60 section-y">
           <div className="container-page">
             <SectionHeading
+              eyebrow="Địa điểm"
               title={settings.venue_name || "Địa điểm tổ chức"}
               description={settings.venue_address}
             />
 
             {settings.venue_map_url && (
-              <Block className="mt-12 overflow-hidden rounded-[1.5rem] border border-brand-100 shadow-[0_24px_60px_-30px_rgb(12_43_41/0.35)]">
+              <Block className="mt-12 overflow-hidden rounded-[1.5rem] border border-brand-100 shadow-[0_24px_60px_-30px_rgb(13_20_40/0.35)]">
                 <iframe
                   src={settings.venue_map_url}
                   title={`Bản đồ ${settings.venue_name}`}
@@ -156,6 +163,7 @@ export default async function AboutPage() {
       {gallery.length > 0 && (
         <section className="container-page section-y">
           <SectionHeading
+            eyebrow="Lịch sử"
             title="Diễn đàn qua từng năm"
             description="Một vài khoảnh khắc từ những kỳ tổ chức trước."
           />

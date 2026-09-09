@@ -55,7 +55,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
               "transition-[background-color,border-color,color,box-shadow] duration-300",
               i === dayIndex
                 ? "border-brand-800 bg-brand-800 text-white shadow-card"
-                : "border-line bg-white text-brand-950 hover:border-brand-300 hover:bg-brand-50",
+                : "border-brand-400 bg-white text-ink hover:border-accent-500 hover:bg-accent-50",
             )}
           >
             <span
@@ -80,7 +80,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
 
       {/* Day header */}
       <div className="mt-9">
-        <h2 className="text-[clamp(1.375rem,1.1rem+1vw,1.75rem)] font-bold tracking-tight text-brand-950">
+        <h2 className="text-[clamp(1.375rem,1.1rem+1vw,1.75rem)] font-bold tracking-tight text-ink">
           {day.label}
           {day.title && <span className="text-ink-muted"> · {day.title}</span>}
         </h2>
@@ -104,7 +104,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
                   "transition-[background-color,color] duration-300",
                   track === t
                     ? "bg-brand-800 text-white"
-                    : "bg-brand-100 text-brand-800 hover:bg-brand-200",
+                    : "bg-brand-100 text-brand-700 hover:bg-brand-200",
                 )}
               >
                 {t === "all" ? "Tất cả" : t}
@@ -151,24 +151,38 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
                     )}
                   >
                     <div className="shrink-0 lg:w-[120px]">
-                      <p className="font-mono text-sm font-bold leading-tight text-brand-800">
+                      <p className="font-mono text-sm font-bold leading-tight tabular-nums text-brand-800">
                         {time}
                       </p>
+                      {/* Desktop only. The meta row below already carries the
+                          room on small screens, and rendering both printed it
+                          twice in the same card. */}
                       {session.room && (
-                        <p className="mt-0.5 text-xs text-ink-muted">{session.room}</p>
+                        <p className="mt-0.5 hidden text-xs text-ink-muted lg:block">
+                          {session.room}
+                        </p>
                       )}
                     </div>
 
-                    <span className="hidden h-13 w-px shrink-0 bg-line lg:block" aria-hidden />
+                    {/* A node on a rail rather than a plain divider, so this page
+                        and the homepage preview read as the same timeline. */}
+                    <span className="hidden shrink-0 items-center lg:flex" aria-hidden>
+                      <span
+                        className={cn(
+                          "h-3 w-3 rounded-full",
+                          session.type === "keynote" ? "bg-accent-500" : "bg-brand-400",
+                        )}
+                      />
+                    </span>
 
                     <div className="min-w-0 flex-1">
-                      <span className="inline-flex items-center rounded-full bg-brand-200 px-2.5 py-1 text-[0.6875rem] font-bold leading-none text-brand-800">
+                      <span className="inline-flex items-center rounded-full bg-brand-100 px-2.5 py-1 text-[0.6875rem] font-bold leading-none text-brand-700">
                         {session.track
                           ? `${session.track} · ${SESSION_TYPE_LABEL[session.type as SessionType]}`
                           : SESSION_TYPE_LABEL[session.type as SessionType]}
                       </span>
 
-                      <h3 className="mt-2 text-balance text-[1.0625rem] font-semibold leading-[1.3] tracking-tight text-brand-950">
+                      <h3 className="mt-2 text-balance text-[1.0625rem] font-semibold leading-[1.3] tracking-tight text-ink">
                         {session.title}
                       </h3>
 
@@ -223,7 +237,14 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
                     )}
                   </button>
 
+                  {/* `inert` while closed. The panel collapses to a 0fr grid row
+                      rather than `display: none`, which keeps the animation
+                      smooth but leaves everything inside it focusable: without
+                      this, tabbing through a day of twelve sessions walked
+                      through twelve invisible speaker links, and a screen
+                      reader read every collapsed description aloud. */}
                   <div
+                    inert={!open}
                     className={cn(
                       "grid transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
                       open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
@@ -254,7 +275,7 @@ export function AgendaBoard({ days }: { days: AgendaDay[] }) {
                                     />
                                   </span>
                                   <span className="min-w-0">
-                                    <span className="block truncate text-sm font-semibold text-brand-950">
+                                    <span className="block truncate text-sm font-semibold text-ink">
                                       {sp.name}
                                     </span>
                                     <span className="block truncate text-xs text-ink-muted">

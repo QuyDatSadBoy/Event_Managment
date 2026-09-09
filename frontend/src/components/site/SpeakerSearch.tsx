@@ -46,7 +46,7 @@ export function SpeakerSearch({
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="h-11 w-full rounded-full border border-brand-200 bg-white pl-11 pr-10 text-sm text-brand-950 outline-hidden transition duration-300 placeholder:text-brand-950/35 focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10"
+        className="h-11 w-full rounded-full border border-brand-400 bg-white pl-11 pr-10 text-sm text-ink outline-hidden transition duration-300 placeholder:text-ink-muted focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10"
       />
       {value && (
         <button

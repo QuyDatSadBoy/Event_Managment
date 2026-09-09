@@ -44,7 +44,7 @@ export default async function RegisterPage() {
             action={
               <Link
                 href="/lien-he"
-                className="inline-flex h-11 items-center rounded-full bg-brand-600 px-6 text-sm font-semibold text-white transition hover:bg-brand-500"
+                className="inline-flex h-11 items-center rounded-full bg-accent-500 px-6 text-sm font-semibold text-ink transition hover:bg-accent-400"
               >
                 Liên hệ ban tổ chức
               </Link>
@@ -53,11 +53,11 @@ export default async function RegisterPage() {
         ) : (
           <div className="grid gap-10 lg:grid-cols-[1fr_20rem] lg:gap-14">
             <Block className="order-2 lg:order-1">
-              <div className="rounded-[1.5rem] border border-brand-100 bg-white p-6 shadow-[0_20px_50px_-32px_rgb(12_43_41/0.35)] sm:p-9">
-                <h2 className="text-xl font-bold tracking-tight text-brand-950">
+              <div className="rounded-[1.5rem] border border-brand-100 bg-white p-6 shadow-[0_20px_50px_-32px_rgb(13_20_40/0.35)] sm:p-9">
+                <h2 className="text-xl font-bold tracking-tight text-ink">
                   Thông tin đăng ký
                 </h2>
-                <p className="mt-1.5 text-sm text-brand-950/50">
+                <p className="mt-1.5 text-sm text-ink-muted">
                   Các trường có dấu <span className="text-rose-500">*</span> là bắt buộc.
                 </p>
                 <div className="mt-8">
@@ -70,7 +70,7 @@ export default async function RegisterPage() {
               <Block className="sticky top-[calc(var(--header-h)+1.5rem)] space-y-5">
                 <div className="bg-brand-800 relative overflow-hidden rounded-3xl p-6 text-white">
                   <div className="relative">
-                    <Ticket className="h-7 w-7 text-brand-400" />
+                    <Ticket className="h-7 w-7 text-accent-500" />
                     <h2 className="mt-4 text-lg font-bold leading-snug">
                       Vé tham dự miễn phí
                     </h2>
@@ -81,7 +81,7 @@ export default async function RegisterPage() {
                     <ul className="mt-6 space-y-3">
                       {PERKS.map((perk) => (
                         <li key={perk} className="flex gap-2.5 text-sm text-brand-200">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent-500" />
                           {perk}
                         </li>
                       ))}
@@ -96,8 +96,8 @@ export default async function RegisterPage() {
                         <div className="flex gap-3">
                           <CalendarDays className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                           <div>
-                            <dt className="font-semibold text-brand-950">Thời gian</dt>
-                            <dd className="mt-0.5 text-brand-950/60">
+                            <dt className="font-semibold text-ink">Thời gian</dt>
+                            <dd className="mt-0.5 text-ink-muted">
                               {formatDateRange(settings.start_date, settings.end_date)}
                             </dd>
                           </div>
@@ -107,8 +107,8 @@ export default async function RegisterPage() {
                         <div className="flex gap-3">
                           <MapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                           <div>
-                            <dt className="font-semibold text-brand-950">Địa điểm</dt>
-                            <dd className="mt-0.5 text-brand-950/60">
+                            <dt className="font-semibold text-ink">Địa điểm</dt>
+                            <dd className="mt-0.5 text-ink-muted">
                               {settings.venue_name}
                               {settings.venue_address && (
                                 <>

@@ -1,78 +1,137 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VHD Summit — design tokens
-   Implements design.pen (v1.0). Palette, type scale, grid and
-   radii below are the values in that file; the two exceptions
-   are noted where they occur.
+   VHD Summit — design tokens (v2, "navy / ember")
+   A deep-navy stage with a single vivid orange accent, after the
+   conference-site reference. Every value here that carries text was
+   measured for contrast; the ratios in the comments are real numbers,
+   not intentions.
    ============================================================ */
 @theme {
-  /* --- brand ramp -------------------------------------------------------
-     Anchored on design.pen's six brand colours; the in-between steps are
-     interpolated so utilities like bg-brand-300 exist for hover and border
-     states the design implies but does not name.                        */
-  --color-brand-50:  #f2f9f9;
-  --color-brand-100: #e3f1f2;  /* mist  — alternating page background */
-  --color-brand-200: #c3e5e3;  /* tint  — secondary section bg, tags */
-  --color-brand-300: #9bd2ce;
-  --color-brand-400: #62b4af;  /* secondary — icons, accent rules, badges */
-  --color-brand-500: #2e9891;
-  --color-brand-600: #067c74;  /* primary — CTA buttons, links, dark headers */
-  --color-brand-700: #056a63;
-  --color-brand-800: #04564f;  /* primary dark — hover, footer */
-  --color-brand-900: #0c3f3a;
-  --color-brand-950: #0c2b29;  /* ink — headings and body text */
+  /* --- navy ramp --------------------------------------------------------
+     Anchored on the three navies from the brief (#111B3A background,
+     #16213E secondary dark, #1E2433 text ink). The lighter steps are
+     interpolated toward the soft blue surface so borders, hovers and
+     disabled states all come from one family. Luminance falls
+     monotonically 50 → 950, so a step is always darker than the one
+     before it.                                                          */
+  --color-brand-50:  #f6f8fc;  /* soft background */
+  --color-brand-100: #e6edf9;  /* secondary light surface */
+  --color-brand-200: #c9d6ec;  /* text on dark bands — 11.3:1 on navy-900 */
+  --color-brand-300: #9fb2d4;  /* muted text on dark — 7.8:1 on navy-900 */
+  --color-brand-400: #7c8fb8;  /* control borders — 3.24:1 on white */
+  --color-brand-500: #4f6796;
+  --color-brand-600: #2c4470;  /* links and nav on light — 9.7:1 on white */
+  --color-brand-700: #213558;
+  --color-brand-800: #1b2748;  /* secondary navy — cards and inner panels */
+  --color-brand-900: #141d38;  /* primary navy — hero, footer, dark bands */
+  --color-brand-950: #0d1428;  /* deepest — overlays and scrims */
 
-  --color-cream: #fef4d8;      /* CTA on dark background, countdown value */
-  --color-line: #d7e6e6;       /* card borders, dividers */
+  /* --- ember ramp (accent) ----------------------------------------------
+     One accent, spent only on what the visitor is meant to act on: the
+     register CTA, section eyebrows, active states, focus. Never a large
+     surface — the site reads navy + white + orange, not multicolour.
 
-  /* design.pen sets ink-muted to #5B7B79. That is 3.98:1 on the mist
-     background it sits on, under the 4.5:1 the same file asks for in its
-     accessibility notes, so it is darkened by one step: 6.1:1 on white,
-     5.2:1 on mist, 4.5:1 on tint. */
-  --color-ink-muted: #4a6866;
+     Three limits here are measured, not assumed:
+       · White on #f07524 is 2.89:1 — a white label on the brand orange
+         fails at any size, so the CTA carries a navy label (5.76:1).
+       · #f07524 as text on white is also 2.89:1 — orange text on a light
+         surface must step down to accent-700 (4.51:1). On a navy ground it
+         steps up to accent-400 instead (7.94:1).
+       · #f07524 as a focus ring is 2.89:1 on white, under the 3:1 a focus
+         indicator needs, so the ring uses accent-600 (3.73 / 4.46).      */
+  --color-accent-50:  #fef6ef;
+  --color-accent-100: #fde8d6;
+  --color-accent-200: #fbcfab;
+  --color-accent-300: #f9ab72;
+  --color-accent-400: #ff9a5c;  /* accent on dark — 7.9:1 on navy-900 */
+  --color-accent-500: #f07524;  /* the brand orange — fills, CTA, graphics */
+  --color-accent-600: #d9600f;  /* hover, and the focus ring */
+  --color-accent-700: #c4550b;  /* orange *text* on light — 4.5:1 on white */
+  --color-accent-800: #a34608;
+  --color-accent-900: #7d3506;
 
-  --color-ph-bg: #e5e5e5;      /* image placeholder */
-  --color-ph-fg: #9aa3a2;
+  /* --- text ------------------------------------------------------------- */
+  /* Text primary is the primary navy itself, so type and structure share one
+     colour instead of drifting apart. */
+  --color-ink: #141d38;        /* headings and body — 16.6:1 on white */
+  --color-ink-muted: #54617e;  /* secondary — 6.2:1 white, 5.3:1 on navy-100 */
+
+  /* --- surfaces --------------------------------------------------------- */
+  --color-offwhite: #f6f8fc;   /* soft background */
+  --color-surface: #e6edf9;    /* secondary light surface — pale panels */
+  --color-peach: #fdf0e6;      /* warm panel; a tint of the accent, not a
+                                  fourth hue, so the palette stays at two */
+  --color-line: #dbe4f2;       /* card borders and dividers (decorative) */
+
+  /* Decorative blue. It exists only for linework and geometry behind
+     content: 2.11:1 on navy-900, which is deliberately below the 3:1 floor
+     because nothing drawn in it may ever carry meaning or state. */
+  --color-deco: #115586;
+
+  /* Image placeholder. It has to differ from every surface it can sit on —
+     set to the secondary light surface it was indistinguishable from
+     `brand-100`, so a missing photograph simply vanished on the agenda,
+     gallery and partner bands. ccd8ec is 1.22:1 against brand-100 and 1.44:1
+     against white: enough to read as a frame without competing with content.
+     The fallback initials are ink-muted on it at 5.5:1. */
+  --color-ph-bg: #ccd8ec;
+  --color-ph-fg: #4e5b78;
 
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* --- type scale (design.pen §2) --------------------------------------- */
-  --text-display: 3rem;          /* H1 / Banner  48 / 700 / 1.15 */
-  --text-display--line-height: 1.15;
-  --text-section: 2rem;          /* H2 / Section 32 / 700 / 1.2  */
-  --text-section--line-height: 1.2;
-  --text-card: 1.25rem;          /* H3 / Card    20 / 600 / 1.3  */
+  /* --- type scale -------------------------------------------------------
+     The reference leans on one very large, tightly-tracked display size and
+     then drops fast to body. Headings gain weight (700 → 800) and negative
+     tracking; body stays at 16/1.6 because this site is read in Vietnamese,
+     whose diacritics need the leading.                                    */
+  --text-display: 3.25rem;       /* H1 / hero      52 / 800 / 1.08 */
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.035em;
+  --text-section: 2.25rem;       /* H2 / section   36 / 800 / 1.15 */
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.03em;
+  --text-card: 1.25rem;          /* H3 / card      20 / 700 / 1.3  */
   --text-card--line-height: 1.3;
-  --text-body: 1rem;             /* Body         16 / 400 / 1.6  */
+  --text-card--letter-spacing: -0.015em;
+  --text-body: 1rem;             /* body           16 / 400 / 1.6  */
   --text-body--line-height: 1.6;
-  --text-caption: 0.8125rem;     /* Caption      13 / 500 / 1.5  */
+  --text-caption: 0.8125rem;     /* caption        13 / 500 / 1.5  */
   --text-caption--line-height: 1.5;
+  --text-eyebrow: 0.75rem;       /* eyebrow        12 / 800 / 1 / +0.16em */
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
 
-  /* --- radii (design.pen §grid) ------------------------------------------
-     8 controls · 10–12 cards · 999 pills                                  */
+  /* --- radii ------------------------------------------------------------
+     8 controls · 10 rows · 14 cards · 24 panels and photo blocks · 999 pills */
   --radius-control: 8px;
-  --radius-card: 12px;
   --radius-row: 10px;
+  --radius-card: 14px;
+  --radius-panel: 24px;
 
-  --shadow-card: 0 1px 2px rgb(12 43 41 / 0.04), 0 8px 24px -14px rgb(12 43 41 / 0.16);
-  --shadow-lift: 0 2px 6px rgb(12 43 41 / 0.06), 0 22px 46px -22px rgb(12 43 41 / 0.24);
+  /* Elevation is carried by a navy-tinted shadow rather than grey: on the
+     soft blue surface a neutral shadow reads as dirt. */
+  --shadow-card: 0 1px 2px rgb(20 29 56 / 0.04), 0 8px 24px -14px rgb(20 29 56 / 0.16);
+  --shadow-lift: 0 2px 6px rgb(20 29 56 / 0.06), 0 22px 46px -22px rgb(20 29 56 / 0.24);
+  --shadow-panel: 0 30px 70px -34px rgb(13 20 40 / 0.55);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ---------- base ---------- */
 :root {
-  --header-h: 5rem;         /* design.pen: Header Desktop 1440×80 */
-  --band-radius: 120px;     /* rounded band corner, desktop  */
+  --header-h: 5rem;         /* desktop 1440×80 */
+  --band-radius: 120px;     /* rounded band corner, desktop */
+  --cut-h: 72px;            /* rise of the angled section cut */
   color-scheme: light;
 }
 @media (max-width: 767px) {
   :root {
-    --header-h: 3.75rem;    /* design.pen: Header Mobile 390×60 */
+    --header-h: 3.75rem;    /* mobile 390×60 */
     --band-radius: 52px;
+    --cut-h: 36px;
   }
 }
 
@@ -83,7 +142,7 @@
 }
 
 :where(input, textarea, [contenteditable]) {
-  caret-color: var(--color-brand-600);
+  caret-color: var(--color-accent-600);
 }
 
 html {
@@ -103,22 +162,39 @@ html {
 
 body {
   background: #ffffff;
-  color: var(--color-brand-950);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* MobileStickyCta sets this to its measured height while it is mounted, so a
+     bar fixed to the bottom of the viewport cannot cover the end of the page
+     or a control the keyboard has just focused. It stays 0 on desktop and
+     whenever the bar does not render. */
+  padding-bottom: var(--sticky-cta-h, 0px);
+}
+
+/* A pointer cursor is not a browser default for <button>, and Tailwind v4
+   dropped the preflight rule that used to add one — so every button on the
+   site would read as non-interactive to a mouse user. `:where()` keeps the
+   specificity at zero so a utility class can still override it. */
+:where(button, [role="button"], summary, [type="submit"], [type="button"]) {
+  cursor: pointer;
+}
+:where(button, [role="button"], [type="submit"], [type="button"]):disabled,
+:where([aria-disabled="true"]) {
+  cursor: not-allowed;
 }
 
 ::selection {
-  background: var(--color-brand-600);
-  color: #fff;
+  background: var(--color-accent-500);
+  color: var(--color-ink);
 }
 
-/* design.pen: body text never below 14px on mobile, and a field under 16px
-   makes iOS zoom the page on focus. */
+/* Body text never below 14px on mobile, and a field under 16px makes iOS
+   zoom the page on focus. */
 :where(input, select, textarea) {
   font-size: max(16px, 1rem);
 }
@@ -134,9 +210,12 @@ body {
   ::-webkit-scrollbar-thumb:hover { background: var(--color-brand-400); }
 }
 
-/* design.pen: every interactive state needs a visible focus ring in #067C74. */
+/* The ring is the accent, not the navy: half this site's interactive surface
+   sits on a navy band, where a navy ring is invisible. Accent-600 is 3.6:1 on
+   white and about 4:1 on navy-900 — over the 3:1 a focus indicator needs on
+   both grounds. */
 :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-brand-600);
+  outline: 2px solid var(--color-accent-600);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -156,22 +235,34 @@ body {
   @media (min-width: 1440px) { padding-inline: 120px; }
 }
 
-/* design.pen: section vertical padding 56–88 desktop, 32–44 mobile. */
+/* Section rhythm — three tiers, so a page can express hierarchy through
+   spacing instead of adding rules and boxes.
+     tight  56px mobile ·  80px desktop — a section continuing its neighbour
+     normal 64px mobile · 112px desktop — the default major section
+     wide   72px mobile · 144px desktop — either side of a strong transition
+   Mobile stays well under the desktop step: the same 144px on a 390px screen
+   reads as a broken page, not as generosity. */
 @utility section-y {
-  padding-block: 2.25rem;
-  @media (min-width: 640px) { padding-block: 3.5rem; }
-  @media (min-width: 1024px) { padding-block: 5.5rem; }
+  padding-block: 4rem;
+  @media (min-width: 640px) { padding-block: 5rem; }
+  @media (min-width: 1024px) { padding-block: 7rem; }
 }
 @utility section-y-tight {
-  padding-block: 2rem;
-  @media (min-width: 1024px) { padding-block: 3.5rem; }
+  padding-block: 3.5rem;
+  @media (min-width: 1024px) { padding-block: 5rem; }
+}
+@utility section-y-wide {
+  padding-block: 4.5rem;
+  @media (min-width: 640px) { padding-block: 6rem; }
+  @media (min-width: 1024px) { padding-block: 9rem; }
 }
 
 /* ============================================================
-   Rounded band (design.pen §"Rounded band pattern")
-   Two elements: a wrapper painted the colour of the ADJACENT section the
-   corner exposes, and an inner band that carries the radius and clips. The
-   wrapper is what stops the page's white showing through the cut.
+   Band and cut — the two ways a dark section meets a light one.
+   `band` keeps the soft rounded corner; `cut-*` is the diagonal the
+   reference runs under its dark blocks. In both cases the wrapper must be
+   painted the colour of the ADJACENT section that the corner or slope
+   exposes, or the page's white shows through the notch.
    ============================================================ */
 @utility band {
   overflow: hidden;
@@ -183,6 +274,17 @@ body {
 @utility band-bl { border-bottom-left-radius: var(--band-radius); }
 @utility band-tr { border-top-right-radius: var(--band-radius); }
 
+/* Diagonal foot: the block's bottom edge rises from left to right. */
+@utility cut-b {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut-h)), 0 100%);
+  padding-bottom: var(--cut-h);
+}
+/* Diagonal head, mirrored, so a light section can sit up into a dark one. */
+@utility cut-t {
+  clip-path: polygon(0 var(--cut-h), 100% 0, 100% 100%, 0 100%);
+  padding-top: var(--cut-h);
+}
+
 @utility card-hover {
   transition: transform 0.35s var(--ease-out-soft), box-shadow 0.35s var(--ease-out-soft),
     border-color 0.35s var(--ease-out-soft);
@@ -190,6 +292,39 @@ body {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lift);
   }
+}
+
+/* Faint hexagon field — the reference's watermark on its pale cards. Purely
+   decorative: it carries no meaning and never sits under body text at a
+   contrast that could disturb it. */
+@utility hex-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23115586' fill-opacity='0.07' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34L25 30.6V17.9l-11.01-6.35L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81V33.5zM15 0v7.5L27.99 15H28v-2.31l-11-6.34V0h-2zm0 49v-8l12.99-7.5H28v2.31l-11 6.34V49h-2z'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+}
+@utility hex-field-warm {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23c4550b' fill-opacity='0.08' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34L25 30.6V17.9l-11.01-6.35L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81V33.5zM15 0v7.5L27.99 15H28v-2.31l-11-6.34V0h-2zm0 49v-8l12.99-7.5H28v2.31l-11 6.34V49h-2z'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+}
+@utility hex-field-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34L25 30.6V17.9l-11.01-6.35L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81V33.5zM15 0v7.5L27.99 15H28v-2.31l-11-6.34V0h-2zm0 49v-8l12.99-7.5H28v2.31l-11 6.34V49h-2z'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+}
+
+/* Thin architectural linework — a 96px rule grid drawn in the decorative
+   blue. Used behind the hero and at most one other band per page; it is the
+   quietest of the three motifs, so it can sit under large type where the
+   hexagon field would fight it. */
+@utility line-grid {
+  background-image:
+    linear-gradient(to right, rgb(17 85 134 / 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 85 134 / 0.22) 1px, transparent 1px);
+  background-size: 96px 96px;
+}
+@utility line-grid-light {
+  background-image:
+    linear-gradient(to right, rgb(17 85 134 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 85 134 / 0.08) 1px, transparent 1px);
+  background-size: 96px 96px;
 }
 
 @utility line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
@@ -201,7 +336,7 @@ body {
    Rich text from the admin editor
    ============================================================ */
 .prose-event {
-  color: color-mix(in oklab, var(--color-brand-950) 88%, white);
+  color: color-mix(in oklab, var(--color-ink) 92%, white);
   font-size: var(--text-body);
   line-height: 1.75;
   /* Past ~70 characters the eye loses the line it is returning to. */
@@ -213,40 +348,42 @@ body {
   margin-top: 2.25rem;
   font-size: var(--text-section);
   line-height: var(--text-section--line-height);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-brand-950);
+  letter-spacing: var(--text-section--letter-spacing);
+  font-weight: 800;
+  color: var(--color-ink);
 }
 .prose-event h3 {
   margin-top: 1.75rem;
   font-size: var(--text-card);
   line-height: var(--text-card--line-height);
-  font-weight: 600;
-  color: var(--color-brand-950);
+  font-weight: 700;
+  color: var(--color-ink);
 }
-.prose-event strong { color: var(--color-brand-900); font-weight: 650; }
+.prose-event strong { color: var(--color-ink); font-weight: 700; }
+/* Body links stay navy. Orange is reserved for what the visitor is meant to
+   act on, and it cannot carry small text on white anyway (2.85:1). */
 .prose-event a {
   color: var(--color-brand-600);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1.5px;
 }
-.prose-event a:hover { color: var(--color-brand-800); }
+.prose-event a:hover { color: var(--color-accent-700); }
 .prose-event ul, .prose-event ol { padding-left: 1.35rem; }
 .prose-event ul { list-style: disc; }
 .prose-event ol { list-style: decimal; }
 .prose-event li + li { margin-top: 0.4rem; }
-.prose-event li::marker { color: var(--color-brand-400); }
+.prose-event li::marker { color: var(--color-accent-500); }
 .prose-event blockquote {
-  border-left: 3px solid var(--color-brand-400);
+  border-left: 3px solid var(--color-accent-500);
   padding: 0.25rem 0 0.25rem 1.25rem;
   font-style: italic;
-  color: var(--color-brand-800);
+  color: var(--color-brand-700);
 }
 .prose-event img { border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .prose-event hr { border-color: var(--color-line); margin-block: 2.25rem; }
 .prose-event code {
-  background: var(--color-brand-50);
+  background: var(--color-surface);
   border-radius: 0.375rem;
   padding: 0.15em 0.4em;
   font-size: 0.9em;

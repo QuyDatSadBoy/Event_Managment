@@ -1,6 +1,6 @@
 import type { AgendaDay } from "@/lib/types";
 import { formatDate, formatWeekday } from "@/lib/utils";
-import { AgendaRow } from "./AgendaRow";
+import { AgendaRow, AgendaTimeline } from "./AgendaRow";
 
 /** The first day's opening sessions, as a taste of the full programme. */
 export function AgendaPreview({ days }: { days: AgendaDay[] }) {
@@ -10,7 +10,7 @@ export function AgendaPreview({ days }: { days: AgendaDay[] }) {
   return (
     <div className="mt-9">
       <div className="mb-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-card font-semibold tracking-tight text-brand-950">
+        <h3 className="text-card font-semibold tracking-tight text-ink">
           {day.label}
           {day.title && <span className="text-ink-muted"> · {day.title}</span>}
         </h3>
@@ -19,13 +19,13 @@ export function AgendaPreview({ days }: { days: AgendaDay[] }) {
         </p>
       </div>
 
-      <ol className="space-y-3">
+      <AgendaTimeline>
         {day.sessions.slice(0, 5).map((session) => (
           <li key={session.id}>
             <AgendaRow session={session} />
           </li>
         ))}
-      </ol>
+      </AgendaTimeline>
     </div>
   );
 }

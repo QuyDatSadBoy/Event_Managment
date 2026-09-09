@@ -187,9 +187,9 @@ export function RegistrationForm() {
         </SelectField>
 
         <div>
-          <p className="mb-3 text-sm font-semibold text-brand-950">
+          <p className="mb-3 text-sm font-semibold text-ink">
             Chủ đề bạn quan tâm
-            <span className="ml-2 font-normal text-brand-950/45">
+            <span className="ml-2 font-normal text-ink-muted">
               (dùng để xếp lịch kết nối giao thương)
             </span>
           </p>
@@ -206,8 +206,8 @@ export function RegistrationForm() {
                     "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium sm:min-h-10",
                     "transition-[background-color,border-color,color,box-shadow] duration-300",
                     active
-                      ? "border-brand-600 bg-brand-600 text-white shadow-[0_8px_20px_-10px_rgb(6_124_116/0.9)]"
-                      : "border-brand-200 bg-white text-brand-800 hover:border-brand-400 hover:bg-brand-50",
+                      ? "border-accent-500 bg-accent-500 text-ink shadow-[0_8px_20px_-10px_rgb(217_96_15/0.7)]"
+                      : "border-line bg-white text-brand-700 hover:border-accent-400 hover:bg-accent-50",
                   )}
                 >
                   {topic}
@@ -229,7 +229,7 @@ export function RegistrationForm() {
       </fieldset>
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-relaxed text-brand-950/45 sm:max-w-sm">
+        <p className="text-xs leading-relaxed text-ink-muted sm:max-w-sm">
           Bằng việc đăng ký, bạn đồng ý để ban tổ chức liên hệ về nội dung sự kiện. Thông tin không
           được chia sẻ cho bên thứ ba.
         </p>

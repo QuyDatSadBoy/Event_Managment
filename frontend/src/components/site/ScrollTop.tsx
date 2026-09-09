@@ -22,7 +22,7 @@ export function ScrollTop() {
       className={cn(
         "fixed z-30 grid h-11 w-11 place-items-center rounded-full bg-brand-950/85 text-white backdrop-blur-md",
         "right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] sm:right-6 sm:bottom-6 sm:h-12 sm:w-12",
-        "shadow-[0_12px_30px_-10px_rgb(12_43_41/0.7)] transition-[opacity,transform,background-color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-brand-600",
+        "shadow-[0_12px_30px_-10px_rgb(13_20_40/0.7)] transition-[opacity,transform,background-color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-brand-600",
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
       )}
     >

@@ -27,7 +27,7 @@ export function Pagination({ page, totalPages, hrefFor }: Props) {
   const items = pageWindow(page, totalPages);
 
   const arrow =
-    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-200 text-brand-700 transition-[border-color,background-color] duration-300 hover:border-brand-400 hover:bg-brand-50";
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-400 text-brand-700 transition-[border-color,background-color] duration-300 hover:border-accent-500 hover:bg-accent-50";
   const disabled = "pointer-events-none opacity-40";
 
   return (
@@ -43,7 +43,7 @@ export function Pagination({ page, totalPages, hrefFor }: Props) {
 
       {items.map((item, i) =>
         item === "gap" ? (
-          <span key={`gap-${i}`} className="px-1 text-brand-400">
+          <span key={`gap-${i}`} className="px-1 text-ink-muted">
             …
           </span>
         ) : (
@@ -54,8 +54,8 @@ export function Pagination({ page, totalPages, hrefFor }: Props) {
             className={cn(
               "inline-flex h-11 min-w-11 items-center justify-center rounded-full px-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow] duration-300",
               item === page
-                ? "bg-brand-600 text-white shadow-[0_8px_20px_-8px_rgb(6_124_116/0.8)]"
-                : "border border-brand-200 text-brand-700 hover:border-brand-400 hover:bg-brand-50",
+                ? "bg-brand-900 text-white shadow-[0_8px_20px_-8px_rgb(13_20_40/0.55)]"
+                : "border border-brand-400 text-brand-700 hover:border-accent-500 hover:bg-accent-50",
             )}
           >
             {item}
