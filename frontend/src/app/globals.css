@@ -2,73 +2,88 @@
 
 /* ============================================================
    VHD Summit — design tokens
-   A single ocean-blue ramp carries the whole site. Cyan is the
-   only accent; gold appears on awards and nothing else.
+   Implements design.pen (v1.0). Palette, type scale, grid and
+   radii below are the values in that file; the two exceptions
+   are noted where they occur.
    ============================================================ */
 @theme {
-  --color-ocean-50:  #edf8ff;
-  --color-ocean-100: #d6efff;
-  --color-ocean-200: #b5e3ff;
-  --color-ocean-300: #83d2ff;
-  --color-ocean-400: #48b7ff;
-  --color-ocean-500: #1e97f5;
-  --color-ocean-600: #0678d6;
-  --color-ocean-700: #045fad;
-  --color-ocean-800: #08508e;
-  --color-ocean-900: #0d4375;
-  --color-ocean-950: #082a4d;
+  /* --- brand ramp -------------------------------------------------------
+     Anchored on design.pen's six brand colours; the in-between steps are
+     interpolated so utilities like bg-brand-300 exist for hover and border
+     states the design implies but does not name.                        */
+  --color-brand-50:  #f2f9f9;
+  --color-brand-100: #e3f1f2;  /* mist  — alternating page background */
+  --color-brand-200: #c3e5e3;  /* tint  — secondary section bg, tags */
+  --color-brand-300: #9bd2ce;
+  --color-brand-400: #62b4af;  /* secondary — icons, accent rules, badges */
+  --color-brand-500: #2e9891;
+  --color-brand-600: #067c74;  /* primary — CTA buttons, links, dark headers */
+  --color-brand-700: #056a63;
+  --color-brand-800: #04564f;  /* primary dark — hover, footer */
+  --color-brand-900: #0c3f3a;
+  --color-brand-950: #0c2b29;  /* ink — headings and body text */
 
-  --color-abyss: #041c33;
-  --color-abyss-soft: #062a4d;
+  --color-cream: #fef4d8;      /* CTA on dark background, countdown value */
+  --color-line: #d7e6e6;       /* card borders, dividers */
 
-  --color-cyan-glow: #22d3ee;
-  /* Lighter cyan for small text on deep grounds, where cyan-glow falls under 4.5:1. */
-  --color-cyan-soft: #6ee7f9;
-  --color-gold: #f5b335;
+  /* design.pen sets ink-muted to #5B7B79. That is 3.98:1 on the mist
+     background it sits on, under the 4.5:1 the same file asks for in its
+     accessibility notes, so it is darkened by one step: 6.1:1 on white,
+     5.2:1 on mist, 4.5:1 on tint. */
+  --color-ink-muted: #4a6866;
+
+  --color-ph-bg: #e5e5e5;      /* image placeholder */
+  --color-ph-fg: #9aa3a2;
 
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --shadow-card: 0 1px 2px rgb(8 42 77 / 0.05), 0 8px 24px -12px rgb(8 42 77 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(8 42 77 / 0.06), 0 24px 48px -20px rgb(8 42 77 / 0.28);
-  --shadow-glow: 0 12px 40px -12px rgb(6 120 214 / 0.55);
+  /* --- type scale (design.pen §2) --------------------------------------- */
+  --text-display: 3rem;          /* H1 / Banner  48 / 700 / 1.15 */
+  --text-display--line-height: 1.15;
+  --text-section: 2rem;          /* H2 / Section 32 / 700 / 1.2  */
+  --text-section--line-height: 1.2;
+  --text-card: 1.25rem;          /* H3 / Card    20 / 600 / 1.3  */
+  --text-card--line-height: 1.3;
+  --text-body: 1rem;             /* Body         16 / 400 / 1.6  */
+  --text-body--line-height: 1.6;
+  --text-caption: 0.8125rem;     /* Caption      13 / 500 / 1.5  */
+  --text-caption--line-height: 1.5;
+
+  /* --- radii (design.pen §grid) ------------------------------------------
+     8 controls · 10–12 cards · 999 pills                                  */
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-row: 10px;
+
+  --shadow-card: 0 1px 2px rgb(12 43 41 / 0.04), 0 8px 24px -14px rgb(12 43 41 / 0.16);
+  --shadow-lift: 0 2px 6px rgb(12 43 41 / 0.06), 0 22px 46px -22px rgb(12 43 41 / 0.24);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-shimmer: shimmer 2.2s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
-}
-@keyframes shimmer {
-  from { background-position: -200% 0; }
-  to   { background-position: 200% 0; }
 }
 
 /* ---------- base ---------- */
 :root {
-  --header-h: 4.5rem;
+  --header-h: 5rem;         /* design.pen: Header Desktop 1440×80 */
+  --band-radius: 120px;     /* rounded band corner, desktop  */
   color-scheme: light;
+}
+@media (max-width: 767px) {
+  :root {
+    --header-h: 3.75rem;    /* design.pen: Header Mobile 390×60 */
+    --band-radius: 52px;
+  }
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
-  /* Double-tap zoom adds a 300ms delay to every tap; the page is already
-     zoomable through pinch. */
+  /* Double-tap zoom adds a 300ms delay to every tap; pinch still zooms. */
   touch-action: manipulation;
 }
 
-/* The caret is a browser surface nobody themes — it belongs to the palette. */
 :where(input, textarea, [contenteditable]) {
-  caret-color: var(--color-ocean-600);
+  caret-color: var(--color-brand-600);
 }
 
 html {
@@ -88,175 +103,151 @@ html {
 
 body {
   background: #ffffff;
-  color: var(--color-ocean-950);
+  color: var(--color-brand-950);
   font-family: var(--font-sans);
-  font-feature-settings: "cv02", "cv03", "cv04";
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-ocean-600);
+  background: var(--color-brand-600);
   color: #fff;
 }
 
-/* Below 16px, iOS zooms the whole page when a field takes focus — on iPad as
-   well as iPhone, so the floor is unconditional. */
+/* design.pen: body text never below 14px on mobile, and a field under 16px
+   makes iOS zoom the page on focus. */
 :where(input, select, textarea) {
   font-size: max(16px, 1rem);
 }
 
-/* Scrollbar — subtle, matches the palette, ignored on touch devices. */
 @media (pointer: fine) {
   ::-webkit-scrollbar { width: 11px; height: 11px; }
-  ::-webkit-scrollbar-track { background: var(--color-ocean-50); }
+  ::-webkit-scrollbar-track { background: var(--color-brand-50); }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-ocean-300);
+    background: var(--color-brand-300);
     border-radius: 99px;
-    border: 3px solid var(--color-ocean-50);
+    border: 3px solid var(--color-brand-50);
   }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-ocean-400); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-brand-400); }
 }
 
-/* Focus ring: one definition, applied everywhere keyboard focus lands. */
+/* design.pen: every interactive state needs a visible focus ring in #067C74. */
 :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-ocean-500);
+  outline: 2px solid var(--color-brand-600);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 /* ============================================================
-   Utilities used across pages
+   Layout
+   Desktop: 1440 frame · 120 side margin · 1200 content
+   Mobile:   390 frame ·  20 side margin ·  350 content
    ============================================================ */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  padding-inline: 1.25rem;
-  max-width: 80rem;
-  @media (min-width: 640px) { padding-inline: 1.5rem; }
-  @media (min-width: 1024px) { padding-inline: 2rem; }
+  max-width: calc(1200px + 2 * 120px);
+  padding-inline: 20px;
+  @media (min-width: 640px) { padding-inline: 40px; }
+  @media (min-width: 1024px) { padding-inline: 80px; }
+  @media (min-width: 1440px) { padding-inline: 120px; }
 }
 
-@utility surface-deep {
-  background:
-    radial-gradient(1200px 600px at 15% -10%, rgb(34 211 238 / 0.20), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgb(6 120 214 / 0.35), transparent 55%),
-    linear-gradient(160deg, var(--color-abyss) 0%, var(--color-abyss-soft) 55%, var(--color-ocean-900) 100%);
-}
-
-/* Faint blueprint grid that sits behind dark sections. */
-@utility grid-overlay {
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-/* Expands the hit area around a control that must stay visually small.
-   The pseudo-element is centred on the control and never affects layout. */
-@utility tap-target {
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 50% 50%;
-    width: 44px;
-    height: 44px;
-    transform: translate(-50%, -50%);
-  }
-  @media (min-width: 768px) {
-    &::after { width: 24px; height: 24px; }
-  }
-}
-
-/* The single vertical rhythm for page sections. Two of these meeting at a
-   background change is the largest gap the page should ever show. */
+/* design.pen: section vertical padding 56–88 desktop, 32–44 mobile. */
 @utility section-y {
-  padding-block: 3.5rem;
-  @media (min-width: 640px) { padding-block: 4.5rem; }
+  padding-block: 2.25rem;
+  @media (min-width: 640px) { padding-block: 3.5rem; }
   @media (min-width: 1024px) { padding-block: 5.5rem; }
 }
+@utility section-y-tight {
+  padding-block: 2rem;
+  @media (min-width: 1024px) { padding-block: 3.5rem; }
+}
+
+/* ============================================================
+   Rounded band (design.pen §"Rounded band pattern")
+   Two elements: a wrapper painted the colour of the ADJACENT section the
+   corner exposes, and an inner band that carries the radius and clips. The
+   wrapper is what stops the page's white showing through the cut.
+   ============================================================ */
+@utility band {
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+@utility band-br { border-bottom-right-radius: var(--band-radius); }
+@utility band-tl { border-top-left-radius: var(--band-radius); }
+@utility band-bl { border-bottom-left-radius: var(--band-radius); }
+@utility band-tr { border-top-right-radius: var(--band-radius); }
 
 @utility card-hover {
-  transition: transform 0.4s var(--ease-out-soft), box-shadow 0.4s var(--ease-out-soft);
+  transition: transform 0.35s var(--ease-out-soft), box-shadow 0.35s var(--ease-out-soft),
+    border-color 0.35s var(--ease-out-soft);
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lift);
   }
 }
 
-/* Clamp helpers — long Vietnamese titles need predictable card heights. */
 @utility line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 @utility line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 @utility line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 @utility line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* ============================================================
-   Rich text coming out of the admin editor
+   Rich text from the admin editor
    ============================================================ */
 .prose-event {
-  color: color-mix(in oklab, var(--color-ocean-950) 82%, white);
-  font-size: 1.0625rem;
-  line-height: 1.85;
-  /* Cap the measure at roughly 70 characters — past that the eye loses the
-     line it is returning to. */
+  color: color-mix(in oklab, var(--color-brand-950) 88%, white);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  /* Past ~70 characters the eye loses the line it is returning to. */
   max-width: 68ch;
 }
-.prose-event > :where(figure, img, table, pre, hr, blockquote) {
-  max-width: none;
-}
-.prose-event > * + * { margin-top: 1.25rem; }
+.prose-event > :where(figure, img, table, pre, hr, blockquote) { max-width: none; }
+.prose-event > * + * { margin-top: 1.15rem; }
 .prose-event h2 {
-  margin-top: 2.5rem;
-  font-size: 1.5rem;
+  margin-top: 2.25rem;
+  font-size: var(--text-section);
+  line-height: var(--text-section--line-height);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--color-ocean-950);
+  color: var(--color-brand-950);
 }
 .prose-event h3 {
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-ocean-950);
+  margin-top: 1.75rem;
+  font-size: var(--text-card);
+  line-height: var(--text-card--line-height);
+  font-weight: 600;
+  color: var(--color-brand-950);
 }
-.prose-event strong { color: var(--color-ocean-900); font-weight: 650; }
+.prose-event strong { color: var(--color-brand-900); font-weight: 650; }
 .prose-event a {
-  color: var(--color-ocean-700);
+  color: var(--color-brand-600);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1.5px;
 }
-.prose-event a:hover { color: var(--color-ocean-500); }
+.prose-event a:hover { color: var(--color-brand-800); }
 .prose-event ul, .prose-event ol { padding-left: 1.35rem; }
 .prose-event ul { list-style: disc; }
 .prose-event ol { list-style: decimal; }
-.prose-event li + li { margin-top: 0.5rem; }
-.prose-event li::marker { color: var(--color-ocean-500); }
+.prose-event li + li { margin-top: 0.4rem; }
+.prose-event li::marker { color: var(--color-brand-400); }
 .prose-event blockquote {
-  border-left: 3px solid var(--color-ocean-400);
+  border-left: 3px solid var(--color-brand-400);
   padding: 0.25rem 0 0.25rem 1.25rem;
   font-style: italic;
-  color: var(--color-ocean-800);
+  color: var(--color-brand-800);
 }
-.prose-event img { border-radius: 1rem; box-shadow: var(--shadow-card); }
-.prose-event hr { border-color: var(--color-ocean-100); margin-block: 2.5rem; }
+.prose-event img { border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.prose-event hr { border-color: var(--color-line); margin-block: 2.25rem; }
 .prose-event code {
-  background: var(--color-ocean-50);
+  background: var(--color-brand-50);
   border-radius: 0.375rem;
   padding: 0.15em 0.4em;
   font-size: 0.9em;
-}
-
-/* Reveal-on-scroll: elements start hidden and are unhidden by an observer.
-   No-JS and reduced-motion users get the final state immediately. */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
-  will-change: opacity, transform;
-}
-.reveal.is-visible { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; }
 }

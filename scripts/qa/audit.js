@@ -1,4 +1,11 @@
 const { chromium } = require("playwright");
+
+async function disableSmoothScroll(page) {
+  await page.addStyleTag({
+    content: "html { scroll-behavior: auto !important; } *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }",
+  });
+}
+
 const fs = require("fs");
 
 const BASE = process.env.BASE || "http://localhost:3002";
@@ -140,11 +147,25 @@ const AUDIT = () => {
       }
     }
     if (buried) continue;
-    if (r.height < min - 0.5 || r.width < min - 0.5) {
-      const key = `${el.tagName}|${Math.round(r.width)}x${Math.round(r.height)}|${(el.getAttribute("aria-label") || el.textContent || "").slice(0,20)}`;
+    // A card whose title link carries a full-bleed ::before is clickable across
+    // the whole card; measuring the text box understates the real target.
+    let hit = r;
+    try {
+      const before = getComputedStyle(el, "::before");
+      if (before && before.position === "absolute" && before.content !== "none") {
+        const host = el.closest("article, li, .group") || el.offsetParent;
+        if (host) {
+          const hr = host.getBoundingClientRect();
+          if (hr.width >= r.width && hr.height >= r.height) hit = hr;
+        }
+      }
+    } catch { /* ::before not queryable */ }
+
+    if (hit.height < min - 0.5 || hit.width < min - 0.5) {
+      const key = `${el.tagName}|${Math.round(hit.width)}x${Math.round(hit.height)}|${(el.getAttribute("aria-label") || el.textContent || "").slice(0,20)}`;
       if (tseen.has(key)) continue;
       tseen.add(key);
-      add("tap-target", `${Math.round(r.width)}×${Math.round(r.height)} (min ${min}) — ${el.tagName.toLowerCase()} "${(el.getAttribute("aria-label") || el.textContent || "").trim().slice(0, 28)}"`);
+      add("tap-target", `${Math.round(hit.width)}×${Math.round(hit.height)} (min ${min}) — ${el.tagName.toLowerCase()} "${(el.getAttribute("aria-label") || el.textContent || "").trim().slice(0, 28)}"`);
     }
   }
 
@@ -219,6 +240,24 @@ const AUDIT = () => {
   return out;
 };
 
+
+// domcontentloaded fires before stylesheets finish, and measuring an unstyled
+// page reports every ratio and every measure as a failure. Nothing is sampled
+// until the page is actually wearing its CSS.
+async function waitForStyled(page) {
+  await page.waitForFunction(
+    () => {
+      if (document.styleSheets.length === 0) return false;
+      // Tailwind compiles most theme tokens to literals, so a custom property
+      // is not a reliable signal; the font stack is set from one that survives.
+      const ff = getComputedStyle(document.body).fontFamily;
+      return ff.includes("Be Vietnam") || ff.includes("--font-be-vietnam");
+    },
+    null,
+    { timeout: 20000 },
+  );
+}
+
 // ------------------------------------------------------------------ run ---
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
@@ -239,12 +278,14 @@ const AUDIT = () => {
     for (const [name, path] of pages) {
       try {
         await page.goto(BASE + path, { waitUntil: "domcontentloaded", timeout: 45000 });
+        await waitForStyled(page);
+      await disableSmoothScroll(page);
         await page.evaluate(async () => {
           const step = window.innerHeight * 0.8;
           for (let y = 0; y < document.body.scrollHeight; y += step) {
-            window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60));
+            window.scrollTo({ top: y, behavior: "instant" }); await new Promise((r) => setTimeout(r, 60));
           }
-          window.scrollTo(0, 0); await new Promise((r) => setTimeout(r, 250));
+          window.scrollTo({ top: 0, behavior: "instant" }); await new Promise((r) => setTimeout(r, 250));
         });
         await page.waitForTimeout(500);
 

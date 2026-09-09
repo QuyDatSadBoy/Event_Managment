@@ -18,10 +18,10 @@ export function AdminGate({ children }: { children: ReactNode }) {
 
   if (loading || !user) {
     return (
-      <div className="grid min-h-dvh place-items-center bg-ocean-50/40">
+      <div className="grid min-h-dvh place-items-center bg-brand-50/40">
         <div className="text-center">
-          <Loader2 className="mx-auto h-7 w-7 animate-spin text-ocean-500" />
-          <p className="mt-4 text-sm text-ocean-950/50">Đang kiểm tra phiên đăng nhập…</p>
+          <Loader2 className="mx-auto h-7 w-7 animate-spin text-brand-500" />
+          <p className="mt-4 text-sm text-brand-950/50">Đang kiểm tra phiên đăng nhập…</p>
         </div>
       </div>
     );

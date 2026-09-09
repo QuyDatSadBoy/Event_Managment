@@ -14,7 +14,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
   const [hover, setHover] = useState<number | null>(null);
 
   if (data.length === 0) {
-    return <p className="py-10 text-center text-sm text-ocean-950/45">Chưa có dữ liệu.</p>;
+    return <p className="py-10 text-center text-sm text-brand-950/45">Chưa có dữ liệu.</p>;
   }
 
   const W = 640;
@@ -44,8 +44,8 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
       >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--color-ocean-500)" stopOpacity="0.32" />
-            <stop offset="100%" stopColor="var(--color-ocean-500)" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--color-brand-500)" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="var(--color-brand-500)" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -57,7 +57,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
             x2={W - PAD.right}
             y1={y(max * f)}
             y2={y(max * f)}
-            stroke="var(--color-ocean-100)"
+            stroke="var(--color-brand-100)"
             strokeWidth="1"
           />
         ))}
@@ -66,7 +66,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
         <path
           d={line}
           fill="none"
-          stroke="var(--color-ocean-600)"
+          stroke="var(--color-brand-600)"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -88,7 +88,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
               cy={y(d.count)}
               r={hover === i ? 5 : 3}
               fill="white"
-              stroke="var(--color-ocean-600)"
+              stroke="var(--color-brand-600)"
               strokeWidth="2.5"
               className="transition-[r] duration-200"
             />
@@ -102,7 +102,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
               x={x(i)}
               y={H - 6}
               textAnchor="middle"
-              className="fill-[color:var(--color-ocean-950)]/40 text-[11px]"
+              className="fill-[color:var(--color-brand-950)]/40 text-[11px]"
             >
               {formatDateShort(d.date).slice(0, 5)}
             </text>
@@ -112,7 +112,7 @@ export function TrendChart({ data, height = 180 }: { data: Point[]; height?: num
 
       {active && (
         <div
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-full rounded-lg bg-ocean-950 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-full rounded-lg bg-brand-950 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg"
           style={{
             left: `${(x(hover!) / W) * 100}%`,
             top: `${(y(active.count) / H) * 100}%`,

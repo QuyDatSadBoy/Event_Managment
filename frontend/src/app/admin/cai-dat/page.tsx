@@ -123,7 +123,7 @@ export default function AdminSettingsPage() {
       >
         {settings && (
           <form id="settings-form" onSubmit={save}>
-            <div className="mb-6 flex flex-wrap gap-1.5 border-b border-ocean-100 pb-px">
+            <div className="mb-6 flex flex-wrap gap-1.5 border-b border-brand-100 pb-px">
               {TABS.map((t) => (
                 <button
                   key={t.id}
@@ -133,8 +133,8 @@ export default function AdminSettingsPage() {
                   className={cn(
                     "relative -mb-px rounded-t-lg px-4 py-2.5 text-sm font-medium transition duration-300",
                     tab === t.id
-                      ? "border-b-2 border-ocean-600 text-ocean-800"
-                      : "border-b-2 border-transparent text-ocean-950/50 hover:text-ocean-800",
+                      ? "border-b-2 border-brand-600 text-brand-800"
+                      : "border-b-2 border-transparent text-brand-950/50 hover:text-brand-800",
                   )}
                 >
                   {t.label}
@@ -190,7 +190,7 @@ export default function AdminSettingsPage() {
                 </AdminCard>
 
                 <AdminCard className="space-y-5">
-                  <h2 className="text-base font-bold tracking-tight text-ocean-950">Địa điểm</h2>
+                  <h2 className="text-base font-bold tracking-tight text-brand-950">Địa điểm</h2>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <TextField
                       id="s-venue"
@@ -218,8 +218,8 @@ export default function AdminSettingsPage() {
                 <AdminCard>
                   <label className="flex cursor-pointer items-center justify-between gap-4">
                     <span>
-                      <span className="block font-semibold text-ocean-950">Mở cổng đăng ký</span>
-                      <span className="mt-0.5 block text-sm text-ocean-950/50">
+                      <span className="block font-semibold text-brand-950">Mở cổng đăng ký</span>
+                      <span className="mt-0.5 block text-sm text-brand-950/50">
                         Tắt để đóng biểu mẫu đăng ký trên trang công khai.
                       </span>
                     </span>
@@ -227,7 +227,7 @@ export default function AdminSettingsPage() {
                       type="checkbox"
                       checked={settings.registration_open}
                       onChange={(e) => set("registration_open", e.target.checked)}
-                      className="h-5 w-5 shrink-0 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                      className="h-5 w-5 shrink-0 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
                     />
                   </label>
                 </AdminCard>
@@ -263,10 +263,10 @@ export default function AdminSettingsPage() {
                 <AdminCard>
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <h2 className="text-base font-bold tracking-tight text-ocean-950">
+                      <h2 className="text-base font-bold tracking-tight text-brand-950">
                         Slideshow trang chủ
                       </h2>
-                      <p className="mt-0.5 text-sm text-ocean-950/50">
+                      <p className="mt-0.5 text-sm text-brand-950/50">
                         Các ảnh chuyển tự động sau mỗi 6 giây.
                       </p>
                     </div>
@@ -282,15 +282,15 @@ export default function AdminSettingsPage() {
                   </div>
 
                   {settings.hero_slides.length === 0 ? (
-                    <p className="mt-5 rounded-xl border border-dashed border-ocean-200 px-4 py-8 text-center text-sm text-ocean-950/45">
+                    <p className="mt-5 rounded-xl border border-dashed border-brand-200 px-4 py-8 text-center text-sm text-brand-950/45">
                       Chưa có ảnh nào. Trang chủ sẽ dùng ảnh nền mặc định.
                     </p>
                   ) : (
                     <div className="mt-5 grid gap-4 sm:grid-cols-2">
                       {settings.hero_slides.map((slide, i) => (
-                        <div key={i} className="rounded-2xl border border-ocean-100 p-4">
+                        <div key={i} className="rounded-2xl border border-brand-100 p-4">
                           <div className="mb-3 flex items-center justify-between">
-                            <span className="text-xs font-bold uppercase tracking-wider text-ocean-950/45">
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-950/45">
                               Ảnh {i + 1}
                             </span>
                             <button
@@ -326,10 +326,10 @@ export default function AdminSettingsPage() {
                 <AdminCard>
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <h2 className="text-base font-bold tracking-tight text-ocean-950">
+                      <h2 className="text-base font-bold tracking-tight text-brand-950">
                         Số liệu nổi bật
                       </h2>
-                      <p className="mt-0.5 text-sm text-ocean-950/50">
+                      <p className="mt-0.5 text-sm text-brand-950/50">
                         Dải số đếm ngay dưới phần đầu trang chủ.
                       </p>
                     </div>
@@ -350,7 +350,7 @@ export default function AdminSettingsPage() {
                   </div>
 
                   {settings.stats.length === 0 ? (
-                    <p className="mt-5 rounded-xl border border-dashed border-ocean-200 px-4 py-8 text-center text-sm text-ocean-950/45">
+                    <p className="mt-5 rounded-xl border border-dashed border-brand-200 px-4 py-8 text-center text-sm text-brand-950/45">
                       Chưa có số liệu nào.
                     </p>
                   ) : (
@@ -358,7 +358,7 @@ export default function AdminSettingsPage() {
                       {settings.stats.map((stat, i) => (
                         <div
                           key={i}
-                          className="grid gap-3 rounded-xl border border-ocean-100 p-3.5 sm:grid-cols-[7rem_5rem_1fr_8rem_auto]"
+                          className="grid gap-3 rounded-xl border border-brand-100 p-3.5 sm:grid-cols-[7rem_5rem_1fr_8rem_auto]"
                         >
                           <TextField
                             id={`stat-value-${i}`}
@@ -406,10 +406,10 @@ export default function AdminSettingsPage() {
                 <AdminCard>
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <h2 className="text-base font-bold tracking-tight text-ocean-950">
+                      <h2 className="text-base font-bold tracking-tight text-brand-950">
                         Điểm nhấn sự kiện
                       </h2>
-                      <p className="mt-0.5 text-sm text-ocean-950/50">
+                      <p className="mt-0.5 text-sm text-brand-950/50">
                         Bốn thẻ giới thiệu hiển thị ở trang chủ và trang giới thiệu.
                       </p>
                     </div>
@@ -430,13 +430,13 @@ export default function AdminSettingsPage() {
                   </div>
 
                   {settings.highlights.length === 0 ? (
-                    <p className="mt-5 rounded-xl border border-dashed border-ocean-200 px-4 py-8 text-center text-sm text-ocean-950/45">
+                    <p className="mt-5 rounded-xl border border-dashed border-brand-200 px-4 py-8 text-center text-sm text-brand-950/45">
                       Chưa có điểm nhấn nào.
                     </p>
                   ) : (
                     <div className="mt-5 space-y-3">
                       {settings.highlights.map((h, i) => (
-                        <div key={i} className="rounded-xl border border-ocean-100 p-3.5">
+                        <div key={i} className="rounded-xl border border-brand-100 p-3.5">
                           <div className="grid gap-3 sm:grid-cols-[9rem_1fr_auto]">
                             <TextField
                               id={`hl-icon-${i}`}
@@ -507,7 +507,7 @@ export default function AdminSettingsPage() {
             {tab === "contact" && (
               <div className="space-y-5">
                 <AdminCard className="space-y-5">
-                  <h2 className="text-base font-bold tracking-tight text-ocean-950">
+                  <h2 className="text-base font-bold tracking-tight text-brand-950">
                     Thông tin liên hệ
                   </h2>
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -535,7 +535,7 @@ export default function AdminSettingsPage() {
                 </AdminCard>
 
                 <AdminCard className="space-y-5">
-                  <h2 className="text-base font-bold tracking-tight text-ocean-950">
+                  <h2 className="text-base font-bold tracking-tight text-brand-950">
                     Mạng xã hội
                   </h2>
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -576,8 +576,8 @@ export default function AdminSettingsPage() {
                   hint="Hiển thị trên kết quả tìm kiếm. Nên trong khoảng 150–160 ký tự."
                 />
 
-                <div className="rounded-xl border border-ocean-100 bg-ocean-50/50 p-5">
-                  <p className="text-xs font-bold uppercase tracking-wider text-ocean-950/45">
+                <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-5">
+                  <p className="text-xs font-bold uppercase tracking-wider text-brand-950/45">
                     Xem trước trên Google
                   </p>
                   <div className="mt-3">
@@ -585,7 +585,7 @@ export default function AdminSettingsPage() {
                     <p className="mt-0.5 text-lg leading-snug text-[#1a0dab]">
                       {settings.seo_title || settings.event_name}
                     </p>
-                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-ocean-950/60">
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-brand-950/60">
                       {settings.seo_description || settings.event_description}
                     </p>
                   </div>

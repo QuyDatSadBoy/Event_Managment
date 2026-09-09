@@ -98,18 +98,18 @@ export function RichTextEditor({
 
   return (
     <div>
-      {label && <label className="mb-2 block text-sm font-semibold text-ocean-950">{label}</label>}
+      {label && <label className="mb-2 block text-sm font-semibold text-brand-950">{label}</label>}
 
       <div
         className={cn(
           "overflow-hidden rounded-2xl border bg-white transition-[background-color,border-color,color,box-shadow] duration-300",
-          focused ? "border-ocean-400 ring-4 ring-ocean-500/10" : "border-ocean-200",
+          focused ? "border-brand-400 ring-4 ring-brand-500/10" : "border-brand-200",
         )}
       >
-        <div className="flex flex-wrap items-center gap-1 border-b border-ocean-100 bg-ocean-50/50 px-2 py-1.5">
+        <div className="flex flex-wrap items-center gap-1 border-b border-brand-100 bg-brand-50/50 px-2 py-1.5">
           {TOOLBAR.map((group, gi) => (
             <div key={gi} className="flex items-center gap-0.5">
-              {gi > 0 && <span className="mx-1 h-5 w-px bg-ocean-200" aria-hidden />}
+              {gi > 0 && <span className="mx-1 h-5 w-px bg-brand-200" aria-hidden />}
               {group.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -121,7 +121,7 @@ export function RichTextEditor({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => runItem(item)}
                     disabled={showHtml}
-                    className="grid h-8 w-8 place-items-center rounded-lg text-ocean-700 transition hover:bg-white hover:text-ocean-900 disabled:opacity-40"
+                    className="grid h-8 w-8 place-items-center rounded-lg text-brand-700 transition hover:bg-white hover:text-brand-900 disabled:opacity-40"
                   >
                     <Icon className="h-4 w-4" />
                   </button>
@@ -137,7 +137,7 @@ export function RichTextEditor({
             aria-pressed={showHtml}
             className={cn(
               "ml-auto grid h-8 w-8 place-items-center rounded-lg transition",
-              showHtml ? "bg-ocean-600 text-white" : "text-ocean-700 hover:bg-white",
+              showHtml ? "bg-brand-600 text-white" : "text-brand-700 hover:bg-white",
             )}
           >
             <Code2 className="h-4 w-4" />
@@ -150,7 +150,7 @@ export function RichTextEditor({
             onChange={(e) => onChange(e.target.value)}
             spellCheck={false}
             style={{ minHeight }}
-            className="w-full resize-y bg-white p-5 font-mono text-[0.8125rem] leading-relaxed text-ocean-900 outline-hidden"
+            className="w-full resize-y bg-white p-5 font-mono text-[0.8125rem] leading-relaxed text-brand-900 outline-hidden"
           />
         ) : (
           <div
@@ -171,12 +171,12 @@ export function RichTextEditor({
               document.execCommand("insertText", false, text);
             }}
             style={{ minHeight }}
-            className="prose-event max-w-none p-5 outline-hidden empty:before:text-ocean-950/30 empty:before:content-[attr(data-placeholder)]"
+            className="prose-event max-w-none p-5 outline-hidden empty:before:text-brand-950/30 empty:before:content-[attr(data-placeholder)]"
           />
         )}
       </div>
 
-      <p className="mt-1.5 text-xs text-ocean-950/45">
+      <p className="mt-1.5 text-xs text-brand-950/45">
         Dán nội dung sẽ tự động bỏ định dạng gốc. Dùng nút{" "}
         <Code2 className="inline h-3 w-3" /> để chỉnh HTML trực tiếp.
       </p>

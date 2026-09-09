@@ -292,34 +292,34 @@ export default function AdminPostsPage() {
           </thead>
           <tbody>
             {filtered.map((p) => (
-              <tr key={p.id} className="transition-colors hover:bg-ocean-50/40">
+              <tr key={p.id} className="transition-colors hover:bg-brand-50/40">
                 <Td>
-                  <span className="relative block h-11 w-16 overflow-hidden rounded-lg bg-ocean-50">
+                  <span className="relative block h-11 w-16 overflow-hidden rounded-lg bg-brand-50">
                     <SafeImage src={p.cover} alt="" sizes="64px" />
                   </span>
                 </Td>
                 <Td>
                   <div className="flex items-start gap-2">
-                    <span className="line-clamp-2 max-w-md font-semibold leading-snug text-ocean-950">
+                    <span className="line-clamp-2 max-w-md font-semibold leading-snug text-brand-950">
                       {p.title}
                     </span>
                     {p.featured && (
-                      <Star className="mt-0.5 h-3.5 w-3.5 shrink-0 fill-gold text-gold" aria-label="Nổi bật" />
+                      <Star className="mt-0.5 h-3.5 w-3.5 shrink-0 fill-cream text-cream" aria-label="Nổi bật" />
                     )}
                   </div>
                   {p.author_name && (
-                    <p className="mt-0.5 text-xs text-ocean-950/45">{p.author_name}</p>
+                    <p className="mt-0.5 text-xs text-brand-950/45">{p.author_name}</p>
                   )}
                 </Td>
                 <Td className="hidden md:table-cell">
-                  <StatusPill className="bg-ocean-50 text-ocean-700 ring-ocean-200">
+                  <StatusPill className="bg-brand-50 text-brand-700 ring-brand-200">
                     {POST_CATEGORY_LABEL[p.category]}
                   </StatusPill>
                 </Td>
-                <Td className="hidden lg:table-cell text-ocean-950/60">
+                <Td className="hidden lg:table-cell text-brand-950/60">
                   {formatDateShort(p.published_at)}
                 </Td>
-                <Td className="hidden lg:table-cell text-center tabular-nums text-ocean-950/50">
+                <Td className="hidden lg:table-cell text-center tabular-nums text-brand-950/50">
                   {p.views}
                 </Td>
                 <Td>
@@ -367,7 +367,7 @@ export default function AdminPostsPage() {
               type="button"
               onClick={() => setModalOpen(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -466,23 +466,23 @@ export default function AdminPostsPage() {
           />
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
               <input
                 type="checkbox"
                 checked={form.featured}
                 onChange={(e) => set("featured", e.target.checked)}
-                className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
               />
-              <span className="text-sm font-medium text-ocean-950">Bài viết nổi bật</span>
+              <span className="text-sm font-medium text-brand-950">Bài viết nổi bật</span>
             </label>
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
               <input
                 type="checkbox"
                 checked={form.is_published}
                 onChange={(e) => set("is_published", e.target.checked)}
-                className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
               />
-              <span className="text-sm font-medium text-ocean-950">Đăng công khai</span>
+              <span className="text-sm font-medium text-brand-950">Đăng công khai</span>
             </label>
           </div>
         </form>

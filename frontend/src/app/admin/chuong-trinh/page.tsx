@@ -278,8 +278,8 @@ export default function AdminAgendaPage() {
               className={cn(
                 "group relative flex min-w-[15rem] flex-1 items-center gap-3 rounded-2xl border px-5 py-4 transition-[transform,opacity,border-color,box-shadow] duration-400",
                 i === activeDay
-                  ? "border-transparent bg-linear-135 from-ocean-950 to-ocean-800 text-white shadow-[0_16px_36px_-18px_rgb(8_42_77/0.55)]"
-                  : "border-ocean-200 bg-white hover:border-ocean-400",
+                  ? "border-transparent bg-linear-135 from-brand-950 to-brand-800 text-white shadow-[0_16px_36px_-18px_rgb(12_43_41/0.55)]"
+                  : "border-brand-200 bg-white hover:border-brand-400",
               )}
             >
               <button
@@ -290,7 +290,7 @@ export default function AdminAgendaPage() {
                 <span
                   className={cn(
                     "block text-[0.6875rem] font-bold uppercase tracking-[0.14em]",
-                    i === activeDay ? "text-cyan-soft" : "text-ocean-700",
+                    i === activeDay ? "text-brand-200" : "text-brand-700",
                   )}
                 >
                   {d.label}
@@ -298,7 +298,7 @@ export default function AdminAgendaPage() {
                 <span
                   className={cn(
                     "mt-0.5 block truncate text-sm font-bold",
-                    i === activeDay ? "text-white" : "text-ocean-950",
+                    i === activeDay ? "text-white" : "text-brand-950",
                   )}
                 >
                   {d.title || formatDate(d.date)}
@@ -306,7 +306,7 @@ export default function AdminAgendaPage() {
                 <span
                   className={cn(
                     "mt-0.5 block text-xs",
-                    i === activeDay ? "text-ocean-100/85" : "text-ocean-950/55",
+                    i === activeDay ? "text-brand-100/85" : "text-brand-950/55",
                   )}
                 >
                   {formatDate(d.date)} · {d.sessions.length} phiên
@@ -322,7 +322,7 @@ export default function AdminAgendaPage() {
                     "grid h-7 w-7 place-items-center rounded-lg transition",
                     i === activeDay
                       ? "text-white/70 hover:bg-white/15 hover:text-white"
-                      : "text-ocean-400 hover:bg-ocean-50 hover:text-ocean-700",
+                      : "text-brand-400 hover:bg-brand-50 hover:text-brand-700",
                   )}
                 >
                   <Pencil className="h-3.5 w-3.5" />
@@ -349,12 +349,12 @@ export default function AdminAgendaPage() {
         {day && (
           <div className="mt-7">
             {day.sessions.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-ocean-200 bg-ocean-50/40 px-6 py-14 text-center">
-                <Clock className="mx-auto h-8 w-8 text-ocean-400" />
-                <p className="mt-4 font-semibold text-ocean-950">
+              <div className="rounded-2xl border border-dashed border-brand-200 bg-brand-50/40 px-6 py-14 text-center">
+                <Clock className="mx-auto h-8 w-8 text-brand-400" />
+                <p className="mt-4 font-semibold text-brand-950">
                   {day.label} chưa có phiên nào
                 </p>
-                <p className="mt-1.5 text-sm text-ocean-950/50">
+                <p className="mt-1.5 text-sm text-brand-950/50">
                   Thêm phiên đầu tiên cho ngày này.
                 </p>
                 <Button onClick={openCreateSession} className="mt-6">
@@ -368,16 +368,16 @@ export default function AdminAgendaPage() {
                   <li
                     key={s.id}
                     className={cn(
-                      "flex flex-col gap-3 rounded-2xl border bg-white p-4 transition-[border-color,box-shadow,background-color] duration-300 hover:border-ocean-300 hover:shadow-[0_14px_32px_-22px_rgb(8_42_77/0.35)] lg:flex-row lg:items-center lg:gap-5",
-                      s.is_published ? "border-ocean-100" : "border-dashed border-ocean-200 bg-ocean-50/40",
+                      "flex flex-col gap-3 rounded-2xl border bg-white p-4 transition-[border-color,box-shadow,background-color] duration-300 hover:border-brand-300 hover:shadow-[0_14px_32px_-22px_rgb(12_43_41/0.35)] lg:flex-row lg:items-center lg:gap-5",
+                      s.is_published ? "border-brand-100" : "border-dashed border-brand-200 bg-brand-50/40",
                     )}
                   >
                     <div className="flex shrink-0 items-baseline gap-2 lg:w-20 lg:flex-col lg:gap-0">
-                      <span className="font-mono text-base font-bold tabular-nums text-ocean-800">
+                      <span className="font-mono text-base font-bold tabular-nums text-brand-800">
                         {s.start_time}
                       </span>
                       {s.end_time && (
-                        <span className="font-mono text-xs tabular-nums text-ocean-950/40">
+                        <span className="font-mono text-xs tabular-nums text-brand-950/40">
                           {s.end_time}
                         </span>
                       )}
@@ -394,7 +394,7 @@ export default function AdminAgendaPage() {
                           {SESSION_TYPE_LABEL[s.type]}
                         </span>
                         {s.track && (
-                          <span className="text-[0.6875rem] text-ocean-950/45">{s.track}</span>
+                          <span className="text-[0.6875rem] text-brand-950/45">{s.track}</span>
                         )}
                         {!s.is_published && (
                           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-slate-600">
@@ -403,9 +403,9 @@ export default function AdminAgendaPage() {
                         )}
                       </div>
 
-                      <p className="mt-1.5 font-semibold leading-snug text-ocean-950">{s.title}</p>
+                      <p className="mt-1.5 font-semibold leading-snug text-brand-950">{s.title}</p>
 
-                      <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ocean-950/45">
+                      <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-950/45">
                         {s.room && (
                           <span className="inline-flex items-center gap-1">
                             <MapPin className="h-3 w-3" />
@@ -469,7 +469,7 @@ export default function AdminAgendaPage() {
               type="button"
               onClick={() => setDayModal(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -531,7 +531,7 @@ export default function AdminAgendaPage() {
               type="button"
               onClick={() => setSessionModal(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -635,18 +635,18 @@ export default function AdminAgendaPage() {
           />
 
           <div>
-            <p className="mb-2.5 text-sm font-semibold text-ocean-950">
+            <p className="mb-2.5 text-sm font-semibold text-brand-950">
               Diễn giả tham gia
-              <span className="ml-2 font-normal text-ocean-950/45">
+              <span className="ml-2 font-normal text-brand-950/45">
                 ({sessionForm.speaker_ids.length} đã chọn)
               </span>
             </p>
             {speakers.length === 0 ? (
-              <p className="rounded-xl border border-dashed border-ocean-200 px-4 py-6 text-center text-sm text-ocean-950/45">
+              <p className="rounded-xl border border-dashed border-brand-200 px-4 py-6 text-center text-sm text-brand-950/45">
                 Chưa có diễn giả nào. Thêm diễn giả trước để gán vào phiên.
               </p>
             ) : (
-              <div className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-ocean-200 p-2">
+              <div className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-brand-200 p-2">
                 {speakers.map((sp) => {
                   const checked = sessionForm.speaker_ids.includes(sp.id);
                   return (
@@ -654,14 +654,14 @@ export default function AdminAgendaPage() {
                       key={sp.id}
                       className={cn(
                         "flex cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 transition",
-                        checked ? "bg-ocean-50" : "hover:bg-ocean-50/60",
+                        checked ? "bg-brand-50" : "hover:bg-brand-50/60",
                       )}
                     >
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleSpeaker(sp.id)}
-                        className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                        className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
                       />
                       <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full">
                         <SafeImage
@@ -672,10 +672,10 @@ export default function AdminAgendaPage() {
                         />
                       </span>
                       <span className="min-w-0">
-                        <span className="block truncate text-sm font-medium text-ocean-950">
+                        <span className="block truncate text-sm font-medium text-brand-950">
                           {sp.name}
                         </span>
-                        <span className="block truncate text-xs text-ocean-950/45">
+                        <span className="block truncate text-xs text-brand-950/45">
                           {[sp.title, sp.company].filter(Boolean).join(" · ")}
                         </span>
                       </span>
@@ -686,16 +686,16 @@ export default function AdminAgendaPage() {
             )}
           </div>
 
-          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
             <input
               type="checkbox"
               checked={sessionForm.is_published}
               onChange={(e) =>
                 setSessionForm((f) => ({ ...f, is_published: e.target.checked }))
               }
-              className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+              className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
             />
-            <span className="text-sm font-medium text-ocean-950">
+            <span className="text-sm font-medium text-brand-950">
               Hiển thị phiên này trên trang công khai
             </span>
           </label>

@@ -14,13 +14,13 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-3xl border border-dashed border-ocean-200 bg-ocean-50/40 px-6 py-16 text-center">
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-ocean-500 shadow-sm ring-1 ring-ocean-100">
+    <div className="rounded-3xl border border-dashed border-brand-200 bg-brand-50/40 px-6 py-16 text-center">
+      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-brand-500 shadow-sm ring-1 ring-brand-100">
         <Icon className="h-6 w-6" />
       </div>
-      <h3 className="mt-5 text-lg font-semibold text-ocean-950">{title}</h3>
+      <h3 className="mt-5 text-lg font-semibold text-brand-950">{title}</h3>
       {description && (
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ocean-950/55">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-brand-950/55">
           {description}
         </p>
       )}

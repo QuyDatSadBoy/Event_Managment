@@ -7,7 +7,7 @@ import { PARTNER_TIER_LABEL } from "@/lib/utils";
 import { PageHero } from "@/components/site/PageHero";
 import { PartnerWall } from "@/components/site/PartnerWall";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { ButtonLink } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 
@@ -77,7 +77,7 @@ export default async function PartnersPage() {
       </section>
 
       {/* ---------- Sponsorship tiers ---------- */}
-      <section className="bg-ocean-50/60 section-y">
+      <section className="bg-brand-50/60 section-y">
         <div className="container-page">
           <SectionHeading
             title="Quyền lợi theo từng hạng tài trợ"
@@ -86,26 +86,26 @@ export default async function PartnersPage() {
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {TIER_BENEFITS.map((pkg, i) => (
-              <Reveal key={pkg.tier} delay={i * 110}>
-                <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-ocean-100 bg-white p-8 card-hover">
+              <Block key={pkg.tier}>
+                <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-brand-100 bg-white p-8 card-hover">
                   {i === 0 && (
                     <span
-                      className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-cyan-glow to-ocean-500"
+                      className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-brand-400 to-brand-500"
                       aria-hidden
                     />
                   )}
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-ocean-500">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-500">
                     Hạng
                   </p>
-                  <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-ocean-950">
+                  <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-brand-950">
                     {PARTNER_TIER_LABEL[pkg.tier]}
                   </h3>
 
                   <ul className="mt-7 flex-1 space-y-3.5">
                     {pkg.highlights.map((h) => (
-                      <li key={h} className="flex gap-3 text-sm leading-relaxed text-ocean-950/65">
+                      <li key={h} className="flex gap-3 text-sm leading-relaxed text-brand-950/65">
                         <span
-                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean-400"
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400"
                           aria-hidden
                         />
                         {h}
@@ -121,22 +121,21 @@ export default async function PartnersPage() {
                     Nhận hồ sơ tài trợ
                   </ButtonLink>
                 </div>
-              </Reveal>
+              </Block>
             ))}
           </div>
 
-          <Reveal className="mt-14">
-            <div className="surface-deep relative overflow-hidden rounded-3xl px-7 py-12 text-center sm:px-12">
-              <div className="grid-overlay absolute inset-0 opacity-40" aria-hidden />
+          <Block className="mt-14">
+            <div className="bg-brand-800 relative overflow-hidden rounded-3xl px-7 py-12 text-center sm:px-12">
               <div className="relative mx-auto max-w-2xl">
                 <h3 className="text-balance text-2xl font-bold tracking-tight text-white sm:text-3xl">
                   Cần một gói tài trợ riêng?
                 </h3>
-                <p className="mt-4 text-pretty text-ocean-100/70">
+                <p className="mt-4 text-pretty text-brand-200">
                   Ban tổ chức có thể thiết kế gói đồng hành theo mục tiêu cụ thể của đơn vị bạn.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3">
-                  <ButtonLink href="/lien-he?subject=tai-tro" variant="white">
+                  <ButtonLink href="/lien-he?subject=tai-tro" variant="cream">
                     <Mail className="h-4 w-4" />
                     Liên hệ ban tổ chức
                   </ButtonLink>
@@ -152,7 +151,7 @@ export default async function PartnersPage() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </Block>
         </div>
       </section>
     </>

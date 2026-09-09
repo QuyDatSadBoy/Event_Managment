@@ -17,7 +17,10 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
     formats: ["image/avif", "image/webp"],
-    qualities: [35, 40, 55, 65, 68, 72, 75, 82, 90],
+    // The default ladder jumps 1200 → 1920, so a hero asking for ~1400 gets a
+    // 1920px file. These extra rungs keep the request close to the real size.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1366, 1600, 1920, 2048],
+    qualities: [35, 40, 55, 60, 65, 68, 72, 75, 82, 90],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "placehold.co" },

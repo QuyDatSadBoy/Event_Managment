@@ -16,7 +16,7 @@ const ToastContext = createContext<{
 const STYLE: Record<ToastKind, string> = {
   success: "border-emerald-200 bg-emerald-50 text-emerald-800",
   error: "border-rose-200 bg-rose-50 text-rose-800",
-  info: "border-ocean-200 bg-ocean-50 text-ocean-800",
+  info: "border-brand-200 bg-brand-50 text-brand-800",
 };
 
 const ICON = { success: CheckCircle2, error: AlertCircle, info: Info } as const;
@@ -53,7 +53,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <div
               key={toast.id}
               className={cn(
-                "pointer-events-auto flex items-start gap-3 rounded-2xl border px-4 py-3.5 text-sm shadow-[0_16px_40px_-16px_rgb(8_42_77/0.4)] backdrop-blur-sm",
+                "pointer-events-auto flex items-start gap-3 rounded-2xl border px-4 py-3.5 text-sm shadow-[0_16px_40px_-16px_rgb(12_43_41/0.4)] backdrop-blur-sm",
                 "animate-[float_0.01s] motion-safe:[animation:none]",
                 STYLE[toast.kind],
               )}

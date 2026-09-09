@@ -323,14 +323,14 @@ export default function AdminGalleryPage() {
             <div
               key={g.id}
               className={cn(
-                "group overflow-hidden rounded-2xl border bg-white transition-[transform,box-shadow,border-color,opacity] duration-400 hover:-translate-y-1 hover:shadow-[0_20px_44px_-24px_rgb(8_42_77/0.4)]",
-                g.is_published ? "border-ocean-100" : "border-dashed border-ocean-200 opacity-70",
+                "group overflow-hidden rounded-2xl border bg-white transition-[transform,box-shadow,border-color,opacity] duration-400 hover:-translate-y-1 hover:shadow-[0_20px_44px_-24px_rgb(12_43_41/0.4)]",
+                g.is_published ? "border-brand-100" : "border-dashed border-brand-200 opacity-70",
               )}
             >
-              <div className="relative aspect-4/3 bg-ocean-50">
+              <div className="relative aspect-4/3 bg-brand-50">
                 {g.type === "document" ? (
                   <div className="absolute inset-0 grid place-items-center">
-                    <FileText className="h-10 w-10 text-ocean-400" />
+                    <FileText className="h-10 w-10 text-brand-400" />
                   </div>
                 ) : (
                   <SafeImage
@@ -340,7 +340,7 @@ export default function AdminGalleryPage() {
                   />
                 )}
 
-                <span className="absolute left-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-full bg-abyss/70 px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+                <span className="absolute left-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-full bg-brand-950/70 px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
                   <TypeIcon kind={g.type} />
                   {TYPE_LABEL[g.type]}
                 </span>
@@ -350,7 +350,7 @@ export default function AdminGalleryPage() {
                     type="button"
                     onClick={() => togglePublished(g)}
                     aria-label={g.is_published ? "Ẩn" : "Hiển thị"}
-                    className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ocean-700 shadow-sm transition hover:bg-white"
+                    className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-brand-700 shadow-sm transition hover:bg-white"
                   >
                     {g.is_published ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
                   </button>
@@ -358,7 +358,7 @@ export default function AdminGalleryPage() {
                     type="button"
                     onClick={() => openEdit(g)}
                     aria-label="Sửa"
-                    className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ocean-700 shadow-sm transition hover:bg-white"
+                    className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-brand-700 shadow-sm transition hover:bg-white"
                   >
                     <Pencil className="h-3.5 w-3.5" />
                   </button>
@@ -374,10 +374,10 @@ export default function AdminGalleryPage() {
               </div>
 
               <div className="p-3.5">
-                <p className="line-clamp-1 text-sm font-semibold text-ocean-950">
+                <p className="line-clamp-1 text-sm font-semibold text-brand-950">
                   {g.title || "(chưa đặt tên)"}
                 </p>
-                <p className="mt-0.5 flex items-center gap-2 text-xs text-ocean-950/45">
+                <p className="mt-0.5 flex items-center gap-2 text-xs text-brand-950/45">
                   {g.album || "Chưa phân bộ"}
                   {g.file_size > 0 && <span>· {formatFileSize(g.file_size)}</span>}
                 </p>
@@ -398,7 +398,7 @@ export default function AdminGalleryPage() {
               type="button"
               onClick={() => setModalOpen(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -500,14 +500,14 @@ export default function AdminGalleryPage() {
             ))}
           </datalist>
 
-          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
             <input
               type="checkbox"
               checked={form.is_published}
               onChange={(e) => set("is_published", e.target.checked)}
-              className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+              className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
             />
-            <span className="text-sm font-medium text-ocean-950">Hiển thị công khai</span>
+            <span className="text-sm font-medium text-brand-950">Hiển thị công khai</span>
           </label>
         </form>
       </Modal>

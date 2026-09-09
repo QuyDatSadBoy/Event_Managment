@@ -24,13 +24,13 @@ const TIERS: PartnerTier[] = [
 ];
 
 const TIER_STYLE: Record<PartnerTier, string> = {
-  diamond: "bg-cyan-glow/15 text-ocean-800 ring-cyan-glow/40",
-  platinum: "bg-ocean-100 text-ocean-800 ring-ocean-200",
-  gold: "bg-gold/15 text-[#8a5d00] ring-gold/40",
+  diamond: "bg-brand-400/15 text-brand-800 ring-brand-400/40",
+  platinum: "bg-brand-100 text-brand-800 ring-brand-200",
+  gold: "bg-cream text-brand-800 ring-brand-300",
   silver: "bg-slate-100 text-slate-700 ring-slate-200",
   bronze: "bg-orange-50 text-orange-700 ring-orange-200",
-  partner: "bg-ocean-50 text-ocean-700 ring-ocean-200",
-  media: "bg-ocean-50 text-ocean-700 ring-ocean-200",
+  partner: "bg-brand-50 text-brand-700 ring-brand-200",
+  media: "bg-brand-50 text-brand-700 ring-brand-200",
 };
 
 type FormState = {
@@ -252,20 +252,20 @@ export default function AdminPartnersPage() {
           </thead>
           <tbody>
             {filtered.map((p) => (
-              <tr key={p.id} className="transition-colors hover:bg-ocean-50/40">
+              <tr key={p.id} className="transition-colors hover:bg-brand-50/40">
                 <Td>
-                  <span className="relative block h-10 w-20 overflow-hidden rounded-lg bg-ocean-50">
+                  <span className="relative block h-10 w-20 overflow-hidden rounded-lg bg-brand-50">
                     <SafeImage src={p.logo} alt={p.name} sizes="80px" className="object-contain p-1" />
                   </span>
                 </Td>
                 <Td>
-                  <span className="font-semibold text-ocean-950">{p.name}</span>
+                  <span className="font-semibold text-brand-950">{p.name}</span>
                   {p.website && (
                     <a
                       href={p.website}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="mt-0.5 flex items-center gap-1 text-xs text-ocean-600 hover:underline"
+                      className="mt-0.5 flex items-center gap-1 text-xs text-brand-600 hover:underline"
                     >
                       {p.website.replace(/^https?:\/\//, "").slice(0, 32)}
                       <ExternalLink className="h-3 w-3" />
@@ -273,7 +273,7 @@ export default function AdminPartnersPage() {
                   )}
                 </Td>
                 <Td className="hidden lg:table-cell">
-                  <span className="line-clamp-2 max-w-sm text-ocean-950/60">
+                  <span className="line-clamp-2 max-w-sm text-brand-950/60">
                     {p.description || "—"}
                   </span>
                 </Td>
@@ -282,7 +282,7 @@ export default function AdminPartnersPage() {
                     {PARTNER_TIER_LABEL[p.tier]}
                   </StatusPill>
                 </Td>
-                <Td className="text-center tabular-nums text-ocean-950/50">{p.sort_order}</Td>
+                <Td className="text-center tabular-nums text-brand-950/50">{p.sort_order}</Td>
                 <Td>
                   <StatusPill
                     className={cn(
@@ -327,7 +327,7 @@ export default function AdminPartnersPage() {
               type="button"
               onClick={() => setModalOpen(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -396,14 +396,14 @@ export default function AdminPartnersPage() {
             onChange={(e) => set("description", e.target.value)}
           />
 
-          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
             <input
               type="checkbox"
               checked={form.is_published}
               onChange={(e) => set("is_published", e.target.checked)}
-              className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+              className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
             />
-            <span className="text-sm font-medium text-ocean-950">Hiển thị công khai</span>
+            <span className="text-sm font-medium text-brand-950">Hiển thị công khai</span>
           </label>
         </form>
       </Modal>

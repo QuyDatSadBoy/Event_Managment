@@ -18,7 +18,7 @@ export function AdminCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-ocean-100 bg-white shadow-[0_1px_2px_rgb(8_42_77/0.04),0_12px_28px_-20px_rgb(8_42_77/0.25)]",
+        "rounded-2xl border border-brand-100 bg-white shadow-[0_1px_2px_rgb(12_43_41/0.04),0_12px_28px_-20px_rgb(12_43_41/0.25)]",
         padded && "p-5 lg:p-6",
         className,
       )}
@@ -41,21 +41,21 @@ export function AdminSearch({
 }) {
   return (
     <div className={cn("relative w-full sm:w-72", className)}>
-      <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ocean-400" />
+      <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-400" />
       <input
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="h-10 w-full rounded-xl border border-ocean-200 bg-white pl-10 pr-9 text-sm text-ocean-950 outline-hidden transition placeholder:text-ocean-950/32 focus:border-ocean-400 focus:ring-4 focus:ring-ocean-500/10"
+        className="h-10 w-full rounded-xl border border-brand-200 bg-white pl-10 pr-9 text-sm text-brand-950 outline-hidden transition placeholder:text-brand-950/32 focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10"
       />
       {value && (
         <button
           type="button"
           onClick={() => onChange("")}
           aria-label="Xoá tìm kiếm"
-          className="absolute right-2.5 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-ocean-400 transition hover:bg-ocean-50"
+          className="absolute right-2.5 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-brand-400 transition hover:bg-brand-50"
         >
           <X className="h-3.5 w-3.5" />
         </button>
@@ -84,8 +84,8 @@ export function FilterChips<T extends string>({
           className={cn(
             "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition duration-300",
             value === opt.value
-              ? "bg-ocean-950 text-white"
-              : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
+              ? "bg-brand-950 text-white"
+              : "bg-brand-50 text-brand-800 hover:bg-brand-100",
           )}
         >
           {opt.label}
@@ -129,9 +129,9 @@ export function AsyncState({
 }) {
   if (loading) {
     return (
-      <div className="grid place-items-center rounded-2xl border border-ocean-100 bg-white py-20">
-        <Loader2 className="h-6 w-6 animate-spin text-ocean-500" />
-        <p className="mt-3 text-sm text-ocean-950/45">Đang tải dữ liệu…</p>
+      <div className="grid place-items-center rounded-2xl border border-brand-100 bg-white py-20">
+        <Loader2 className="h-6 w-6 animate-spin text-brand-500" />
+        <p className="mt-3 text-sm text-brand-950/45">Đang tải dữ liệu…</p>
       </div>
     );
   }
@@ -169,7 +169,7 @@ export function AsyncState({
 
 export function TableWrap({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-ocean-100 bg-white shadow-[0_1px_2px_rgb(8_42_77/0.04),0_12px_28px_-20px_rgb(8_42_77/0.25)]">
+    <div className="overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-[0_1px_2px_rgb(12_43_41/0.04),0_12px_28px_-20px_rgb(12_43_41/0.25)]">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[46rem] border-collapse text-left text-sm">{children}</table>
       </div>
@@ -182,7 +182,7 @@ export function Th({ children, className }: { children?: ReactNode; className?: 
     <th
       scope="col"
       className={cn(
-        "border-b border-ocean-100 bg-ocean-50/60 px-4 py-3 text-xs font-bold uppercase tracking-wider text-ocean-950/50",
+        "border-b border-brand-100 bg-brand-50/60 px-4 py-3 text-xs font-bold uppercase tracking-wider text-brand-950/50",
         className,
       )}
     >
@@ -192,7 +192,7 @@ export function Th({ children, className }: { children?: ReactNode; className?: 
 }
 
 export function Td({ children, className }: { children?: ReactNode; className?: string }) {
-  return <td className={cn("border-b border-ocean-50 px-4 py-3.5 align-middle", className)}>{children}</td>;
+  return <td className={cn("border-b border-brand-50 px-4 py-3.5 align-middle", className)}>{children}</td>;
 }
 
 export function RowActions({ children }: { children: ReactNode }) {
@@ -223,7 +223,7 @@ export function IconButton({
         "grid h-9 w-9 place-items-center rounded-lg transition duration-300 disabled:opacity-40",
         tone === "danger"
           ? "text-rose-500 hover:bg-rose-50 hover:text-rose-700"
-          : "text-ocean-500 hover:bg-ocean-50 hover:text-ocean-800",
+          : "text-brand-500 hover:bg-brand-50 hover:text-brand-800",
       )}
     >
       <Icon className="h-4 w-4" />
@@ -242,7 +242,7 @@ export function StatusPill({
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset",
-        className ?? "bg-ocean-50 text-ocean-700 ring-ocean-200",
+        className ?? "bg-brand-50 text-brand-700 ring-brand-200",
       )}
     >
       {children}

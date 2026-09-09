@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
+import { Be_Vietnam_Pro, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
+// design.pen §2: Be Vietnam Pro, weights 400 / 500 / 600 / 700.
 const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  // Only the weights the design actually uses.
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-be-vietnam",
+  display: "swap",
+});
+
+// Countdown values and agenda times are set in Roboto Mono so digits keep a
+// fixed width and the times line up down the column.
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-roboto-mono",
   display: "swap",
 });
 
@@ -27,14 +36,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#041c33",
+  themeColor: "#04564f",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={beVietnam.variable} suppressHydrationWarning>
+    <html lang="vi" className={`${beVietnam.variable} ${robotoMono.variable}`} suppressHydrationWarning>
       <head>
         {/* Images come from these two hosts on every page; opening the
             connections during HTML parse takes the DNS + TLS round trips off

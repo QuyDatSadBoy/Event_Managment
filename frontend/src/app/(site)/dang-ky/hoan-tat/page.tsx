@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { getSettings } from "@/lib/settings";
 import { formatDateRange } from "@/lib/utils";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { ButtonLink } from "@/components/ui/Button";
 import { TicketCode } from "@/components/site/TicketCode";
 
@@ -39,73 +39,72 @@ export default async function ThankYouPage() {
 
   return (
     <section className="relative isolate overflow-hidden pt-[var(--header-h)]">
-      <div className="surface-deep absolute inset-0 -z-10" aria-hidden />
-      <div className="grid-overlay absolute inset-0 -z-10 opacity-40" aria-hidden />
+      <div className="bg-brand-800 absolute inset-0 -z-10" aria-hidden />
       <div
-        className="absolute -right-32 top-10 -z-10 h-96 w-96 rounded-full bg-cyan-glow/15 blur-3xl animate-float"
+        className="absolute -right-32 top-10 -z-10 h-96 w-96 rounded-full bg-brand-400/15 blur-3xl"
         aria-hidden
       />
 
       <div className="container-page relative section-y">
         <div className="mx-auto max-w-2xl text-center">
-          <Reveal>
-            <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-cyan-glow/15 ring-1 ring-cyan-glow/30">
-              <CheckCircle2 className="h-10 w-10 text-cyan-glow" />
+          <Block>
+            <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-brand-400/15 ring-1 ring-brand-400/30">
+              <CheckCircle2 className="h-10 w-10 text-brand-400" />
             </span>
-          </Reveal>
+          </Block>
 
-          <Reveal delay={100}>
+          <Block>
             <h1 className="mt-8 text-balance text-3xl font-extrabold leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
               Đăng ký thành công!
             </h1>
-            <p className="mt-5 text-pretty text-base leading-relaxed text-ocean-100/75 lg:text-lg">
+            <p className="mt-5 text-pretty text-base leading-relaxed text-brand-200 lg:text-lg">
               Cảm ơn bạn đã đăng ký tham dự {settings.event_name}. Ban tổ chức đã ghi nhận thông
               tin của bạn.
             </p>
-          </Reveal>
+          </Block>
 
           <Suspense fallback={null}>
             <TicketCode />
           </Suspense>
 
           {(settings.start_date || settings.venue_name) && (
-            <Reveal delay={200}>
+            <Block>
               <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-2xl border border-white/12 bg-white/6 px-7 py-5 text-sm backdrop-blur-md">
                 {settings.start_date && (
                   <span className="inline-flex items-center gap-2 font-medium text-white">
-                    <CalendarDays className="h-4 w-4 text-cyan-glow" />
+                    <CalendarDays className="h-4 w-4 text-brand-400" />
                     {formatDateRange(settings.start_date, settings.end_date)}
                   </span>
                 )}
                 {settings.venue_name && (
-                  <span className="inline-flex items-center gap-2 text-ocean-100/70">
-                    <MapPin className="h-4 w-4 text-cyan-glow" />
+                  <span className="inline-flex items-center gap-2 text-brand-200">
+                    <MapPin className="h-4 w-4 text-brand-400" />
                     {settings.venue_name}
                   </span>
                 )}
               </div>
-            </Reveal>
+            </Block>
           )}
         </div>
 
         {/* Next steps */}
         <div className="mx-auto mt-16 grid max-w-4xl gap-5 sm:grid-cols-3">
-          {NEXT_STEPS.map((step, i) => {
+          {NEXT_STEPS.map((step) => {
             const Icon = step.icon;
             return (
-              <Reveal key={step.title} delay={260 + i * 90}>
+              <Block key={step.title}>
                 <div className="h-full rounded-2xl border border-white/12 bg-white/6 p-6 backdrop-blur-md">
-                  <Icon className="h-6 w-6 text-cyan-glow" />
+                  <Icon className="h-6 w-6 text-brand-400" />
                   <h2 className="mt-4 text-base font-bold text-white">{step.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ocean-100/65">{step.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-brand-200">{step.text}</p>
                 </div>
-              </Reveal>
+              </Block>
             );
           })}
         </div>
 
-        <Reveal delay={560} className="mt-14 flex flex-wrap justify-center gap-3">
-          <ButtonLink href="/chuong-trinh" variant="white">
+        <Block className="mt-14 flex flex-wrap justify-center gap-3">
+          <ButtonLink href="/chuong-trinh" variant="cream">
             Xem chương trình
           </ButtonLink>
           <ButtonLink
@@ -116,16 +115,16 @@ export default async function ThankYouPage() {
             <Newspaper className="h-4 w-4" />
             Đọc tin tức mới nhất
           </ButtonLink>
-        </Reveal>
+        </Block>
 
-        <Reveal delay={640} className="mt-10 text-center">
-          <p className="text-sm text-ocean-100/50">
+        <Block className="mt-10 text-center">
+          <p className="text-sm text-brand-200">
             Chưa nhận được email?{" "}
-            <Link href="/lien-he" className="font-medium text-cyan-glow underline-offset-4 hover:underline">
+            <Link href="/lien-he" className="font-medium text-cream underline-offset-4 hover:underline">
               Liên hệ ban tổ chức
             </Link>
           </p>
-        </Reveal>
+        </Block>
       </div>
     </section>
   );

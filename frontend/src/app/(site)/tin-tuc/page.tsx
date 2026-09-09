@@ -8,7 +8,7 @@ import { POST_CATEGORY_LABEL, cn } from "@/lib/utils";
 import { PageHero } from "@/components/site/PageHero";
 import { PostCard } from "@/components/site/PostCard";
 import { SpeakerSearch } from "@/components/site/SpeakerSearch";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { Pagination } from "@/components/ui/Pagination";
 import { EmptyState } from "@/components/ui/EmptyState";
 
@@ -82,8 +82,8 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
                   "inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium sm:min-h-10",
                   "transition-[background-color,color,box-shadow] duration-300",
                   category === cat.value
-                    ? "bg-ocean-950 text-white shadow-[0_8px_20px_-10px_rgb(8_42_77/0.8)]"
-                    : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
+                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(12_43_41/0.8)]"
+                    : "bg-brand-50 text-brand-800 hover:bg-brand-100",
                 )}
               >
                 {cat.label}
@@ -111,27 +111,27 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
           </div>
         ) : (
           <>
-            <p className="mt-8 text-sm text-ocean-950/55">
-              <span className="font-bold text-ocean-950">{meta.total}</span> bài viết
+            <p className="mt-8 text-sm text-brand-950/55">
+              <span className="font-bold text-brand-950">{meta.total}</span> bài viết
               {q && (
                 <>
                   {" "}
-                  khớp với “<span className="font-medium text-ocean-800">{q}</span>”
+                  khớp với “<span className="font-medium text-brand-800">{q}</span>”
                 </>
               )}
             </p>
 
             <div className="mt-6 space-y-6">
               {lead && (
-                <Reveal>
+                <Block>
                   <PostCard post={lead} featured headingLevel="h2" />
-                </Reveal>
+                </Block>
               )}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post, i) => (
-                  <Reveal key={post.id} delay={(i % 3) * 80}>
+                {rest.map((post) => (
+                  <Block key={post.id}>
                     <PostCard post={post} headingLevel="h2" />
-                  </Reveal>
+                  </Block>
                 ))}
               </div>
             </div>

@@ -104,13 +104,13 @@ export const SESSION_TYPE_LABEL: Record<SessionType, string> = {
 };
 
 export const SESSION_TYPE_STYLE: Record<SessionType, string> = {
-  session: "bg-ocean-50 text-ocean-700 ring-ocean-200",
-  keynote: "bg-ocean-600 text-white ring-ocean-600",
-  panel: "bg-cyan-glow/15 text-ocean-800 ring-cyan-glow/40",
+  session: "bg-brand-50 text-brand-700 ring-brand-200",
+  keynote: "bg-brand-600 text-white ring-brand-600",
+  panel: "bg-brand-400/15 text-brand-800 ring-brand-400/40",
   break: "bg-slate-100 text-slate-600 ring-slate-200",
-  networking: "bg-gold/15 text-[#8a5d00] ring-gold/40",
-  workshop: "bg-ocean-100 text-ocean-800 ring-ocean-300",
-  ceremony: "bg-ocean-900 text-white ring-ocean-900",
+  networking: "bg-cream text-brand-800 ring-brand-300",
+  workshop: "bg-brand-100 text-brand-800 ring-brand-300",
+  ceremony: "bg-brand-900 text-white ring-brand-900",
 };
 
 export const POST_CATEGORY_LABEL: Record<PostCategory, string> = {
@@ -149,7 +149,7 @@ export const STATUS_STYLE: Record<RegistrationStatus, string> = {
   pending: "bg-amber-50 text-amber-700 ring-amber-200",
   confirmed: "bg-emerald-50 text-emerald-700 ring-emerald-200",
   cancelled: "bg-rose-50 text-rose-700 ring-rose-200",
-  checked_in: "bg-ocean-50 text-ocean-700 ring-ocean-200",
+  checked_in: "bg-brand-50 text-brand-700 ring-brand-200",
 };
 
 export function initials(name: string): string {

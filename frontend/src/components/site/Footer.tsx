@@ -1,39 +1,32 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { BRAND_ICONS } from "@/components/ui/BrandIcons";
+import { Mail, MapPin, Phone } from "lucide-react";
 import type { Settings } from "@/lib/types";
 import { formatDateRange } from "@/lib/utils";
+import { BRAND_ICONS } from "@/components/ui/BrandIcons";
+import { DecoDotGrid } from "@/components/ui/Deco";
 
-const COLUMNS = [
-  {
-    title: "Sự kiện",
-    links: [
-      { href: "/gioi-thieu", label: "Giới thiệu" },
-      { href: "/chuong-trinh", label: "Chương trình" },
-      { href: "/dien-gia", label: "Diễn giả" },
-      { href: "/doi-tac", label: "Đối tác & Nhà tài trợ" },
-    ],
-  },
-  {
-    title: "Nội dung",
-    links: [
-      { href: "/tin-tuc", label: "Tin tức" },
-      { href: "/tin-tuc?category=speech", label: "Bài phát biểu" },
-      { href: "/tin-tuc?category=press", label: "Thông cáo báo chí" },
-      { href: "/thu-vien", label: "Thư viện ảnh & video" },
-    ],
-  },
-  {
-    title: "Tham dự",
-    links: [
-      { href: "/dang-ky", label: "Đăng ký tham dự" },
-      { href: "/lien-he", label: "Liên hệ ban tổ chức" },
-      { href: "/thu-vien?type=document", label: "Tài liệu báo chí" },
-      { href: "/admin", label: "Trang quản trị" },
-    ],
-  },
+const QUICK_LINKS = [
+  { href: "/gioi-thieu", label: "Giới thiệu sự kiện" },
+  { href: "/chuong-trinh", label: "Chương trình" },
+  { href: "/dien-gia", label: "Diễn giả" },
+  { href: "/tin-tuc", label: "Tin tức" },
+  { href: "/thu-vien", label: "Thư viện ảnh" },
 ];
 
+const ATTENDEE_LINKS = [
+  { href: "/dang-ky", label: "Đăng ký tham dự" },
+  { href: "/gioi-thieu#dia-diem", label: "Đường đi & địa điểm" },
+  { href: "/doi-tac", label: "Đối tác & tài trợ" },
+  { href: "/lien-he", label: "Liên hệ ban tổ chức" },
+  { href: "/thu-vien?type=document", label: "Tài liệu báo chí" },
+];
+
+/**
+ * design.pen "Footer Desktop": brand-primary-dark ground, four columns (about,
+ * quick links, for attendees, organiser) over a bottom bar divided by a #0A6A62
+ * rule. Body copy sits in brand-tint, icons in brand-secondary, the bottom bar
+ * in brand-secondary. Footers stay square — no band corner.
+ */
 export function Footer({ settings }: { settings: Settings }) {
   const year = new Date().getFullYear();
   const socials = Object.entries(settings.socials ?? {}).filter(
@@ -41,129 +34,98 @@ export function Footer({ settings }: { settings: Settings }) {
   );
 
   return (
-    <footer className="surface-deep relative overflow-hidden text-ocean-100">
-      <div className="grid-overlay absolute inset-0 opacity-60" aria-hidden />
+    <footer className="relative overflow-hidden bg-brand-800 text-white">
+      <DecoDotGrid tone="dark" className="-right-10 top-8 w-[397px] opacity-70" />
 
-      <div className="container-page relative pt-20 pb-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
-          <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-linear-135 from-ocean-500 to-cyan-glow text-base font-extrabold tracking-tighter text-white">
-                VHD
-              </span>
-              <span>
-                <span className="block text-base font-bold leading-tight text-white">
-                  {settings.event_name}
-                </span>
-                <span className="block text-xs text-ocean-200/70">{settings.event_tagline}</span>
-              </span>
-            </Link>
+      <div className="container-page relative grid gap-10 pb-11 pt-14 lg:grid-cols-[380px_220px_220px_1fr] lg:gap-16">
+        <div>
+          <Link href="/" className="inline-flex min-h-11 items-center gap-3" translate="no">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-brand-600 text-[0.8125rem] font-bold text-white">
+              VHD
+            </span>
+            <span className="text-base font-bold text-white">{settings.event_name}</span>
+          </Link>
 
-            <p className="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-ocean-100/65">
-              {settings.event_description}
-            </p>
+          <p className="mt-3.5 max-w-sm text-pretty text-sm leading-relaxed text-brand-200">
+            {settings.event_description}
+          </p>
 
-            <ul className="mt-7 space-y-3 text-sm">
-              {settings.contact_address && (
-                <li className="flex gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cyan-glow" />
-                  <span className="text-ocean-100/75">{settings.contact_address}</span>
-                </li>
-              )}
-              {settings.contact_email && (
-                <li className="flex gap-3">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-cyan-glow" />
+          {socials.length > 0 && (
+            <div className="mt-5 flex gap-2.5">
+              {socials.map(([key, url]) => {
+                const Icon = BRAND_ICONS[key as keyof typeof BRAND_ICONS];
+                return (
                   <a
-                    href={`mailto:${settings.contact_email}`}
-                    className="inline-flex min-h-11 items-center text-ocean-100/75 transition-colors duration-300 hover:text-white sm:min-h-6"
+                    key={key}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={key}
+                    className="grid h-11 w-11 place-items-center rounded-control bg-white/10 text-white transition-colors duration-300 hover:bg-brand-600"
                   >
-                    {settings.contact_email}
+                    <Icon className="h-4 w-4" />
                   </a>
-                </li>
-              )}
-              {settings.contact_phone && (
-                <li className="flex gap-3">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-cyan-glow" />
-                  <a
-                    href={`tel:${settings.contact_phone.replace(/\s/g, "")}`}
-                    className="inline-flex min-h-11 items-center text-ocean-100/75 transition-colors duration-300 hover:text-white sm:min-h-6"
-                  >
-                    {settings.contact_phone}
-                  </a>
-                </li>
-              )}
-            </ul>
-
-            {socials.length > 0 && (
-              <div className="mt-7 flex gap-2.5">
-                {socials.map(([key, url]) => {
-                  const Icon = BRAND_ICONS[key as keyof typeof BRAND_ICONS];
-                  return (
-                    <a
-                      key={key}
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={key}
-                      className="grid h-11 w-11 place-items-center rounded-full bg-white/8 text-ocean-100 ring-1 ring-white/12 transition-[background-color,color,box-shadow] duration-300 hover:bg-cyan-glow hover:text-abyss hover:ring-cyan-glow"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          <div className="grid gap-10 sm:grid-cols-3">
-            {COLUMNS.map((col) => (
-              <div key={col.title}>
-                <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">
-                  {col.title}
-                </h2>
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
-                    <li key={link.href + link.label}>
-                      <Link
-                        href={link.href}
-                        className="group inline-flex items-center gap-1.5 text-sm text-ocean-100/65 transition hover:text-white"
-                      >
-                        {link.label}
-                        <ArrowUpRight className="h-3 w-3 opacity-0 transition duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {(settings.start_date || settings.venue_name) && (
-          <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-sm backdrop-blur-sm">
-            <span className="font-semibold text-white">
-              {formatDateRange(settings.start_date, settings.end_date)}
-            </span>
-            {settings.venue_name && (
-              <span className="text-ocean-100/70">
-                {settings.venue_name}
-                {settings.venue_address && ` · ${settings.venue_address}`}
-              </span>
-            )}
-          </div>
-        )}
+        <FooterColumn title="Liên kết nhanh" links={QUICK_LINKS} />
+        <FooterColumn title="Dành cho khách tham dự" links={ATTENDEE_LINKS} />
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-7 text-xs text-ocean-100/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {settings.event_name}. Bảo lưu mọi quyền.
-          </p>
+        <div>
+          <h2 className="text-sm font-bold text-white">Ban tổ chức</h2>
+          <ul className="mt-3 space-y-3 text-sm">
+            {settings.contact_address && (
+              <li className="flex gap-2.5">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <span className="text-brand-200">{settings.contact_address}</span>
+              </li>
+            )}
+            {settings.contact_phone && (
+              <li className="flex gap-2.5">
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <a
+                  href={`tel:${settings.contact_phone.replace(/\s/g, "")}`}
+                  className="inline-flex min-h-11 items-center text-brand-200 transition-colors duration-300 hover:text-white sm:min-h-6"
+                >
+                  {settings.contact_phone}
+                </a>
+              </li>
+            )}
+            {settings.contact_email && (
+              <li className="flex gap-2.5">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <a
+                  href={`mailto:${settings.contact_email}`}
+                  className="inline-flex min-h-11 items-center text-brand-200 transition-colors duration-300 hover:text-white sm:min-h-6"
+                >
+                  {settings.contact_email}
+                </a>
+              </li>
+            )}
+          </ul>
+
+          {(settings.start_date || settings.venue_name) && (
+            <p className="mt-5 text-caption text-brand-200">
+              {formatDateRange(settings.start_date, settings.end_date)}
+              {settings.venue_name && ` · ${settings.venue_name}`}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="relative border-t border-[#0A6A62]">
+        <div className="container-page flex flex-col gap-2 py-[18px] text-caption text-brand-200 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} {settings.event_name}. Bảo lưu mọi quyền.</p>
           <p>
             Phát triển bởi{" "}
             <a
               href="https://vhdcorp.com"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-ocean-100/70 transition hover:text-white"
+              className="transition-colors duration-300 hover:text-white"
             >
               VHD Corp
             </a>
@@ -171,5 +133,31 @@ export function Footer({ settings }: { settings: Settings }) {
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<{ href: string; label: string }>;
+}) {
+  return (
+    <div>
+      <h2 className="text-sm font-bold text-white">{title}</h2>
+      <ul className="mt-3 space-y-1">
+        {links.map((link) => (
+          <li key={link.href + link.label}>
+            <Link
+              href={link.href}
+              className="inline-flex min-h-11 items-center text-sm text-brand-200 transition-colors duration-300 hover:text-white sm:min-h-8"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

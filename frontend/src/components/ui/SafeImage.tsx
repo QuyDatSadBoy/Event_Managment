@@ -37,16 +37,16 @@ export function SafeImage({
         role={fallbackLabel ? "img" : undefined}
         aria-label={fallbackLabel ? alt : undefined}
         className={cn(
-          "absolute inset-0 grid place-items-center bg-linear-135 from-ocean-100 via-ocean-200 to-ocean-300",
+          "absolute inset-0 grid place-items-center bg-linear-135 from-brand-100 via-brand-200 to-brand-300",
           wrapperClassName,
         )}
       >
         {fallbackLabel ? (
-          <span className="text-2xl font-bold tracking-tight text-ocean-700/70 select-none">
+          <span className="text-2xl font-bold tracking-tight text-brand-700/70 select-none">
             {fallbackLabel}
           </span>
         ) : (
-          <svg viewBox="0 0 24 24" className="h-8 w-8 text-ocean-500/50" fill="currentColor">
+          <svg viewBox="0 0 24 24" className="h-8 w-8 text-brand-500/50" fill="currentColor">
             <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Zm3 3a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 7 8Zm11 9-4.5-6-3.2 4.2-2.1-2.6L6 17h12Z" />
           </svg>
         )}

@@ -1,4 +1,11 @@
 const { chromium } = require("playwright");
+
+async function disableSmoothScroll(page) {
+  await page.addStyleTag({
+    content: "html { scroll-behavior: auto !important; } *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }",
+  });
+}
+
 const { PNG } = require("pngjs");
 
 const BASE = process.env.BASE || "http://localhost:3002";
@@ -66,25 +73,44 @@ function measure(png, cssLum) {
   return { ratio: ratio(centre(ti), centre(bi)), coverage: total };
 }
 
+
+// domcontentloaded fires before stylesheets finish, and measuring an unstyled
+// page reports every ratio and every measure as a failure. Nothing is sampled
+// until the page is actually wearing its CSS.
+async function waitForStyled(page) {
+  await page.waitForFunction(
+    () => {
+      if (document.styleSheets.length === 0) return false;
+      // Tailwind compiles most theme tokens to literals, so a custom property
+      // is not a reliable signal; the font stack is set from one that survives.
+      const ff = getComputedStyle(document.body).fontFamily;
+      return ff.includes("Be Vietnam") || ff.includes("--font-be-vietnam");
+    },
+    null,
+    { timeout: 20000 },
+  );
+}
+
 (async () => {
   const browser = await chromium.launch();
   const findings = [];
 
   for (const width of WIDTHS) {
+    for (const [name, path] of PAGES) {
     const ctx = await browser.newContext({
       viewport: { width, height: width < 768 ? 844 : 900 },
       deviceScaleFactor: 2, isMobile: width < 768, locale: "vi-VN",
     });
     const page = await ctx.newPage();
-
-    for (const [name, path] of PAGES) {
       await page.goto(BASE + path, { waitUntil: "domcontentloaded", timeout: 45000 });
+      await waitForStyled(page);
+      await disableSmoothScroll(page);
       await page.evaluate(async () => {
         const s = window.innerHeight * 0.8;
         for (let y = 0; y < document.body.scrollHeight; y += s) {
-          window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60));
+          window.scrollTo({ top: y, behavior: "instant" }); await new Promise((r) => setTimeout(r, 60));
         }
-        window.scrollTo(0, 0); await new Promise((r) => setTimeout(r, 350));
+        window.scrollTo({ top: 0, behavior: "instant" }); await new Promise((r) => setTimeout(r, 350));
       });
       await page.waitForTimeout(400);
 
@@ -122,7 +148,7 @@ function measure(png, cssLum) {
             text: txt.slice(0, 40),
             box: { x: r.x + window.scrollX, y: r.y + window.scrollY, w: r.width, h: r.height },
           });
-          if (out.length > 90) break;
+          if (out.length > 55) break;
         }
         return out;
       });
@@ -147,8 +173,8 @@ function measure(png, cssLum) {
           }
         } catch { /* element scrolled out of the capture area */ }
       }
+      await ctx.close();
     }
-    await ctx.close();
   }
   await browser.close();
 

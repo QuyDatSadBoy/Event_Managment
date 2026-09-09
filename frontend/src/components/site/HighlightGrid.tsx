@@ -11,30 +11,29 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 /**
- * An editorial list, not a card grid. Four identical icon-heading-text cards is
- * the default container for "here are our four things" and says nothing; a
- * hairline-separated list puts the weight on the titles, reads in one column on
- * a phone without four boxes of chrome, and lets the ocean rule on the left
- * carry the only decoration.
+ * A hairline-separated list rather than four identical boxes. On a phone the
+ * card version costs about a thousand pixels of scroll for four short
+ * statements; this says the same thing in a third of the space and keeps the
+ * weight on the titles.
  */
 export function HighlightGrid({ highlights }: { highlights: Highlight[] }) {
   if (!highlights?.length) return null;
 
   return (
-    <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl bg-ocean-100 sm:grid-cols-2">
+    <ul className="grid gap-px overflow-hidden rounded-card bg-line sm:grid-cols-2">
       {highlights.map((item) => {
         const Icon = ICONS[item.icon ?? ""] ?? Lightbulb;
         return (
-          <li key={item.title} className="group relative bg-white p-6 sm:p-7 lg:p-8">
+          <li key={item.title} className="group relative bg-white p-6 lg:p-7">
             <span
-              className="absolute left-0 top-6 h-8 w-px bg-ocean-400 transition-[height,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:h-[calc(100%-3rem)] group-hover:bg-cyan-glow sm:top-7 lg:top-8"
+              className="absolute left-0 top-6 h-8 w-0.5 bg-brand-400 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:h-[calc(100%-3rem)] lg:top-7"
               aria-hidden
             />
-            <h3 className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-ocean-950">
-              <Icon className="h-5 w-5 shrink-0 text-ocean-500" aria-hidden />
+            <h3 className="flex items-center gap-2.5 text-card font-semibold leading-[1.3] tracking-tight text-brand-950">
+              <Icon className="h-5 w-5 shrink-0 text-brand-500" aria-hidden />
               {item.title}
             </h3>
-            <p className="mt-2.5 max-w-[46ch] text-pretty text-[0.9375rem] leading-relaxed text-ocean-950/62">
+            <p className="mt-2 max-w-[46ch] text-pretty text-sm leading-relaxed text-ink-muted">
               {item.description}
             </p>
           </li>

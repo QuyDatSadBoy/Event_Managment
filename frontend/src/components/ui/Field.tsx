@@ -5,10 +5,10 @@ import { AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const CONTROL =
-  "w-full rounded-xl border bg-white px-4 text-[0.9375rem] text-ocean-950 outline-hidden transition duration-300 " +
-  "placeholder:text-ocean-950/32 focus:ring-4 disabled:cursor-not-allowed disabled:bg-ocean-50/60";
+  "w-full rounded-xl border bg-white px-4 text-[0.9375rem] text-brand-950 outline-hidden transition duration-300 " +
+  "placeholder:text-brand-950/32 focus:ring-4 disabled:cursor-not-allowed disabled:bg-brand-50/60";
 
-const OK = "border-ocean-200 focus:border-ocean-400 focus:ring-ocean-500/10";
+const OK = "border-brand-200 focus:border-brand-400 focus:ring-brand-500/10";
 const BAD = "border-rose-300 bg-rose-50/40 focus:border-rose-400 focus:ring-rose-500/10";
 
 function Wrapper({
@@ -31,7 +31,7 @@ function Wrapper({
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={htmlFor} className="mb-2 block text-sm font-semibold text-ocean-950">
+        <label htmlFor={htmlFor} className="mb-2 block text-sm font-semibold text-brand-950">
           {label}
           {required && <span className="ml-1 text-rose-500">*</span>}
         </label>
@@ -47,7 +47,7 @@ function Wrapper({
           {error}
         </p>
       ) : (
-        hint && <p className="mt-1.5 text-xs text-ocean-950/45">{hint}</p>
+        hint && <p className="mt-1.5 text-xs text-brand-950/45">{hint}</p>
       )}
     </div>
   );

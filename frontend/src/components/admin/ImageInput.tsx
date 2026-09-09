@@ -48,7 +48,7 @@ export function ImageInput({
 
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-ocean-950">{label}</label>
+      <label className="mb-2 block text-sm font-semibold text-brand-950">{label}</label>
 
       <div
         onDragOver={(e) => {
@@ -64,7 +64,7 @@ export function ImageInput({
         }}
         className={cn(
           "relative overflow-hidden rounded-2xl border-2 border-dashed transition-colors duration-300",
-          dragging ? "border-ocean-500 bg-ocean-50" : "border-ocean-200 bg-ocean-50/40",
+          dragging ? "border-brand-500 bg-brand-50" : "border-brand-200 bg-brand-50/40",
         )}
       >
         {value ? (
@@ -76,7 +76,7 @@ export function ImageInput({
                 onClick={() => inputRef.current?.click()}
                 disabled={busy}
                 aria-label="Thay ảnh"
-                className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-ocean-700 shadow-sm transition hover:bg-white"
+                className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-brand-700 shadow-sm transition hover:bg-white"
               >
                 <Upload className="h-4 w-4" />
               </button>
@@ -98,14 +98,14 @@ export function ImageInput({
             className={cn("flex w-full flex-col items-center justify-center gap-2 px-6 py-10", aspect)}
           >
             {busy ? (
-              <Loader2 className="h-7 w-7 animate-spin text-ocean-500" />
+              <Loader2 className="h-7 w-7 animate-spin text-brand-500" />
             ) : (
-              <ImageIcon className="h-7 w-7 text-ocean-400" />
+              <ImageIcon className="h-7 w-7 text-brand-400" />
             )}
-            <span className="text-sm font-medium text-ocean-800">
+            <span className="text-sm font-medium text-brand-800">
               {busy ? "Đang tải lên…" : "Chọn tệp hoặc kéo thả vào đây"}
             </span>
-            <span className="text-xs text-ocean-950/40">
+            <span className="text-xs text-brand-950/40">
               JPG, PNG, WebP, AVIF, SVG — tối đa 25MB
             </span>
           </button>
@@ -113,7 +113,7 @@ export function ImageInput({
 
         {busy && value && (
           <div className="absolute inset-0 grid place-items-center bg-white/70">
-            <Loader2 className="h-6 w-6 animate-spin text-ocean-600" />
+            <Loader2 className="h-6 w-6 animate-spin text-brand-600" />
           </div>
         )}
       </div>
@@ -135,9 +135,9 @@ export function ImageInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="hoặc dán đường dẫn ảnh…"
-        className="mt-2 h-10 w-full rounded-xl border border-ocean-200 bg-white px-3.5 text-sm text-ocean-950 outline-hidden transition placeholder:text-ocean-950/30 focus:border-ocean-400 focus:ring-4 focus:ring-ocean-500/10"
+        className="mt-2 h-10 w-full rounded-xl border border-brand-200 bg-white px-3.5 text-sm text-brand-950 outline-hidden transition placeholder:text-brand-950/30 focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10"
       />
-      {hint && <p className="mt-1.5 text-xs text-ocean-950/45">{hint}</p>}
+      {hint && <p className="mt-1.5 text-xs text-brand-950/45">{hint}</p>}
     </div>
   );
 }

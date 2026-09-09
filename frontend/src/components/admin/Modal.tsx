@@ -43,7 +43,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-end justify-center overflow-y-auto bg-abyss/55 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-100 flex items-end justify-center overflow-y-auto bg-brand-950/55 p-0 backdrop-blur-sm sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -56,16 +56,16 @@ export function Modal({
           width,
         )}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-ocean-100 px-6 py-5">
+        <header className="flex items-start justify-between gap-4 border-b border-brand-100 px-6 py-5">
           <div>
-            <h2 className="text-lg font-bold tracking-tight text-ocean-950">{title}</h2>
-            {description && <p className="mt-1 text-sm text-ocean-950/50">{description}</p>}
+            <h2 className="text-lg font-bold tracking-tight text-brand-950">{title}</h2>
+            {description && <p className="mt-1 text-sm text-brand-950/50">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-ocean-400 transition hover:bg-ocean-50 hover:text-ocean-700"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-brand-400 transition hover:bg-brand-50 hover:text-brand-700"
           >
             <X className="h-4.5 w-4.5" />
           </button>
@@ -74,7 +74,7 @@ export function Modal({
         <div className="flex-1 overflow-y-auto px-6 py-6">{children}</div>
 
         {footer && (
-          <footer className="flex flex-wrap justify-end gap-3 border-t border-ocean-100 px-6 py-4">
+          <footer className="flex flex-wrap justify-end gap-3 border-t border-brand-100 px-6 py-4">
             {footer}
           </footer>
         )}
@@ -112,7 +112,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onClose}
             disabled={busy}
-            className="h-10 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+            className="h-10 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
           >
             Huỷ
           </button>
@@ -127,7 +127,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-sm leading-relaxed text-ocean-950/70">{message}</p>
+      <p className="text-sm leading-relaxed text-brand-950/70">{message}</p>
     </Modal>
   );
 }

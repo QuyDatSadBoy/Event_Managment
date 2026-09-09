@@ -115,8 +115,8 @@ export default function AdminContactsPage() {
             <li
               key={c.id}
               className={cn(
-                "rounded-2xl border bg-white p-5 transition-[box-shadow,border-color,background-color] duration-300 hover:shadow-[0_16px_36px_-24px_rgb(8_42_77/0.35)]",
-                c.is_read ? "border-ocean-100" : "border-ocean-300 bg-ocean-50/40",
+                "rounded-2xl border bg-white p-5 transition-[box-shadow,border-color,background-color] duration-300 hover:shadow-[0_16px_36px_-24px_rgb(12_43_41/0.35)]",
+                c.is_read ? "border-brand-100" : "border-brand-300 bg-brand-50/40",
               )}
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
@@ -125,22 +125,22 @@ export default function AdminContactsPage() {
                     className={cn(
                       "grid h-11 w-11 shrink-0 place-items-center rounded-full text-xs font-bold",
                       c.is_read
-                        ? "bg-ocean-50 text-ocean-600"
-                        : "bg-linear-135 from-ocean-600 to-cyan-glow text-white",
+                        ? "bg-brand-50 text-brand-600"
+                        : "bg-linear-135 from-brand-600 to-brand-400 text-white",
                     )}
                   >
                     {initials(c.name)}
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-semibold text-ocean-950">{c.name}</span>
+                      <span className="font-semibold text-brand-950">{c.name}</span>
                       {!c.is_read && (
-                        <span className="rounded-full bg-ocean-600 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-white">
+                        <span className="rounded-full bg-brand-600 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-white">
                           Mới
                         </span>
                       )}
                       {c.subject && (
-                        <span className="rounded-full bg-white px-2.5 py-0.5 text-[0.6875rem] font-medium text-ocean-700 ring-1 ring-ocean-200">
+                        <span className="rounded-full bg-white px-2.5 py-0.5 text-[0.6875rem] font-medium text-brand-700 ring-1 ring-brand-200">
                           {c.subject}
                         </span>
                       )}
@@ -148,7 +148,7 @@ export default function AdminContactsPage() {
                     <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-0.5 text-xs">
                       <a
                         href={`mailto:${c.email}`}
-                        className="inline-flex items-center gap-1.5 text-ocean-600 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-brand-600 hover:underline"
                       >
                         <Mail className="h-3.5 w-3.5" />
                         {c.email}
@@ -156,13 +156,13 @@ export default function AdminContactsPage() {
                       {c.phone && (
                         <a
                           href={`tel:${c.phone.replace(/\s/g, "")}`}
-                          className="inline-flex items-center gap-1.5 text-ocean-600 hover:underline"
+                          className="inline-flex items-center gap-1.5 text-brand-600 hover:underline"
                         >
                           <Phone className="h-3.5 w-3.5" />
                           {c.phone}
                         </a>
                       )}
-                      <span className="text-ocean-950/40">{formatDateTime(c.created_at)}</span>
+                      <span className="text-brand-950/40">{formatDateTime(c.created_at)}</span>
                     </div>
                   </div>
                 </div>
@@ -182,7 +182,7 @@ export default function AdminContactsPage() {
                 </div>
               </div>
 
-              <p className="mt-4 whitespace-pre-wrap border-l-2 border-ocean-200 pl-4 text-sm leading-relaxed text-ocean-950/70">
+              <p className="mt-4 whitespace-pre-wrap border-l-2 border-brand-200 pl-4 text-sm leading-relaxed text-brand-950/70">
                 {c.message}
               </p>
 
@@ -190,7 +190,7 @@ export default function AdminContactsPage() {
                 href={`mailto:${c.email}?subject=${encodeURIComponent(
                   `Re: ${c.subject || "Liên hệ VHD Summit"}`,
                 )}`}
-                className="mt-4 inline-flex h-9 items-center gap-2 rounded-full bg-ocean-600 px-4 text-sm font-semibold text-white transition hover:bg-ocean-500"
+                className="mt-4 inline-flex h-9 items-center gap-2 rounded-full bg-brand-600 px-4 text-sm font-semibold text-white transition hover:bg-brand-500"
               >
                 <Mail className="h-3.5 w-3.5" />
                 Trả lời qua email

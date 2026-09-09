@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, CalendarDays, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { cn, formatDateRange } from "@/lib/utils";
 import type { Settings } from "@/lib/types";
 
@@ -18,22 +18,18 @@ const NAV = [
   { href: "/lien-he", label: "Liên hệ" },
 ];
 
+/**
+ * design.pen "Header Desktop" (1440×80) and "Header Mobile" (390×60): a solid
+ * white bar with a bottom border, a 44px logo mark beside a two-line lockup,
+ * nav at 15/500 with 30px gaps, and the register CTA on the right.
+ *
+ * It is opaque at every scroll position — the file draws it that way, and a
+ * transparent header over the hero would put white nav labels on whatever
+ * photograph the editor uploads.
+ */
 export function Header({ settings }: { settings: Settings }) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    // A reload part-way down the page must not start with a transparent header,
-    // so seed the state from the next frame rather than the effect body.
-    const raf = requestAnimationFrame(onScroll);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -55,91 +51,57 @@ export function Header({ settings }: { settings: Settings }) {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-ocean-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-control focus:bg-brand-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"
       >
         Bỏ qua tới nội dung chính
       </a>
 
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          scrolled || open
-            ? "border-b border-ocean-100 bg-white/85 backdrop-blur-xl shadow-[0_1px_20px_-8px_rgb(8_42_77/0.25)]"
-            : "border-b border-transparent bg-transparent",
-        )}
-      >
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white">
         <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
-          <Link href="/" className="group flex items-center gap-3" aria-label={settings.event_name} translate="no">
-            <span
-              className={cn(
-                "grid h-11 w-11 shrink-0 place-items-center rounded-xl text-[0.9375rem] font-extrabold tracking-tighter transition-colors duration-500",
-                scrolled || open
-                  ? "bg-linear-135 from-ocean-600 to-cyan-glow text-white"
-                  : "bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-md",
-              )}
-            >
+          <Link
+            href="/"
+            className="flex items-center gap-3"
+            aria-label={settings.event_name}
+            translate="no"
+          >
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-brand-600 text-[0.8125rem] font-bold tracking-tight text-white">
               VHD
             </span>
-            <span className="hidden sm:block">
-              <span
-                className={cn(
-                  "block text-[0.9375rem] font-bold leading-tight tracking-tight transition-colors duration-500",
-                  scrolled || open ? "text-ocean-950" : "text-white",
-                )}
-              >
+            <span className="hidden leading-tight sm:block">
+              <span className="block text-[1.0625rem] font-bold tracking-tight text-brand-950">
                 {settings.event_name}
               </span>
-              <span
-                className={cn(
-                  "block text-[0.6875rem] font-medium leading-tight transition-colors duration-500",
-                  scrolled || open ? "text-ocean-600" : "text-ocean-100/80",
-                )}
-              >
-                {settings.event_tagline}
+              <span className="block text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-brand-600">
+                {settings.venue_name || settings.event_tagline}
               </span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Điều hướng chính">
+          <nav className="hidden items-center gap-[30px] xl:flex" aria-label="Điều hướng chính">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative rounded-full px-3.5 py-2 text-[0.875rem] font-medium transition-colors duration-300",
-                  scrolled || open
-                    ? isActive(item.href)
-                      ? "text-ocean-700"
-                      : "text-ocean-950/70 hover:text-ocean-700"
-                    : isActive(item.href)
-                      ? "text-white"
-                      : "text-white/75 hover:text-white",
+                  "relative py-2 text-[0.9375rem] font-medium transition-colors duration-300",
+                  isActive(item.href)
+                    ? "text-brand-600"
+                    : "text-brand-950 hover:text-brand-600",
                 )}
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <span
-                    className={cn(
-                      "absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full",
-                      scrolled || open ? "bg-ocean-600" : "bg-cyan-glow",
-                    )}
-                  />
+                  <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-brand-600" />
                 )}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 sm:gap-4">
             {settings.registration_open && (
               <Link
                 href="/dang-ky"
-                className={cn(
-                  "inline-flex h-11 items-center gap-2 rounded-full px-4 text-[0.8125rem] font-semibold",
-                  "transition-[background-color,color,box-shadow] duration-300 sm:px-5 sm:text-sm",
-                  scrolled || open
-                    ? "bg-ocean-700 text-white shadow-[0_10px_26px_-12px_rgb(4_95_173/0.9)] hover:bg-ocean-600"
-                    : "bg-white text-ocean-900 hover:bg-ocean-50",
-                )}
+                className="inline-flex h-11 items-center gap-2 rounded-control bg-brand-600 px-4 text-[0.8125rem] font-bold text-white transition-colors duration-300 hover:bg-brand-800 sm:px-5 sm:text-sm"
               >
                 Đăng ký
                 <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
@@ -151,12 +113,7 @@ export function Header({ settings }: { settings: Settings }) {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Đóng menu" : "Mở menu"}
               aria-expanded={open}
-              className={cn(
-                "grid h-11 w-11 place-items-center rounded-full transition-colors duration-300 xl:hidden",
-                scrolled || open
-                  ? "bg-ocean-50 text-ocean-800 hover:bg-ocean-100"
-                  : "bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-md",
-              )}
+              className="grid h-11 w-11 place-items-center rounded-control bg-brand-100 text-brand-800 transition-colors duration-300 hover:bg-brand-200 xl:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -166,61 +123,45 @@ export function Header({ settings }: { settings: Settings }) {
 
       {/* Mobile drawer */}
       <div
-        className={cn(
-          "fixed inset-0 z-40 xl:hidden",
-          open ? "pointer-events-auto" : "pointer-events-none",
-        )}
+        className={cn("fixed inset-0 z-40 xl:hidden", open ? "pointer-events-auto" : "pointer-events-none")}
         aria-hidden={!open}
       >
         <div
           onClick={() => setOpen(false)}
           className={cn(
-            "absolute inset-0 bg-abyss/60 backdrop-blur-sm transition-opacity duration-400",
+            "absolute inset-0 bg-brand-950/55 transition-opacity duration-400",
             open ? "opacity-100" : "opacity-0",
           )}
         />
         <nav
           className={cn(
-            "absolute inset-x-0 top-[var(--header-h)] max-h-[calc(100dvh-var(--header-h))] overscroll-contain overflow-y-auto border-b border-ocean-100 bg-white px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-4 shadow-2xl transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0",
+            "absolute inset-x-0 top-[var(--header-h)] max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain",
+            "border-b border-line bg-white px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-2",
+            "shadow-[0_24px_48px_-24px_rgb(12_43_41/0.35)]",
+            "transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            open ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0",
           )}
           aria-label="Điều hướng di động"
         >
-          {NAV.map((item, i) => (
+          {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              style={{ transitionDelay: open ? `${i * 35}ms` : "0ms" }}
+              onClick={() => setOpen(false)}
               className={cn(
-                "flex items-center justify-between border-b border-ocean-50 py-4 text-base font-medium transition-[transform,opacity] duration-300",
-                open ? "translate-x-0 opacity-100" : "translate-x-3 opacity-0",
-                isActive(item.href) ? "text-ocean-700" : "text-ocean-950/75",
+                "flex min-h-11 items-center justify-between border-b border-line/70 py-3.5 text-base font-medium",
+                isActive(item.href) ? "text-brand-600" : "text-brand-950",
               )}
             >
               {item.label}
               <ArrowRight
-                className={cn(
-                  "h-4 w-4 transition",
-                  isActive(item.href) ? "text-ocean-600" : "text-ocean-300",
-                )}
+                className={cn("h-4 w-4", isActive(item.href) ? "text-brand-600" : "text-brand-300")}
               />
             </Link>
           ))}
 
-          {settings.registration_open && (
-            <Link
-              href="/dang-ky"
-              onClick={() => setOpen(false)}
-              className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-linear-to-r from-ocean-700 to-ocean-600 text-[0.9375rem] font-semibold text-white shadow-[0_12px_30px_-12px_rgb(4_95_173/0.9)]"
-            >
-              Đăng ký tham dự
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          )}
-
           {(settings.start_date || settings.venue_name) && (
-            <p className="mt-5 flex items-center justify-center gap-2 text-center text-xs text-ocean-950/50">
-              <CalendarDays className="h-3.5 w-3.5" />
+            <p className="mt-5 text-center text-caption text-ink-muted">
               {formatDateRange(settings.start_date, settings.end_date)}
               {settings.venue_name && ` · ${settings.venue_name}`}
             </p>

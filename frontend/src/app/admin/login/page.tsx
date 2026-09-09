@@ -41,34 +41,33 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="surface-deep relative isolate grid min-h-dvh place-items-center overflow-hidden px-5 py-12">
-      <div className="grid-overlay absolute inset-0 opacity-40" aria-hidden />
+    <main className="bg-brand-800 relative isolate grid min-h-dvh place-items-center overflow-hidden px-5 py-12">
       <div
-        className="absolute -right-40 top-0 h-96 w-96 rounded-full bg-cyan-glow/15 blur-3xl animate-float"
+        className="absolute -right-40 top-0 h-96 w-96 rounded-full bg-brand-400/15 blur-3xl"
         aria-hidden
       />
       <div
-        className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-ocean-500/20 blur-3xl"
+        className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl"
         aria-hidden
       />
 
       <div className="relative w-full max-w-md">
         <Link
           href="/"
-          className="mb-7 inline-flex items-center gap-2 text-sm text-ocean-100/55 transition hover:text-white"
+          className="mb-7 inline-flex items-center gap-2 text-sm text-brand-100/55 transition hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           Về trang chủ
         </Link>
 
-        <div className="rounded-[1.75rem] border border-white/12 bg-white/95 p-8 shadow-[0_30px_70px_-30px_rgb(0_0_0/0.6)] backdrop-blur-xl sm:p-10">
+        <div className="rounded-[1.75rem] border border-white/12 bg-white/95 p-8 shadow-[0_30px_70px_-30px_rgb(12_43_41/0.6)] backdrop-blur-xl sm:p-10">
           <div className="flex items-center gap-3">
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-linear-135 from-ocean-600 to-cyan-glow text-white">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-linear-135 from-brand-600 to-brand-400 text-white">
               <Lock className="h-5.5 w-5.5" />
             </span>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-ocean-950">Đăng nhập quản trị</h1>
-              <p className="text-sm text-ocean-950/50">VHD Summit — Trang quản trị nội dung</p>
+              <h1 className="text-xl font-bold tracking-tight text-brand-950">Đăng nhập quản trị</h1>
+              <p className="text-sm text-brand-950/50">VHD Summit — Trang quản trị nội dung</p>
             </div>
           </div>
 
@@ -128,7 +127,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="mt-6 text-center text-xs text-ocean-100/40">
+        <p className="mt-6 text-center text-xs text-brand-100/40">
           Chỉ dành cho ban tổ chức. Mọi truy cập đều được ghi nhận.
         </p>
       </div>

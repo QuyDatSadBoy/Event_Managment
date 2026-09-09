@@ -213,8 +213,8 @@ export default function AdminSpeakersPage() {
       />
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-ocean-950/55">
-          <span className="font-bold text-ocean-950">{filtered.length}</span> diễn giả
+        <p className="text-sm text-brand-950/55">
+          <span className="font-bold text-brand-950">{filtered.length}</span> diễn giả
           {search && ` khớp với “${search}”`}
         </p>
         <AdminSearch value={search} onChange={setSearch} placeholder="Tìm theo tên, đơn vị…" />
@@ -253,7 +253,7 @@ export default function AdminSpeakersPage() {
           </thead>
           <tbody>
             {filtered.map((s) => (
-              <tr key={s.id} className="transition-colors hover:bg-ocean-50/40">
+              <tr key={s.id} className="transition-colors hover:bg-brand-50/40">
                 <Td>
                   <span className="relative block h-11 w-11 overflow-hidden rounded-xl">
                     <SafeImage
@@ -266,29 +266,29 @@ export default function AdminSpeakersPage() {
                 </Td>
                 <Td>
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-ocean-950">{s.name}</span>
+                    <span className="font-semibold text-brand-950">{s.name}</span>
                     {s.featured && (
-                      <Star className="h-3.5 w-3.5 shrink-0 fill-gold text-gold" aria-label="Nổi bật" />
+                      <Star className="h-3.5 w-3.5 shrink-0 fill-cream text-cream" aria-label="Nổi bật" />
                     )}
                   </div>
-                  <p className="text-xs text-ocean-950/45">{s.title || "—"}</p>
+                  <p className="text-xs text-brand-950/45">{s.title || "—"}</p>
                 </Td>
                 <Td className="hidden md:table-cell">
-                  <span className="text-ocean-950/70">{s.company || "—"}</span>
-                  {s.country && <p className="text-xs text-ocean-950/40">{s.country}</p>}
+                  <span className="text-brand-950/70">{s.company || "—"}</span>
+                  {s.country && <p className="text-xs text-brand-950/40">{s.country}</p>}
                 </Td>
                 <Td className="hidden lg:table-cell">
                   <div className="flex flex-wrap gap-1">
                     {(s.topics ?? []).slice(0, 2).map((t) => (
                       <span
                         key={t}
-                        className="rounded bg-ocean-50 px-1.5 py-0.5 text-[0.6875rem] text-ocean-700"
+                        className="rounded bg-brand-50 px-1.5 py-0.5 text-[0.6875rem] text-brand-700"
                       >
                         {t}
                       </span>
                     ))}
                     {(s.topics?.length ?? 0) > 2 && (
-                      <span className="text-[0.6875rem] text-ocean-950/40">
+                      <span className="text-[0.6875rem] text-brand-950/40">
                         +{s.topics.length - 2}
                       </span>
                     )}
@@ -305,7 +305,7 @@ export default function AdminSpeakersPage() {
                     {s.is_published ? "Hiển thị" : "Đã ẩn"}
                   </StatusPill>
                 </Td>
-                <Td className="text-center tabular-nums text-ocean-950/50">{s.sort_order}</Td>
+                <Td className="text-center tabular-nums text-brand-950/50">{s.sort_order}</Td>
                 <Td>
                   <RowActions>
                     <IconButton
@@ -341,7 +341,7 @@ export default function AdminSpeakersPage() {
               type="button"
               onClick={() => setModalOpen(false)}
               disabled={saving}
-              className="h-11 rounded-full px-5 text-sm font-semibold text-ocean-700 transition hover:bg-ocean-50 disabled:opacity-50"
+              className="h-11 rounded-full px-5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
             >
               Huỷ
             </button>
@@ -448,23 +448,23 @@ export default function AdminSpeakersPage() {
               onChange={(e) => set("sort_order", Number(e.target.value))}
               hint="Số nhỏ hiển thị trước."
             />
-            <label className="flex cursor-pointer items-center gap-3 self-end rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+            <label className="flex cursor-pointer items-center gap-3 self-end rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
               <input
                 type="checkbox"
                 checked={form.featured}
                 onChange={(e) => set("featured", e.target.checked)}
-                className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
               />
-              <span className="text-sm font-medium text-ocean-950">Diễn giả nổi bật</span>
+              <span className="text-sm font-medium text-brand-950">Diễn giả nổi bật</span>
             </label>
-            <label className="flex cursor-pointer items-center gap-3 self-end rounded-xl border border-ocean-200 px-4 py-3 transition hover:bg-ocean-50">
+            <label className="flex cursor-pointer items-center gap-3 self-end rounded-xl border border-brand-200 px-4 py-3 transition hover:bg-brand-50">
               <input
                 type="checkbox"
                 checked={form.is_published}
                 onChange={(e) => set("is_published", e.target.checked)}
-                className="h-4 w-4 rounded border-ocean-300 text-ocean-600 focus:ring-ocean-500"
+                className="h-4 w-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
               />
-              <span className="text-sm font-medium text-ocean-950">Hiển thị công khai</span>
+              <span className="text-sm font-medium text-brand-950">Hiển thị công khai</span>
             </label>
           </div>
         </form>

@@ -107,8 +107,10 @@ func seedPartners(ctx context.Context, d *db.DB) error {
 
 	// Logos are generated as clean wordmarks so the partner wall looks consistent
 	// without shipping third-party brand assets.
+	// Wordmarks in the brand palette so the demo partner wall reads as one
+	// piece rather than a grid of stock blue.
 	logo := func(name string) string {
-		return "https://placehold.co/400x200/f1f5f9/0f4c81/png?text=" + urlText(name)
+		return "https://placehold.co/400x200/f2f9f9/067c74/png?text=" + urlText(name)
 	}
 
 	partners := []struct {

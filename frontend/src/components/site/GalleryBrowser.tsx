@@ -8,7 +8,7 @@ import {
 import type { GalleryItem, GalleryType } from "@/lib/types";
 import { cn, formatFileSize, toEmbedUrl, videoThumbnail } from "@/lib/utils";
 import { SafeImage } from "@/components/ui/SafeImage";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 const TYPE_TABS: Array<{ value: GalleryType | "all"; label: string; icon: typeof ImageIcon }> = [
@@ -90,8 +90,8 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                   "inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium sm:min-h-10",
                   "transition-[background-color,color,box-shadow] duration-300",
                   type === tab.value
-                    ? "bg-ocean-950 text-white shadow-[0_8px_20px_-10px_rgb(8_42_77/0.8)]"
-                    : "bg-ocean-50 text-ocean-800 hover:bg-ocean-100",
+                    ? "bg-brand-950 text-white shadow-[0_8px_20px_-10px_rgb(12_43_41/0.8)]"
+                    : "bg-brand-50 text-brand-800 hover:bg-brand-100",
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -118,8 +118,8 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                 "inline-flex min-h-11 items-center rounded-full px-3.5 text-sm sm:min-h-9",
                 "transition-[background-color,color] duration-300",
                 album === "all"
-                  ? "bg-ocean-700 text-white"
-                  : "text-ocean-700 hover:bg-ocean-50",
+                  ? "bg-brand-700 text-white"
+                  : "text-brand-700 hover:bg-brand-50",
               )}
             >
               Mọi bộ sưu tập
@@ -132,7 +132,7 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
                 className={cn(
                   "inline-flex min-h-11 items-center rounded-full px-3.5 text-sm sm:min-h-9",
                   "transition-[background-color,color] duration-300",
-                  album === a ? "bg-ocean-700 text-white" : "text-ocean-700 hover:bg-ocean-50",
+                  album === a ? "bg-brand-700 text-white" : "text-brand-700 hover:bg-brand-50",
                 )}
               >
                 {a}
@@ -154,9 +154,9 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
       ) : (
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((item, i) => (
-            <Reveal key={item.id} delay={(i % 4) * 60}>
+            <Block key={item.id}>
               <GalleryTile item={item} onOpen={() => item.type === "image" && setLightbox(i)} />
-            </Reveal>
+            </Block>
           ))}
         </div>
       )}
@@ -164,7 +164,7 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
       {/* Lightbox */}
       {active && (
         <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-abyss/95 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-brand-950/95 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label={active.title || "Xem ảnh"}
@@ -217,7 +217,7 @@ export function GalleryBrowser({ items }: { items: GalleryItem[] }) {
               <figcaption className="mt-4 text-center">
                 {active.title && <p className="font-semibold text-white">{active.title}</p>}
                 {active.description && (
-                  <p className="mt-1 text-sm text-ocean-100/60">{active.description}</p>
+                  <p className="mt-1 text-sm text-brand-200">{active.description}</p>
                 )}
               </figcaption>
             )}
@@ -236,7 +236,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
         href={item.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="group relative block overflow-hidden rounded-2xl bg-ocean-950 card-hover"
+        className="group relative block overflow-hidden rounded-2xl bg-brand-950 card-hover"
         title={item.title}
       >
         <div className="relative aspect-16/10">
@@ -248,23 +248,23 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
             quality={65}
             />
           </div>
-          <div className="absolute inset-0 bg-abyss/45 transition-colors duration-500 group-hover:bg-abyss/30" />
+          <div className="absolute inset-0 bg-brand-950/45 transition-colors duration-500 group-hover:bg-brand-950/30" />
           <span className="absolute inset-0 grid place-items-center">
-            <span className="grid h-14 w-14 place-items-center rounded-full bg-white/95 text-ocean-700 shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-white/95 text-brand-700 shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
               <Play className="ml-0.5 h-6 w-6 fill-current" />
             </span>
           </span>
-          <span className="absolute left-3 top-3 rounded-full bg-abyss/70 px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+          <span className="absolute left-3 top-3 rounded-full bg-brand-950/70 px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
             Video
           </span>
         </div>
         <div className="p-4">
           <p className="line-clamp-1 text-sm font-semibold text-white">{item.title}</p>
           {item.description && (
-            <p className="mt-1 line-clamp-2 text-xs text-ocean-100/60">{item.description}</p>
+            <p className="mt-1 line-clamp-2 text-xs text-brand-200">{item.description}</p>
           )}
           {!embed && (
-            <span className="mt-2 inline-flex items-center gap-1 text-xs text-cyan-glow">
+            <span className="mt-2 inline-flex items-center gap-1 text-xs text-brand-400">
               Mở liên kết
               <ExternalLink className="h-3 w-3" />
             </span>
@@ -280,24 +280,24 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
         href={item.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="group flex h-full flex-col rounded-2xl border border-ocean-100 bg-white p-6 card-hover"
+        className="group flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 card-hover"
       >
-        <span className="grid h-12 w-12 place-items-center rounded-xl bg-linear-135 from-ocean-600 to-cyan-glow text-white transition-transform duration-500 group-hover:scale-110">
+        <span className="grid h-12 w-12 place-items-center rounded-xl bg-linear-135 from-brand-600 to-brand-400 text-white transition-transform duration-500 group-hover:scale-110">
           <FileText className="h-5.5 w-5.5" />
         </span>
-        <p className="mt-5 line-clamp-2 text-base font-bold leading-snug text-ocean-950">
+        <p className="mt-5 line-clamp-2 text-base font-bold leading-snug text-brand-950">
           {item.title}
         </p>
         {item.description && (
-          <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ocean-950/55">
+          <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-brand-950/55">
             {item.description}
           </p>
         )}
-        <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ocean-700">
+        <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-700">
           <Download className="h-4 w-4" />
           Tải xuống
           {item.file_size > 0 && (
-            <span className="font-normal text-ocean-950/40">{formatFileSize(item.file_size)}</span>
+            <span className="font-normal text-brand-950/40">{formatFileSize(item.file_size)}</span>
           )}
         </span>
       </a>
@@ -308,7 +308,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
     <button
       type="button"
       onClick={onOpen}
-      className="group relative block w-full overflow-hidden rounded-2xl bg-ocean-100 card-hover"
+      className="group relative block w-full overflow-hidden rounded-2xl bg-brand-100 card-hover"
       title={item.title}
     >
       <div className="relative aspect-4/3">
@@ -321,7 +321,7 @@ function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }
           />
         </div>
         <div
-          className="absolute inset-0 bg-linear-to-t from-abyss/90 via-abyss/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="absolute inset-0 bg-linear-to-t from-brand-950/90 via-brand-950/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           aria-hidden
         />
         {item.title && (

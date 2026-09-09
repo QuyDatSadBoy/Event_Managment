@@ -39,21 +39,21 @@ export function SpeakerSearch({
 
   return (
     <div className="relative w-full sm:w-80">
-      <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ocean-400" />
+      <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-400" />
       <input
         type="search"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="h-11 w-full rounded-full border border-ocean-200 bg-white pl-11 pr-10 text-sm text-ocean-950 outline-hidden transition duration-300 placeholder:text-ocean-950/35 focus:border-ocean-400 focus:ring-4 focus:ring-ocean-500/10"
+        className="h-11 w-full rounded-full border border-brand-200 bg-white pl-11 pr-10 text-sm text-brand-950 outline-hidden transition duration-300 placeholder:text-brand-950/35 focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10"
       />
       {value && (
         <button
           type="button"
           onClick={() => setValue("")}
           aria-label="Xoá tìm kiếm"
-          className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-ocean-400 transition hover:bg-ocean-50 hover:text-ocean-700"
+          className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full text-brand-400 transition hover:bg-brand-50 hover:text-brand-700"
         >
           <X className="h-3.5 w-3.5" />
         </button>

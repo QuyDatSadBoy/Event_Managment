@@ -1,9 +1,13 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import type { Speaker } from "@/lib/types";
 import { initials } from "@/lib/utils";
 import { SafeImage } from "@/components/ui/SafeImage";
 
+/**
+ * design.pen "Speaker Card": a white card, radius 12, 1px border, with a square
+ * portrait above the text — not a dark photo with the name burned over it. The
+ * body is name 17/700, role 14/400 muted, organisation 13/600 in brand-primary.
+ */
 export function SpeakerCard({
   speaker,
   headingLevel: Heading = "h3",
@@ -13,70 +17,42 @@ export function SpeakerCard({
   headingLevel?: "h2" | "h3";
 }) {
   return (
-    <Link
-      href={`/dien-gia/${speaker.slug}`}
-      className="group relative block overflow-hidden rounded-3xl bg-ocean-950 card-hover"
-    >
-      <div className="relative aspect-4/5 overflow-hidden">
-        <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-108">
+    <article className="group relative overflow-hidden rounded-card border border-line bg-white card-hover">
+      <div className="relative aspect-square overflow-hidden bg-ph-bg">
+        <div className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105">
           <SafeImage
             src={speaker.photo}
             alt={speaker.name}
             fallbackLabel={initials(speaker.name)}
-            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 320px"
+            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px"
             quality={68}
           />
         </div>
-
-        <div
-          className="absolute inset-0 bg-linear-to-t from-abyss via-abyss/70 to-transparent transition-opacity duration-500"
-          aria-hidden
-        />
-
         {speaker.featured && (
-          <span className="absolute left-4 top-4 rounded-full bg-cyan-glow/95 px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-wider text-abyss">
+          <span className="absolute left-3 top-3 rounded-full bg-cream px-2.5 py-1 text-[0.625rem] font-bold uppercase leading-none tracking-wider text-brand-800">
             Nổi bật
           </span>
         )}
-
-        <div className="absolute inset-x-0 bottom-0 p-5">
-          {speaker.country && (
-            <p className="mb-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-cyan-soft">
-              {speaker.country}
-            </p>
-          )}
-          <Heading className="text-lg font-bold leading-tight tracking-tight text-white">
-            {speaker.name}
-          </Heading>
-          {speaker.title && (
-            <p className="mt-1 line-clamp-1 text-sm text-ocean-100/90">{speaker.title}</p>
-          )}
-          {speaker.company && (
-            <p className="line-clamp-1 text-sm font-medium text-ocean-100/75">{speaker.company}</p>
-          )}
-
-          {/* Topics slide in on hover; hidden from the flow until then so the
-              card height never shifts. */}
-          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-rows-[1fr]">
-            <div className="overflow-hidden">
-              <div className="flex flex-wrap gap-1.5 pt-3">
-                {speaker.topics?.slice(0, 2).map((topic) => (
-                  <span
-                    key={topic}
-                    className="rounded-full bg-white/12 px-2.5 py-1 text-[0.6875rem] font-medium text-ocean-100 ring-1 ring-white/15 backdrop-blur-sm"
-                  >
-                    {topic}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <span className="absolute right-4 top-4 grid h-9 w-9 translate-y-2 place-items-center rounded-full bg-white/15 text-white opacity-0 ring-1 ring-white/20 backdrop-blur-md transition-[transform,opacity] duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          <ArrowUpRight className="h-4 w-4" />
-        </span>
       </div>
-    </Link>
+
+      <div className="flex flex-col gap-1.5 px-5 pb-5 pt-[18px]">
+        <Heading className="text-[1.0625rem] font-bold leading-[1.3] tracking-tight text-brand-950">
+          <Link
+            href={`/dien-gia/${speaker.slug}`}
+            className="before:absolute before:inset-0 before:content-['']"
+          >
+            {speaker.name}
+          </Link>
+        </Heading>
+        {speaker.title && (
+          <p className="line-clamp-2 text-sm leading-[1.45] text-ink-muted">{speaker.title}</p>
+        )}
+        {speaker.company && (
+          <p className="line-clamp-1 text-caption font-semibold leading-[1.45] text-brand-600">
+            {speaker.company}
+          </p>
+        )}
+      </div>
+    </article>
   );
 }

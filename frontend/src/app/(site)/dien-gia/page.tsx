@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/settings";
 import { PageHero } from "@/components/site/PageHero";
 import { SpeakerCard } from "@/components/site/SpeakerCard";
 import { SpeakerSearch } from "@/components/site/SpeakerSearch";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { Pagination } from "@/components/ui/Pagination";
 import { EmptyState } from "@/components/ui/EmptyState";
 
@@ -52,14 +52,14 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
 
       <section className="container-page section-y">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm text-ocean-950/55">
+          <p className="text-sm text-brand-950/55">
             {meta.total > 0 ? (
               <>
-                <span className="font-bold text-ocean-950">{meta.total}</span> diễn giả
+                <span className="font-bold text-brand-950">{meta.total}</span> diễn giả
                 {q && (
                   <>
                     {" "}
-                    khớp với “<span className="font-medium text-ocean-800">{q}</span>”
+                    khớp với “<span className="font-medium text-brand-800">{q}</span>”
                   </>
                 )}
               </>
@@ -85,10 +85,10 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
         ) : (
           <>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {speakers.map((speaker, i) => (
-                <Reveal key={speaker.id} delay={(i % 4) * 70}>
+              {speakers.map((speaker) => (
+                <Block key={speaker.id}>
                   <SpeakerCard speaker={speaker} headingLevel="h2" />
-                </Reveal>
+                </Block>
               ))}
             </div>
             <Pagination page={meta.page} totalPages={meta.total_pages} hrefFor={hrefFor} />

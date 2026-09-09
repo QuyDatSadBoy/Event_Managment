@@ -8,7 +8,7 @@ import { HighlightGrid } from "@/components/site/HighlightGrid";
 import { StatsBand } from "@/components/site/StatsBand";
 import { CtaBand } from "@/components/site/CtaBand";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { Block } from "@/components/ui/Block";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { ButtonLink } from "@/components/ui/Button";
 import { safeList } from "@/lib/api";
@@ -45,22 +45,22 @@ export default async function AboutPage() {
       {/* ---------- Narrative ---------- */}
       <section className="container-page section-y">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <Reveal>
+          <Block>
             {settings.about_content ? (
               <div
                 className="prose-event"
                 dangerouslySetInnerHTML={{ __html: settings.about_content }}
               />
             ) : (
-              <p className="text-lg leading-relaxed text-ocean-950/70">
+              <p className="text-lg leading-relaxed text-brand-950/70">
                 {settings.event_description}
               </p>
             )}
-          </Reveal>
+          </Block>
 
-          <Reveal delay={120}>
+          <Block>
             <div className="sticky top-[calc(var(--header-h)+1.5rem)] space-y-5">
-              <div className="relative aspect-4/3 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(8_42_77/0.45)]">
+              <div className="relative aspect-4/3 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(12_43_41/0.45)]">
                 <SafeImage
                   src={settings.about_image || settings.hero_image}
                   alt={settings.event_name}
@@ -68,17 +68,17 @@ export default async function AboutPage() {
                 />
               </div>
 
-              <div className="rounded-3xl border border-ocean-100 bg-ocean-50/50 p-6">
-                <h2 className="text-base font-bold tracking-tight text-ocean-950">
+              <div className="rounded-3xl border border-brand-100 bg-brand-50/50 p-6">
+                <h2 className="text-base font-bold tracking-tight text-brand-950">
                   Thông tin nhanh
                 </h2>
                 <dl className="mt-5 space-y-4 text-sm">
                   {settings.start_date && (
                     <div className="flex gap-3">
-                      <CalendarDays className="mt-0.5 h-4.5 w-4.5 shrink-0 text-ocean-500" />
+                      <CalendarDays className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                       <div>
-                        <dt className="font-semibold text-ocean-950">Thời gian</dt>
-                        <dd className="mt-0.5 text-ocean-950/60">
+                        <dt className="font-semibold text-brand-950">Thời gian</dt>
+                        <dd className="mt-0.5 text-brand-950/60">
                           {formatDateRange(settings.start_date, settings.end_date)}
                         </dd>
                       </div>
@@ -86,10 +86,10 @@ export default async function AboutPage() {
                   )}
                   {settings.venue_name && (
                     <div className="flex gap-3">
-                      <MapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-ocean-500" />
+                      <MapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
                       <div>
-                        <dt className="font-semibold text-ocean-950">Địa điểm</dt>
-                        <dd className="mt-0.5 text-ocean-950/60">
+                        <dt className="font-semibold text-brand-950">Địa điểm</dt>
+                        <dd className="mt-0.5 text-brand-950/60">
                           {settings.venue_name}
                           {settings.venue_address && (
                             <>
@@ -108,7 +108,7 @@ export default async function AboutPage() {
                 </ButtonLink>
               </div>
             </div>
-          </Reveal>
+          </Block>
         </div>
 
         <HighlightGrid highlights={settings.highlights} />
@@ -116,7 +116,7 @@ export default async function AboutPage() {
 
       {/* ---------- Venue ---------- */}
       {(settings.venue_map_url || settings.venue_name) && (
-        <section className="bg-ocean-50/60 section-y">
+        <section className="bg-brand-50/60 section-y">
           <div className="container-page">
             <SectionHeading
               title={settings.venue_name || "Địa điểm tổ chức"}
@@ -124,7 +124,7 @@ export default async function AboutPage() {
             />
 
             {settings.venue_map_url && (
-              <Reveal className="mt-12 overflow-hidden rounded-[1.5rem] border border-ocean-100 shadow-[0_24px_60px_-30px_rgb(8_42_77/0.35)]">
+              <Block className="mt-12 overflow-hidden rounded-[1.5rem] border border-brand-100 shadow-[0_24px_60px_-30px_rgb(12_43_41/0.35)]">
                 <iframe
                   src={settings.venue_map_url}
                   title={`Bản đồ ${settings.venue_name}`}
@@ -132,11 +132,11 @@ export default async function AboutPage() {
                   referrerPolicy="no-referrer-when-downgrade"
                   className="h-[26rem] w-full border-0"
                 />
-              </Reveal>
+              </Block>
             )}
 
             {settings.venue_address && (
-              <Reveal className="mt-6 text-center">
+              <Block className="mt-6 text-center">
                 <ButtonLink
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     `${settings.venue_name} ${settings.venue_address}`,
@@ -146,7 +146,7 @@ export default async function AboutPage() {
                   <Navigation className="h-4 w-4" />
                   Chỉ đường tới địa điểm
                 </ButtonLink>
-              </Reveal>
+              </Block>
             )}
           </div>
         </section>
@@ -160,16 +160,16 @@ export default async function AboutPage() {
             description="Một vài khoảnh khắc từ những kỳ tổ chức trước."
           />
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {gallery.slice(0, 6).map((item, i) => (
-              <Reveal key={item.id} delay={(i % 3) * 80}>
-                <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-ocean-100">
+            {gallery.slice(0, 6).map((item) => (
+              <Block key={item.id}>
+                <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-brand-100">
                   <SafeImage
                     src={item.thumbnail || item.url}
                     alt={item.title || "Ảnh sự kiện"}
                     sizes="(max-width: 640px) 46vw, 30vw"
                   />
                 </div>
-              </Reveal>
+              </Block>
             ))}
           </div>
         </section>
