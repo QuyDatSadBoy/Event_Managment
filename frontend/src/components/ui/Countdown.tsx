@@ -55,8 +55,8 @@ export function Countdown({ target }: { target: string | null }) {
 
   if (mounted && parts === null) {
     return (
-      <p className="inline-flex items-center gap-2.5 rounded-full bg-brand-700 px-5 py-2.5 text-sm font-bold text-cream">
-        <span className="h-2 w-2 rounded-full bg-cream" aria-hidden />
+      <p className="inline-flex items-center gap-2.5 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-bold text-ink">
+        <span className="h-2 w-2 rounded-full bg-ink" aria-hidden />
         Sự kiện đang diễn ra
       </p>
     );
@@ -67,12 +67,12 @@ export function Countdown({ target }: { target: string | null }) {
       {UNITS.map(([key, label]) => (
         <div
           key={key}
-          className="flex h-[72px] flex-1 flex-col items-center justify-center gap-0.5 rounded-[10px] border border-[#2A8B83] bg-[#0A6A62] sm:h-22 sm:w-22 sm:flex-none"
+          className="flex h-[72px] flex-1 flex-col items-center justify-center gap-0.5 rounded-row border border-white/12 bg-brand-950/55 sm:h-22 sm:w-22 sm:flex-none"
         >
-          <span className="font-mono text-[1.75rem] font-bold leading-none tabular-nums text-cream sm:text-[2rem]">
+          <span className="font-mono text-[1.75rem] font-bold leading-none tabular-nums text-white sm:text-[2rem]">
             {parts ? String(parts[key]).padStart(2, "0") : "––"}
           </span>
-          <span className="text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-brand-200">
+          <span className="text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-brand-300">
             {label}
           </span>
         </div>

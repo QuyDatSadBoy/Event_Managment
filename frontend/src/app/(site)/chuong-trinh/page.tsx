@@ -32,7 +32,7 @@ export default async function AgendaPage() {
       >
         {settings.start_date && (
           <p className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-brand-950/55 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md">
-            <CalendarDays className="h-4 w-4 text-brand-400" />
+            <CalendarDays className="h-4 w-4 text-accent-500" />
             {formatDateRange(settings.start_date, settings.end_date)}
             {settings.venue_name && ` · ${settings.venue_name}`}
           </p>

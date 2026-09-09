@@ -18,9 +18,9 @@ export function EmptyState({
       <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-brand-500 shadow-sm ring-1 ring-brand-100">
         <Icon className="h-6 w-6" />
       </div>
-      <h3 className="mt-5 text-lg font-semibold text-brand-950">{title}</h3>
+      <h3 className="mt-5 text-lg font-semibold text-ink">{title}</h3>
       {description && (
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-brand-950/55">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-muted">
           {description}
         </p>
       )}

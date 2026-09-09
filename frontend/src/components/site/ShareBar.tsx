@@ -25,13 +25,13 @@ export function ShareBar({ title }: { title: string }) {
   };
 
   const btn =
-    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-200 " +
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-400 " +
     "text-brand-700 transition-[border-color,background-color,color] duration-300 " +
-    "hover:border-brand-400 hover:bg-brand-50";
+    "hover:border-accent-500 hover:bg-accent-50";
 
   return (
     <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-brand-100 pt-8">
-      <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand-950/60">
+      <span className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted">
         <Share2 className="h-4 w-4" />
         Chia sẻ bài viết
       </span>

@@ -41,15 +41,15 @@ export default async function ThankYouPage() {
     <section className="relative isolate overflow-hidden pt-[var(--header-h)]">
       <div className="bg-brand-800 absolute inset-0 -z-10" aria-hidden />
       <div
-        className="absolute -right-32 top-10 -z-10 h-96 w-96 rounded-full bg-brand-400/15 blur-3xl"
+        className="absolute -right-32 top-10 -z-10 h-96 w-96 rounded-full bg-accent-500/12 blur-3xl"
         aria-hidden
       />
 
       <div className="container-page relative section-y">
         <div className="mx-auto max-w-2xl text-center">
           <Block>
-            <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-brand-400/15 ring-1 ring-brand-400/30">
-              <CheckCircle2 className="h-10 w-10 text-brand-400" />
+            <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-accent-500/12 ring-1 ring-accent-500/30">
+              <CheckCircle2 className="h-10 w-10 text-accent-500" />
             </span>
           </Block>
 
@@ -72,13 +72,13 @@ export default async function ThankYouPage() {
               <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-2xl border border-white/12 bg-white/6 px-7 py-5 text-sm backdrop-blur-md">
                 {settings.start_date && (
                   <span className="inline-flex items-center gap-2 font-medium text-white">
-                    <CalendarDays className="h-4 w-4 text-brand-400" />
+                    <CalendarDays className="h-4 w-4 text-accent-500" />
                     {formatDateRange(settings.start_date, settings.end_date)}
                   </span>
                 )}
                 {settings.venue_name && (
                   <span className="inline-flex items-center gap-2 text-brand-200">
-                    <MapPin className="h-4 w-4 text-brand-400" />
+                    <MapPin className="h-4 w-4 text-accent-500" />
                     {settings.venue_name}
                   </span>
                 )}
@@ -94,7 +94,7 @@ export default async function ThankYouPage() {
             return (
               <Block key={step.title}>
                 <div className="h-full rounded-2xl border border-white/12 bg-white/6 p-6 backdrop-blur-md">
-                  <Icon className="h-6 w-6 text-brand-400" />
+                  <Icon className="h-6 w-6 text-accent-500" />
                   <h2 className="mt-4 text-base font-bold text-white">{step.title}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-brand-200">{step.text}</p>
                 </div>

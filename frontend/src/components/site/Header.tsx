@@ -19,17 +19,54 @@ const NAV = [
 ];
 
 /**
- * design.pen "Header Desktop" (1440×80) and "Header Mobile" (390×60): a solid
- * white bar with a bottom border, a 44px logo mark beside a two-line lockup,
- * nav at 15/500 with 30px gaps, and the register CTA on the right.
+ * Homepage sections that correspond to a nav destination, in page order.
  *
- * It is opaque at every scroll position — the file draws it that way, and a
- * transparent header over the hero would put white nav labels on whatever
- * photograph the editor uploads.
+ * The nav is a set of routes, not in-page anchors, so scroll position can only
+ * be reflected by mapping each homepage section onto the route that covers the
+ * same subject. Sections with no counterpart — the countdown, the scale
+ * figures, the CTA band — are absent on purpose: they must not clear the
+ * indicator as they pass.
+ */
+const HOME_SECTIONS: Array<{ id: string; href: string }> = [
+  { id: "gioi-thieu", href: "/gioi-thieu" },
+  { id: "chuong-trinh", href: "/chuong-trinh" },
+  { id: "dien-gia", href: "/dien-gia" },
+  { id: "thu-vien", href: "/thu-vien" },
+  { id: "tin-tuc", href: "/tin-tuc" },
+  { id: "doi-tac", href: "/doi-tac" },
+];
+
+/**
+ * A navy bar carrying a white lockup, the nav at 15/500, and the register CTA
+ * in the accent orange.
+ *
+ * Two states. At the top of the page it is transparent and sits *inside* the
+ * navy hero, so the dark block at the top of the page reads as one surface.
+ * Once scrolled it becomes an opaque compact bar — 64px instead of 80px — with
+ * a hairline and a light blur behind it.
+ *
+ * The transparent state is only safe because the hero puts its photograph in
+ * its own panel: the type, and now the nav, sit on flat navy at a known
+ * contrast rather than over whatever image an editor uploads. It would have
+ * been the wrong choice against a full-bleed photographic hero.
+ *
+ * The bar shrinks by animating its own inner height, not `--header-h`. Pages
+ * reserve space with that variable, and shrinking it mid-scroll would drag the
+ * whole document up under the header.
  */
 export function Header({ settings }: { settings: Settings }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    // A little past the bar's own height, so the change never fires while the
+    // header still overlaps the very top of the hero.
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -44,34 +81,104 @@ export function Header({ settings }: { settings: Settings }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const onHome = pathname === "/";
+
+  /**
+   * Scroll spy, homepage only. The active nav item follows the section passing
+   * under the header instead of staying pinned to "Trang chủ" for the whole
+   * page.
+   *
+   * Measured against a line a little below the bar rather than with an
+   * IntersectionObserver threshold: sections here are several screens tall, so
+   * a ratio-based threshold never fires for the long ones and fires twice for
+   * the short ones. "The last section whose top has crossed the line" is the
+   * behaviour a reader expects, and it is exact.
+   */
+  const [section, setSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!onHome) {
+      setSection(null);
+      return;
+    }
+    const found = HOME_SECTIONS.map((s) => [s.href, document.getElementById(s.id)] as const)
+      .filter((pair): pair is readonly [string, HTMLElement] => pair[1] !== null);
+    if (found.length === 0) return;
+
+    let frame = 0;
+    const pick = () => {
+      frame = 0;
+      // The bar is 64px once scrolled; a little under it reads as "current".
+      const line = 96;
+      let current: string | null = null;
+      for (const [href, el] of found) {
+        if (el.getBoundingClientRect().top <= line) current = href;
+      }
+      setSection(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(pick);
+    };
+
+    pick();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [onHome]);
+
+  const isActive = (href: string) => {
+    // On the homepage the scrolled section wins; above the first of them the
+    // indicator falls back to "Trang chủ".
+    if (onHome) return section ? href === section : href === "/";
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  };
 
   return (
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-control focus:bg-brand-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-control focus:bg-accent-500 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-ink"
       >
         Bỏ qua tới nội dung chính
       </a>
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white">
-        <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
+          // The drawer needs an opaque bar behind it even at scroll position 0.
+          scrolled || open
+            ? "border-b border-white/10 bg-brand-900/95 shadow-[0_10px_30px_-18px_rgb(13_20_40/0.8)] backdrop-blur-md"
+            : "border-b border-transparent bg-transparent",
+        )}
+      >
+        <div
+          className={cn(
+            "container-page flex items-center justify-between gap-4",
+            "transition-[height] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            // Compact whenever the bar is opaque, so the drawer below can rely
+            // on a known offset. 60px matches the mobile --header-h exactly, so
+            // opening the drawer on a phone moves nothing.
+            scrolled || open ? "h-15 lg:h-16" : "h-[var(--header-h)]",
+          )}
+        >
           <Link
             href="/"
             className="flex items-center gap-3"
             aria-label={settings.event_name}
             translate="no"
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-brand-600 text-[0.8125rem] font-bold tracking-tight text-white">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-accent-500 text-[0.8125rem] font-extrabold tracking-tight text-ink">
               VHD
             </span>
             <span className="hidden leading-tight sm:block">
-              <span className="block text-[1.0625rem] font-bold tracking-tight text-brand-950">
+              <span className="block text-[1.0625rem] font-extrabold tracking-[-0.02em] text-white">
                 {settings.event_name}
               </span>
-              <span className="block text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-brand-600">
+              <span className="block text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-brand-300">
                 {settings.venue_name || settings.event_tagline}
               </span>
             </span>
@@ -84,14 +191,12 @@ export function Header({ settings }: { settings: Settings }) {
                 href={item.href}
                 className={cn(
                   "relative py-2 text-[0.9375rem] font-medium transition-colors duration-300",
-                  isActive(item.href)
-                    ? "text-brand-600"
-                    : "text-brand-950 hover:text-brand-600",
+                  isActive(item.href) ? "text-white" : "text-brand-200 hover:text-white",
                 )}
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-brand-600" />
+                  <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-accent-500" />
                 )}
               </Link>
             ))}
@@ -101,7 +206,7 @@ export function Header({ settings }: { settings: Settings }) {
             {settings.registration_open && (
               <Link
                 href="/dang-ky"
-                className="inline-flex h-11 items-center gap-2 rounded-control bg-brand-600 px-4 text-[0.8125rem] font-bold text-white transition-colors duration-300 hover:bg-brand-800 sm:px-5 sm:text-sm"
+                className="inline-flex h-11 items-center gap-2 rounded-control bg-accent-500 px-4 text-[0.8125rem] font-bold text-ink transition-colors duration-300 hover:bg-accent-400 sm:px-5 sm:text-sm"
               >
                 Đăng ký
                 <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
@@ -113,7 +218,7 @@ export function Header({ settings }: { settings: Settings }) {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Đóng menu" : "Mở menu"}
               aria-expanded={open}
-              className="grid h-11 w-11 place-items-center rounded-control bg-brand-100 text-brand-800 transition-colors duration-300 hover:bg-brand-200 xl:hidden"
+              className="grid h-11 w-11 place-items-center rounded-control bg-white/10 text-white transition-colors duration-300 hover:bg-white/20 xl:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -129,15 +234,16 @@ export function Header({ settings }: { settings: Settings }) {
         <div
           onClick={() => setOpen(false)}
           className={cn(
-            "absolute inset-0 bg-brand-950/55 transition-opacity duration-400",
+            "absolute inset-0 bg-brand-950/70 transition-opacity duration-400",
             open ? "opacity-100" : "opacity-0",
           )}
         />
         <nav
           className={cn(
-            "absolute inset-x-0 top-[var(--header-h)] max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain",
-            "border-b border-line bg-white px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-2",
-            "shadow-[0_24px_48px_-24px_rgb(12_43_41/0.35)]",
+            "absolute inset-x-0 top-15 max-h-[calc(100dvh-3.75rem)] overflow-y-auto overscroll-contain",
+            "lg:top-16 lg:max-h-[calc(100dvh-4rem)]",
+            "border-b border-white/10 bg-brand-900 px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-2",
+            "shadow-[0_24px_48px_-24px_rgb(13_20_40/0.7)]",
             "transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
             open ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0",
           )}
@@ -149,19 +255,19 @@ export function Header({ settings }: { settings: Settings }) {
               href={item.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "flex min-h-11 items-center justify-between border-b border-line/70 py-3.5 text-base font-medium",
-                isActive(item.href) ? "text-brand-600" : "text-brand-950",
+                "flex min-h-11 items-center justify-between border-b border-white/8 py-3.5 text-base font-medium",
+                isActive(item.href) ? "text-white" : "text-brand-200",
               )}
             >
               {item.label}
               <ArrowRight
-                className={cn("h-4 w-4", isActive(item.href) ? "text-brand-600" : "text-brand-300")}
+                className={cn("h-4 w-4", isActive(item.href) ? "text-accent-500" : "text-brand-500")}
               />
             </Link>
           ))}
 
           {(settings.start_date || settings.venue_name) && (
-            <p className="mt-5 text-center text-caption text-ink-muted">
+            <p className="mt-5 text-center text-caption text-brand-300">
               {formatDateRange(settings.start_date, settings.end_date)}
               {settings.venue_name && ` · ${settings.venue_name}`}
             </p>

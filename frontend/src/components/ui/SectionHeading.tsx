@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Eyebrow } from "@/components/ui/Button";
 
 type Props = {
-  /** design.pen sets a tracked label above every section title. */
+  /** The tracked orange label above every section title. */
   eyebrow?: string;
   title: string;
   description?: string;
@@ -16,9 +17,12 @@ type Props = {
 };
 
 /**
- * design.pen "Section Heading": a two-line stack (eyebrow 12/700 tracked 1.8 in
- * brand-primary, then the title at 34/700) with an optional bordered "View all"
- * button pushed to the far end of the row.
+ * The section entry point: an orange eyebrow over a heavy, tightly-tracked
+ * title, with an optional "View all" control at the far end of the row.
+ *
+ * The eyebrow is what gives each section a point of entry for the eye. Without
+ * it a long page of cards reads as one undifferentiated run, which is the
+ * failure mode the redesign is correcting.
  */
 export function SectionHeading({
   eyebrow,
@@ -40,20 +44,11 @@ export function SectionHeading({
       )}
     >
       <div className={cn("flex flex-col gap-2", align === "center" && "items-center text-center")}>
-        {eyebrow && (
-          <p
-            className={cn(
-              "text-xs font-bold uppercase leading-none tracking-[0.15em]",
-              dark ? "text-brand-200" : "text-brand-600",
-            )}
-          >
-            {eyebrow}
-          </p>
-        )}
+        {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
         <Tag
           className={cn(
-            "text-balance text-[clamp(1.5rem,1.1rem+1.6vw,2.125rem)] font-bold leading-[1.2] tracking-[-0.02em]",
-            dark ? "text-white" : "text-brand-950",
+            "text-balance text-[clamp(1.625rem,1.15rem+1.9vw,2.25rem)] font-extrabold leading-[1.15] tracking-[-0.03em]",
+            dark ? "text-white" : "text-ink",
           )}
         >
           {title}
@@ -78,7 +73,7 @@ export function SectionHeading({
             "transition-[background-color,border-color,color] duration-300",
             dark
               ? "border-white/25 text-white hover:bg-white/10"
-              : "border-line text-brand-600 hover:border-brand-400 hover:bg-brand-50",
+              : "border-brand-400 text-brand-700 hover:border-accent-500 hover:bg-accent-50",
           )}
         >
           {action.label}

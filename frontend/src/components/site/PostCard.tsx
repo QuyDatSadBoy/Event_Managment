@@ -43,7 +43,7 @@ export function PostCard({
 
       <div className={cn("flex flex-1 flex-col gap-2.5 p-6", featured && "lg:justify-center lg:p-9")}>
         <div className="flex flex-wrap items-center gap-2.5">
-          <span className="inline-flex items-center rounded-full bg-brand-200 px-2.5 py-1 text-[0.6875rem] font-bold leading-none text-brand-800">
+          <span className="inline-flex items-center rounded-full bg-brand-100 px-2.5 py-1 text-[0.6875rem] font-bold leading-none text-brand-700">
             {POST_CATEGORY_LABEL[post.category]}
           </span>
           <time dateTime={post.published_at} className="text-xs text-ink-muted">
@@ -53,7 +53,7 @@ export function PostCard({
 
         <Heading
           className={cn(
-            "text-balance font-bold leading-[1.35] tracking-tight text-brand-950",
+            "text-balance font-bold leading-[1.35] tracking-tight text-ink",
             featured ? "line-clamp-3 text-xl lg:text-2xl" : "line-clamp-2 text-[1.0625rem]",
           )}
         >

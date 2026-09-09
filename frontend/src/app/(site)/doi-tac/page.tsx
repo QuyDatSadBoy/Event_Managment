@@ -80,6 +80,7 @@ export default async function PartnersPage() {
       <section className="bg-brand-50/60 section-y">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Tài trợ"
             title="Quyền lợi theo từng hạng tài trợ"
             description="Ba hạng tài trợ chính, mỗi hạng gắn với một mức hiện diện khác nhau trong chương trình."
           />
@@ -90,20 +91,20 @@ export default async function PartnersPage() {
                 <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-brand-100 bg-white p-8 card-hover">
                   {i === 0 && (
                     <span
-                      className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-brand-400 to-brand-500"
+                      className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-accent-500 to-accent-400"
                       aria-hidden
                     />
                   )}
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-500">
                     Hạng
                   </p>
-                  <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-brand-950">
+                  <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-ink">
                     {PARTNER_TIER_LABEL[pkg.tier]}
                   </h3>
 
                   <ul className="mt-7 flex-1 space-y-3.5">
                     {pkg.highlights.map((h) => (
-                      <li key={h} className="flex gap-3 text-sm leading-relaxed text-brand-950/65">
+                      <li key={h} className="flex gap-3 text-sm leading-relaxed text-ink-muted">
                         <span
                           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400"
                           aria-hidden
@@ -135,7 +136,7 @@ export default async function PartnersPage() {
                   Ban tổ chức có thể thiết kế gói đồng hành theo mục tiêu cụ thể của đơn vị bạn.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3">
-                  <ButtonLink href="/lien-he?subject=tai-tro" variant="cream">
+                  <ButtonLink href="/lien-he?subject=tai-tro">
                     <Mail className="h-4 w-4" />
                     Liên hệ ban tổ chức
                   </ButtonLink>

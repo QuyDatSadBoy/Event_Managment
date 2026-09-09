@@ -5,13 +5,23 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "outline" | "ghost" | "cream" | "danger";
 type Size = "sm" | "md" | "lg";
 
-/** design.pen "Button Primary": brand-primary, radius 8, padding 14/26, label 15/700. */
+/**
+ * The primary button is the site's one orange object, and it is the same orange
+ * on white and on navy — that is what makes the CTA findable on a page that
+ * alternates between the two grounds.
+ *
+ * Its label is ink, not white. White on #ff6b1a measures 2.85:1, which fails at
+ * any size; ink on the same fill is 5.44:1, and 6.35:1 once hover lightens it.
+ * Darkening the orange until white passed would have cost the accent its
+ * vividness, which is the thing the design is built on.
+ */
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-brand-600 text-white hover:bg-brand-800",
-  secondary: "bg-brand-100 text-brand-800 hover:bg-brand-200",
-  outline: "border border-line bg-white text-brand-600 hover:border-brand-400 hover:bg-brand-50",
-  ghost: "text-brand-800 hover:bg-brand-50",
-  cream: "bg-cream text-brand-800 hover:bg-white",
+  primary: "bg-accent-500 text-ink hover:bg-accent-400 shadow-[0_10px_24px_-12px_rgb(217_96_15/0.7)]",
+  secondary: "bg-brand-100 text-brand-700 hover:bg-brand-200",
+  outline: "border border-brand-400 bg-white text-brand-700 hover:border-accent-500 hover:bg-accent-50",
+  ghost: "text-brand-700 hover:bg-brand-50",
+  // The quiet button for a navy ground, where `outline` would disappear.
+  cream: "bg-white text-brand-900 hover:bg-brand-50",
   danger: "bg-rose-600 text-white hover:bg-rose-500",
 };
 
@@ -27,7 +37,13 @@ const BASE =
   "inline-flex items-center justify-center rounded-control font-bold tracking-tight " +
   "transition-[background-color,color,border-color,box-shadow,transform] duration-300 " +
   "ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] " +
-  "disabled:pointer-events-none disabled:opacity-55 whitespace-nowrap";
+  // 0.5 is the top of the 0.38–0.5 range a disabled control is meant to sit in.
+  // pointer-events-none stays: it is what suppresses the hover background as
+  // well as the click, and it drops the cursor back to an arrow, which is the
+  // signal that the control is not interactive. (A `not-allowed` cursor cannot
+  // coexist with it — the rule in globals.css covers the fieldset-disabled
+  // inputs, which do still take pointer events.)
+  "disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap";
 
 type CommonProps = {
   variant?: Variant;
@@ -78,16 +94,43 @@ export function ButtonLink({
   );
 }
 
-/** design.pen "Tag": brand-tint pill, 12/600, brand-primary-dark. */
+/** Neutral pill: navy tint, 12/600. Reads as metadata, never as a control. */
 export function Tag({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full bg-brand-200 px-3 py-1.5 text-xs font-semibold leading-none text-brand-800",
+        "inline-flex items-center rounded-full bg-brand-100 px-3 py-1.5 text-xs font-semibold leading-none text-brand-700",
         className,
       )}
     >
       {children}
     </span>
+  );
+}
+
+/**
+ * The tracked label above a section title. Orange steps down to accent-700 on
+ * light grounds — the display orange is 2.85:1 on white and cannot carry text
+ * this small — and back up to accent-400 on navy, where it is 6.9:1.
+ */
+export function Eyebrow({
+  children,
+  tone = "light",
+  className,
+}: {
+  children: ReactNode;
+  tone?: "light" | "dark";
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "text-eyebrow font-extrabold uppercase",
+        tone === "dark" ? "text-accent-400" : "text-accent-700",
+        className,
+      )}
+    >
+      {children}
+    </p>
   );
 }

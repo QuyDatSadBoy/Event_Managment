@@ -60,9 +60,9 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
     <>
       {/* ---------- Profile header ---------- */}
       <section className="bg-white">
-        <div className="band band-br relative isolate overflow-hidden bg-brand-800 pt-[var(--header-h)]">
+        <div className="band band-br relative isolate overflow-hidden bg-brand-900 pt-[var(--header-h)]">
         <div
-          className="absolute -right-40 top-0 h-96 w-96 rounded-full bg-brand-400/15 blur-3xl"
+          className="absolute -right-40 top-0 h-96 w-96 rounded-full bg-accent-500/12 blur-3xl"
           aria-hidden
         />
 
@@ -77,13 +77,16 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
 
           <div className="mt-9 grid gap-9 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-14">
             <Block>
-              <div className="relative mx-auto aspect-square w-56 overflow-hidden rounded-[1.75rem] shadow-[0_30px_70px_-30px_rgb(12_43_41/0.7)] sm:w-64 lg:mx-0 lg:w-full">
+              {/* A portrait, not an avatar. It fills its column at 4:5 so the
+                  person carries the top of the page as much as the name does. */}
+              <div className="relative mx-auto aspect-4/5 w-56 overflow-hidden rounded-panel shadow-panel sm:w-64 lg:mx-0 lg:w-full">
                 <SafeImage
                   src={speaker.photo}
                   alt={speaker.name}
                   fallbackLabel={initials(speaker.name)}
                   priority
                   sizes="(max-width: 1024px) 16rem, 20rem"
+                  quality={75}
                 />
               </div>
             </Block>
@@ -91,7 +94,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
             <Block className="text-center lg:text-left">
               {speaker.country && (
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-brand-100 backdrop-blur-md">
-                  <Globe className="h-3.5 w-3.5 text-brand-400" />
+                  <Globe className="h-3.5 w-3.5 text-accent-500" />
                   {speaker.country}
                 </p>
               )}
@@ -136,7 +139,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`${speaker.name} trên ${key}`}
-                        className="grid h-11 w-11 place-items-center rounded-full bg-white/8 text-brand-100 ring-1 ring-white/15 transition-[background-color,color,box-shadow] duration-300 hover:bg-brand-400 hover:text-brand-950 hover:ring-brand-400"
+                        className="grid h-11 w-11 place-items-center rounded-full bg-white/8 text-brand-100 ring-1 ring-white/15 transition-[background-color,color,box-shadow] duration-300 hover:bg-accent-500 hover:text-ink hover:ring-accent-500"
                       >
                         <Icon className="h-4 w-4" />
                       </a>
@@ -156,7 +159,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
           <div>
             {speaker.bio ? (
               <Block>
-                <h2 className="text-xl font-bold tracking-tight text-brand-950">Tiểu sử</h2>
+                <h2 className="text-xl font-bold tracking-tight text-ink">Tiểu sử</h2>
                 <div
                   className="prose-event mt-5"
                   dangerouslySetInnerHTML={{ __html: speaker.bio }}
@@ -165,14 +168,14 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
             ) : (
               speaker.short_bio && (
                 <Block>
-                  <p className="text-lg leading-relaxed text-brand-950/70">{speaker.short_bio}</p>
+                  <p className="text-lg leading-relaxed text-ink-muted">{speaker.short_bio}</p>
                 </Block>
               )
             )}
 
             {speaker.posts && speaker.posts.length > 0 && (
               <div className="mt-16">
-                <h2 className="text-xl font-bold tracking-tight text-brand-950">
+                <h2 className="text-xl font-bold tracking-tight text-ink">
                   Bài viết liên quan
                 </h2>
                 <div className="mt-6 grid gap-6 sm:grid-cols-2">
@@ -190,7 +193,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
           <aside>
             <Block className="sticky top-[calc(var(--header-h)+1.5rem)]">
               <div className="rounded-3xl border border-brand-100 bg-brand-50/50 p-6">
-                <h2 className="flex items-center gap-2 text-base font-bold tracking-tight text-brand-950">
+                <h2 className="flex items-center gap-2 text-base font-bold tracking-tight text-ink">
                   <Clock className="h-4.5 w-4.5 text-brand-500" />
                   Phiên tham gia
                 </h2>
@@ -218,11 +221,11 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                           )}
                         </div>
 
-                        <p className="mt-2 text-sm font-semibold leading-snug text-brand-950">
+                        <p className="mt-2 text-sm font-semibold leading-snug text-ink">
                           {session.title}
                         </p>
 
-                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-950/50">
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-muted">
                           <span className="font-mono tabular-nums">
                             {session.start_time}
                             {session.end_time && ` – ${session.end_time}`}
@@ -235,7 +238,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                           )}
                         </div>
                         {session.day_date && (
-                          <p className="mt-1 text-xs text-brand-950/40">
+                          <p className="mt-1 text-xs text-ink-muted">
                             {formatDate(session.day_date)}
                           </p>
                         )}
@@ -243,7 +246,7 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-4 text-sm text-brand-950/50">
+                  <p className="mt-4 text-sm text-ink-muted">
                     Lịch trình cụ thể sẽ được cập nhật khi ban tổ chức công bố chương trình chi
                     tiết.
                   </p>
@@ -265,8 +268,8 @@ export default async function SpeakerDetailPage({ params }: { params: Params }) 
       {related.length > 0 && (
         <section className="bg-brand-50/60 section-y">
           <div className="container-page">
-            <SectionHeading title="Diễn giả khác tại diễn đàn" />
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <SectionHeading eyebrow="Diễn giả" title="Diễn giả khác tại diễn đàn" />
+            <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
               {related.map((s) => (
                 <Block key={s.id}>
                   <SpeakerCard speaker={s} />

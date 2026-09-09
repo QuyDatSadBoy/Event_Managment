@@ -24,7 +24,7 @@ export function TicketCode() {
 
   return (
     <Block>
-      <div className="mx-auto mt-9 max-w-sm rounded-2xl border border-brand-400/25 bg-white/8 p-6 backdrop-blur-md">
+      <div className="mx-auto mt-9 max-w-sm rounded-2xl border border-accent-500/30 bg-white/8 p-6 backdrop-blur-md">
         <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-brand-200">
           Mã tham dự của bạn
         </p>
@@ -38,7 +38,7 @@ export function TicketCode() {
             aria-label="Sao chép mã tham dự"
             className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition hover:bg-white/20"
           >
-            {copied ? <Check className="h-4 w-4 text-brand-400" /> : <Copy className="h-4 w-4" />}
+            {copied ? <Check className="h-4 w-4 text-accent-400" /> : <Copy className="h-4 w-4" />}
           </button>
         </div>
         <p className="mt-3 text-xs text-brand-200">

@@ -52,10 +52,10 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
 
       <section className="container-page section-y">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm text-brand-950/55">
+          <p className="text-sm text-ink-muted">
             {meta.total > 0 ? (
               <>
-                <span className="font-bold text-brand-950">{meta.total}</span> diễn giả
+                <span className="font-bold text-ink">{meta.total}</span> diễn giả
                 {q && (
                   <>
                     {" "}
@@ -84,7 +84,7 @@ export default async function SpeakersPage({ searchParams }: { searchParams: Sea
           </div>
         ) : (
           <>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4">
               {speakers.map((speaker) => (
                 <Block key={speaker.id}>
                   <SpeakerCard speaker={speaker} headingLevel="h2" />

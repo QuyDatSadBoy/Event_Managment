@@ -22,12 +22,12 @@ export function CountdownStrip({ settings }: { settings: Settings }) {
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-sm text-brand-200">
             <span className="inline-flex items-center gap-2">
-              <CalendarDays className="h-4 w-4 text-brand-400" aria-hidden />
+              <CalendarDays className="h-4 w-4 text-accent-500" aria-hidden />
               {formatDateRange(settings.start_date, settings.end_date)}
             </span>
             {settings.venue_name && (
               <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-brand-400" aria-hidden />
+                <MapPin className="h-4 w-4 text-accent-500" aria-hidden />
                 {settings.venue_name}
               </span>
             )}

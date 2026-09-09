@@ -15,10 +15,10 @@ export const revalidate = 60;
 type Params = Promise<{ slug: string }>;
 
 const CATEGORY_STYLE: Record<Post["category"], string> = {
-  news: "bg-brand-600 text-white",
-  speech: "bg-brand-400 text-brand-950",
-  press: "bg-white/15 text-white ring-1 ring-white/25",
-  announcement: "bg-cream text-[#3d2900]",
+  news: "bg-accent-500 text-ink",
+  speech: "bg-white/15 text-white ring-1 ring-white/25",
+  press: "bg-brand-200 text-brand-900",
+  announcement: "bg-peach text-ink",
 };
 
 async function loadPost(slug: string): Promise<Post | null> {
@@ -105,21 +105,21 @@ export default async function PostDetailPage({ params }: { params: Params }) {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-brand-200">
               {post.author_name && (
                 <span className="inline-flex items-center gap-2">
-                  <User className="h-4 w-4 text-brand-400" />
+                  <User className="h-4 w-4 text-accent-500" />
                   {post.author_name}
                 </span>
               )}
               <span className="inline-flex items-center gap-2">
-                <CalendarDays className="h-4 w-4 text-brand-400" />
+                <CalendarDays className="h-4 w-4 text-accent-500" />
                 <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
               </span>
               <span className="inline-flex items-center gap-2">
-                <Clock className="h-4 w-4 text-brand-400" />
+                <Clock className="h-4 w-4 text-accent-500" />
                 {minutes} phút đọc
               </span>
               {post.views > 0 && (
                 <span className="inline-flex items-center gap-2">
-                  <Eye className="h-4 w-4 text-brand-400" />
+                  <Eye className="h-4 w-4 text-accent-500" />
                   {post.views} lượt xem
                 </span>
               )}
@@ -134,7 +134,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
         <div className="grid gap-12 lg:grid-cols-[1fr_18rem] lg:gap-16">
           <article>
             {post.cover && (
-              <Block className="relative mb-10 aspect-16/9 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(12_43_41/0.5)]">
+              <Block className="relative mb-10 aspect-16/9 overflow-hidden rounded-[1.5rem] shadow-[0_24px_60px_-30px_rgb(13_20_40/0.5)]">
                 <SafeImage
                   src={post.cover}
                   alt={post.title}
@@ -152,7 +152,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
 
             {post.tags?.length > 0 && (
               <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-brand-100 pt-8">
-                <Tag className="h-4 w-4 text-brand-400" />
+                <Tag className="h-4 w-4 text-accent-500" />
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
@@ -173,7 +173,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
               {post.speaker && (
                 <Block>
                   <div className="rounded-3xl border border-brand-100 bg-brand-50/50 p-6">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-950/45">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">
                       Diễn giả
                     </p>
                     <Link
@@ -189,16 +189,16 @@ export default async function PostDetailPage({ params }: { params: Params }) {
                         />
                       </span>
                       <span className="min-w-0">
-                        <span className="block font-bold leading-tight text-brand-950 transition group-hover:text-brand-700">
+                        <span className="block font-bold leading-tight text-ink transition group-hover:text-brand-700">
                           {post.speaker.name}
                         </span>
-                        <span className="mt-1 block text-xs leading-snug text-brand-950/55">
+                        <span className="mt-1 block text-xs leading-snug text-ink-muted">
                           {[post.speaker.title, post.speaker.company].filter(Boolean).join(" · ")}
                         </span>
                       </span>
                     </Link>
                     {post.speaker.short_bio && (
-                      <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-brand-950/60">
+                      <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-ink-muted">
                         {post.speaker.short_bio}
                       </p>
                     )}
@@ -239,7 +239,7 @@ export default async function PostDetailPage({ params }: { params: Params }) {
       {related.length > 0 && (
         <section className="bg-brand-50/60 section-y">
           <div className="container-page">
-            <h2 className="text-2xl font-bold tracking-tight text-brand-950">Đọc thêm</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-ink">Đọc thêm</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
                 <Block key={p.id}>

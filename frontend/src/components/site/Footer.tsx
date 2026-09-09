@@ -34,13 +34,13 @@ export function Footer({ settings }: { settings: Settings }) {
   );
 
   return (
-    <footer className="relative overflow-hidden bg-brand-800 text-white">
+    <footer className="relative overflow-hidden bg-brand-900 text-white">
       <DecoDotGrid tone="dark" className="-right-10 top-8 w-[397px] opacity-70" />
 
       <div className="container-page relative grid gap-10 pb-11 pt-14 lg:grid-cols-[380px_220px_220px_1fr] lg:gap-16">
         <div>
           <Link href="/" className="inline-flex min-h-11 items-center gap-3" translate="no">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-brand-600 text-[0.8125rem] font-bold text-white">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-control bg-accent-500 text-[0.8125rem] font-extrabold text-ink">
               VHD
             </span>
             <span className="text-base font-bold text-white">{settings.event_name}</span>
@@ -61,7 +61,7 @@ export function Footer({ settings }: { settings: Settings }) {
                     target="_blank"
                     rel="noreferrer noopener"
                     aria-label={key}
-                    className="grid h-11 w-11 place-items-center rounded-control bg-white/10 text-white transition-colors duration-300 hover:bg-brand-600"
+                    className="grid h-11 w-11 place-items-center rounded-control bg-white/10 text-white transition-colors duration-300 hover:bg-accent-500 hover:text-ink"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -79,13 +79,13 @@ export function Footer({ settings }: { settings: Settings }) {
           <ul className="mt-3 space-y-3 text-sm">
             {settings.contact_address && (
               <li className="flex gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-500" aria-hidden />
                 <span className="text-brand-200">{settings.contact_address}</span>
               </li>
             )}
             {settings.contact_phone && (
               <li className="flex gap-2.5">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent-500" aria-hidden />
                 <a
                   href={`tel:${settings.contact_phone.replace(/\s/g, "")}`}
                   className="inline-flex min-h-11 items-center text-brand-200 transition-colors duration-300 hover:text-white sm:min-h-6"
@@ -96,7 +96,7 @@ export function Footer({ settings }: { settings: Settings }) {
             )}
             {settings.contact_email && (
               <li className="flex gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" aria-hidden />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent-500" aria-hidden />
                 <a
                   href={`mailto:${settings.contact_email}`}
                   className="inline-flex min-h-11 items-center text-brand-200 transition-colors duration-300 hover:text-white sm:min-h-6"
@@ -116,7 +116,7 @@ export function Footer({ settings }: { settings: Settings }) {
         </div>
       </div>
 
-      <div className="relative border-t border-[#0A6A62]">
+      <div className="relative border-t border-white/10">
         <div className="container-page flex flex-col gap-2 py-[18px] text-caption text-brand-200 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {settings.event_name}. Bảo lưu mọi quyền.</p>
           <p>
